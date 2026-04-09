@@ -97,6 +97,44 @@
     margin-top: 0;
   }
 
+  /* Social Media links can be added here */
+  .social-media {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0 0;
+  }
+
+  .social-media__item a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    color: rgba(var(--color-foreground), 0.7);
+  }
+
+  .social-media__item a:hover {
+    color: rgb(var(--color-foreground));
+    transform: translateY(-3px);
+  }
+
+  .social-media__item svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .social-media {
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+
   /* Responsive */
   @media screen and (max-width: 989px) {
     .custom-footer-grid {
