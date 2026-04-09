@@ -128,6 +128,22 @@
     height: 20px;
   }
 
+  .footer__aside {
+    margin-top: 2rem;
+  }
+
+  .footer__aside p {
+    text-align: left;
+    font-size: 0.75rem;
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 749px) {
+    .footer__aside p {
+      text-align: center;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     .social-media {
       justify-content: center;
@@ -398,6 +414,13 @@
         </li>
       {% endif %}
     </ul>
+
+    <!-- Footer Copyright - Left Aligned -->
+    <div class="footer__aside">
+        <p class="heading text-subdued text-xxs" style="text-align: left; margin: 0; padding: 1.5rem 0 0 0;">
+          © {{ 'now' | date: '%Y' }} - {{ section.settings.copyright_text | default: 'Orsina Lifestyle Powered by Qasim' }}
+        </p>
+    </div>
 
     <!-- Original newsletter and social blocks (can be hidden if needed) -->
     {% if section.settings.show_original_newsletter %}
@@ -884,6 +907,17 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Footer Copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "Orsina Lifestyle Powered by Qasim",
+      "info": "The year will be added automatically"
     }
   ],
   "default": {
