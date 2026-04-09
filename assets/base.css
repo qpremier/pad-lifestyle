@@ -3599,19 +3599,36 @@ details-disclosure > details {
   top: 0 !important;
 }
 
-.header-wrapper {
+.header-wrapper,
+.header-wrapper.color-scheme-1,
+.header-wrapper.gradient {
   background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
   border-bottom: none !important;
+  box-shadow: none !important;
 }
 
-/* Optional: Make the header text and icons white for visibility */
+.header {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Remove any gradient overlay */
+.header-wrapper:before,
+.header-wrapper:after {
+  display: none !important;
+}
+
+/* Make the header text and icons white for visibility */
 .header__heading-link,
 .header__menu-item,
-.header__icon {
+.header__icon,
+.header__heading-link .h2 {
   color: #ffffff !important;
 }
 
-/* Optional: Darken text on hover for better UX */
+/* Darken text on hover for better UX */
 .header__menu-item:hover,
 .header__icon:hover {
   color: #dddddd !important;
