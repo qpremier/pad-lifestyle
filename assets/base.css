@@ -3592,20 +3592,27 @@ details-disclosure > details {
 }
 
 /* Qasim is attempting to make it transparent */
-/* Make the header wrapper transparent and position it over the banner */
-.header-wrapper {
-  background: transparent !important;
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10;
+/* Make header transparent WITHOUT sticky behavior */
+.sticky-header {
+  position: relative !important;
+  transform: none !important;
+  top: 0 !important;
 }
 
-/* Optional: Change the header text and icon color to white */
-/* This makes the menu visible on dark or busy background images */
-.header-wrapper:not(.scrolled) .header__heading-link,
-.header-wrapper:not(.scrolled) .header__menu-item,
-.header-wrapper:not(.scrolled) .header__icon {
+.header-wrapper {
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+/* Optional: Make the header text and icons white for visibility */
+.header__heading-link,
+.header__menu-item,
+.header__icon {
   color: #ffffff !important;
+}
+
+/* Optional: Darken text on hover for better UX */
+.header__menu-item:hover,
+.header__icon:hover {
+  color: #dddddd !important;
 }
