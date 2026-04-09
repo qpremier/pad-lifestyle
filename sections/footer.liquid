@@ -155,6 +155,12 @@
       <!-- Column 2: Newsletter -->
       <div class="footer-block-custom">
         <h2 class="footer-block__heading inline-richtext">{{ section.settings.newsletter_custom_heading | default: 'Newsletter' }}</h2>
+        
+        <!-- Description between heading and email field -->
+        <div class="newsletter-description">
+          <p>{{ section.settings.newsletter_description | default: 'Sign up to our newsletter to receive exclusive offers.' }}</p>
+        </div>
+        
         {%- form 'customer', id: 'ContactFooterCustom', class: 'footer__newsletter newsletter-form custom-newsletter-form' -%}
           <input type="hidden" name="contact[tags]" value="newsletter">
           <div class="newsletter-form__field-wrapper">
@@ -182,17 +188,6 @@
               <label class="field__label" for="NewsletterFormCustom--{{ section.id }}">
                 {{ 'newsletter.label' | t }}
               </label>
-              <button
-                type="submit"
-                class="newsletter-form__button field__button"
-                name="commit"
-                id="SubscribeCustom"
-                aria-label="{{ 'newsletter.button_label' | t }}"
-              >
-                <span class="svg-wrapper">
-                  {{- 'icon-arrow.svg' | inline_asset_content -}}
-                </span>
-              </button>
             </div>
             {%- if form.errors -%}
               <small class="newsletter-form__message form__message" id="ContactFooterCustom-error">
@@ -204,6 +199,18 @@
               </small>
             {%- endif -%}
           </div>
+          
+          <!-- Subscribe button below email field -->
+          <button
+            type="submit"
+            class="button subscribe-button"
+            name="commit"
+            id="SubscribeCustom"
+            aria-label="{{ 'newsletter.button_label' | t }}"
+          >
+            {{ section.settings.subscribe_button_label | default: 'Subscribe' }}
+          </button>
+          
           {%- if form.posted_successfully? -%}
             <h3
               class="newsletter-form__message newsletter-form__message--success form__message"
