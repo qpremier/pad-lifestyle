@@ -72,7 +72,12 @@
   .footer-block__details-content-custom {
     list-style: none;
     padding: 0;
+    gap: .625rem;
     margin: 0;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    display: grid;
+    margin-inline-start: 1em;
   }
 
   .footer-block__details-content-custom li {
