@@ -268,6 +268,99 @@
       </div>
     </div>
 
+    <!-- SOCIAL MEDIA LINKS - Add this section -->
+    <ul class="social-media social-media--list unstyled-list" role="list">
+      {% if settings.social_instagram_link != blank %}
+        <li class="social-media__item branding-colors--instagram">
+          <a href="{{ settings.social_instagram_link }}" class="tap-area" target="_blank" rel="noopener" aria-label="Follow on Instagram">
+            <svg aria-hidden="true" focusable="false" width="24" class="icon icon-instagram" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.4c-2.607 0-2.934.011-3.958.058-1.022.046-1.72.209-2.33.446a4.705 4.705 0 0 0-1.7 1.107 4.706 4.706 0 0 0-1.108 1.7c-.237.611-.4 1.31-.446 2.331C2.41 9.066 2.4 9.392 2.4 12c0 2.607.011 2.934.058 3.958.046 1.022.209 1.72.446 2.33a4.706 4.706 0 0 0 1.107 1.7c.534.535 1.07.863 1.7 1.108.611.237 1.309.4 2.33.446 1.025.047 1.352.058 3.959.058s2.934-.011 3.958-.058c1.022-.046 1.72-.209 2.33-.446a4.706 4.706 0 0 0 1.7-1.107 4.706 4.706 0 0 0 1.108-1.7c.237-.611.4-1.31.446-2.33.047-1.025.058-1.352.058-3.959s-.011-2.934-.058-3.958c-.047-1.022-.209-1.72-.446-2.33a4.706 4.706 0 0 0-1.107-1.7 4.705 4.705 0 0 0-1.7-1.108c-.611-.237-1.31-.4-2.331-.446C14.934 2.41 14.608 2.4 12 2.4Zm0 1.73c2.563 0 2.867.01 3.88.056.935.042 1.443.199 1.782.33.448.174.768.382 1.104.718.336.336.544.656.718 1.104.131.338.287.847.33 1.783.046 1.012.056 1.316.056 3.879 0 2.563-.01 2.867-.056 3.88-.043.935-.199 1.444-.33 1.782a2.974 2.974 0 0 1-.719 1.104 2.974 2.974 0 0 1-1.103.718c-.339.131-.847.288-1.783.33-1.012.046-1.316.056-3.88.056-2.563 0-2.866-.01-3.878-.056-.936-.042-1.445-.199-1.783-.33a2.974 2.974 0 0 1-1.104-.718 2.974 2.974 0 0 1-.718-1.104c-.131-.338-.288-.847-.33-1.783-.047-1.012-.056-1.316-.056-3.879 0-2.563.01-2.867.056-3.88.042-.935.199-1.443.33-1.782.174-.448.382-.768.718-1.104a2.974 2.974 0 0 1 1.104-.718c.338-.131.847-.288 1.783-.33C9.133 4.14 9.437 4.13 12 4.13Zm0 11.07a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm0-8.13a4.93 4.93 0 1 0 0 9.86 4.93 4.93 0 0 0 0-9.86Zm6.276-.194a1.152 1.152 0 1 1-2.304 0 1.152 1.152 0 0 1 2.304 0Z" fill="currentColor"></path>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+      
+      {% if settings.social_facebook_link != blank %}
+        <li class="social-media__item">
+          <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Follow on Facebook">
+            <svg aria-hidden="true" focusable="false" width="24" class="icon icon-facebook" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M10.183 21.85v-8.868H7.2v-3.23h2.983V6.982c0-2.945 1.8-4.55 4.426-4.55 1.256 0 2.336.094 2.65.136v3.072h-1.818c-1.428 0-1.705.68-1.705 1.675v2.195h3.41l-.445 3.23h-2.965v8.868h-3.553Z" fill="currentColor"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+      
+      {% if settings.social_youtube_link != blank %}
+        <li class="social-media__item">
+          <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="Follow on YouTube">
+            <svg aria-hidden="true" focusable="false" width="24" class="icon icon-youtube" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M19.685 4.603c.735.186 1.312.763 1.498 1.498C21.51 7.937 21.5 12 21.5 12s0 4.063-.317 5.899c-.186.735-.763 1.312-1.498 1.498-1.836.317-9.185.317-9.185.317s-7.349 0-9.185-.317c-.735-.186-1.312-.763-1.498-1.498C0 16.063 0 12 0 12s0-4.063.317-5.899c.186-.735.763-1.312 1.498-1.498C3.651 4.286 11 4.286 11 4.286s7.349 0 9.185.317ZM9.5 8.999v6l5-3-5-3Z" fill="currentColor"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+      
+      {% if settings.social_twitter_link != blank %}
+        <li class="social-media__item">
+          <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" aria-label="Follow on X (Twitter)">
+            <svg aria-hidden="true" focusable="false" width="24" class="icon icon-twitter" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+      
+      {% if settings.social_pinterest_link != blank %}
+        <li class="social-media__item">
+          <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" aria-label="Follow on Pinterest">
+            <svg aria-hidden="true" focusable="false" width="24" class="icon icon-pinterest" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.017 2.4c-5.306 0-9.6 4.294-9.6 9.6 0 4.066 2.528 7.521 6.042 8.96-.084-.734-.156-1.862.032-2.662.17-.72 1.1-4.658 1.1-4.658s-.28-.56-.28-1.388c0-1.3.754-2.27 1.692-2.27.798 0 1.184.6 1.184 1.318 0 .804-.512 2.006-.776 3.12-.22.934.466 1.694 1.382 1.694 1.66 0 2.936-1.75 2.936-4.274 0-2.236-1.606-3.8-3.9-3.8-2.658 0-4.218 1.994-4.218 4.056 0 .804.31 1.666.696 2.134.076.094.088.176.064.274-.072.298-.23.938-.262 1.07-.042.178-.138.216-.32.13-1.2-.56-1.95-2.314-1.95-3.724 0-3.03 2.202-5.814 6.35-5.814 3.334 0 5.926 2.376 5.926 5.552 0 3.314-2.088 5.98-4.986 5.98-.972 0-1.886-.506-2.2-1.102 0 0-.48 1.83-.598 2.28-.216.832-.8 1.874-1.19 2.51.89.276 1.838.422 2.812.422 5.306 0 9.6-4.294 9.6-9.6s-4.294-9.6-9.6-9.6Z" fill="currentColor"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+      
+      {% if settings.social_tiktok_link != blank %}
+        <li class="social-media__item">
+          <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" aria-label="Follow on TikTok">
+            <svg aria-hidden="true" focusable="false" width="24" class="icon icon-tiktok" viewBox="0 0 24 24">
+              <path d="M16.6 5.82c.24.25.52.46.82.64v1.9c-.44-.1-.9-.18-1.36-.18-1.26 0-2.44.48-3.32 1.26-.26.24-.5.5-.7.78V16c0 1.52-1.24 2.76-2.76 2.76-1.52 0-2.76-1.24-2.76-2.76 0-1.52 1.24-2.76 2.76-2.76.2 0 .4.02.58.06v1.94c-.18-.04-.38-.08-.58-.08-.98 0-1.78.8-1.78 1.78 0 .98.8 1.78 1.78 1.78.98 0 1.78-.8 1.78-1.78V7.02c.02.02.04.04.06.06.88.88 2.06 1.42 3.38 1.42.34 0 .68-.04 1-.1v1.84c-.26.06-.52.1-.8.1-1.18 0-2.24-.44-3.06-1.16v5.66c0 1.52-1.24 2.76-2.76 2.76-1.52 0-2.76-1.24-2.76-2.76 0-1.52 1.24-2.76 2.76-2.76.2 0 .4.02.58.06v1.94c-.18-.04-.38-.08-.58-.08-.98 0-1.78.8-1.78 1.78 0 .98.8 1.78 1.78 1.78.98 0 1.78-.8 1.78-1.78V5.82h2.76Z" fill="currentColor"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+      
+      {% if settings.social_snapchat_link != blank %}
+        <li class="social-media__item">
+          <a href="{{ settings.social_snapchat_link }}" target="_blank" rel="noopener" aria-label="Follow on Snapchat">
+            <svg aria-hidden="true" focusable="false" width="24" class="icon icon-snapchat" viewBox="0 0 24 24">
+              <path d="M12 2.4c-1.8 0-3.6.6-4.8 1.8-1.2 1.2-1.8 2.8-1.8 4.6 0 .8.2 1.6.4 2.4-.6.2-1.2.4-1.8.6-.8.2-1.4.6-1.8 1.2-.4.6-.6 1.2-.4 2 .2.8.8 1.4 1.6 1.8.2 0 .4.2.6.2.2.2.4.2.6.4.2.2.4.4.6.6.4.4.6 1 .8 1.6.2.6.4 1.2.8 1.6.4.4 1 .8 1.8.8h.2c.2 0 .4 0 .6.2.2.2.4.2.6.4.4.2.8.4 1.2.4.6 0 1.2-.2 1.6-.4.4-.2.8-.4 1.2-.4.2 0 .4 0 .6-.2.2-.2.4-.2.6-.2h.2c.8 0 1.4-.4 1.8-.8.4-.4.6-1 .8-1.6.2-.6.4-1.2.8-1.6.2-.2.4-.4.6-.6.2-.2.4-.4.6-.6.2 0 .4-.2.6-.2.8-.4 1.4-1 1.6-1.8.2-.8 0-1.4-.4-2-.4-.6-1-1-1.8-1.2-.6-.2-1.2-.4-1.8-.6.2-.8.4-1.6.4-2.4 0-1.8-.6-3.4-1.8-4.6C15.6 3 13.8 2.4 12 2.4Z" fill="currentColor"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+      
+      {% if settings.social_tumblr_link != blank %}
+        <li class="social-media__item">
+          <a href="{{ settings.social_tumblr_link }}" target="_blank" rel="noopener" aria-label="Follow on Tumblr">
+            <svg aria-hidden="true" focusable="false" width="24" class="icon icon-tumblr" viewBox="0 0 24 24">
+              <path d="M16.8 18.8c-.8.4-1.6.6-2.4.6-1.2 0-2-.4-2.4-1.2-.4-.8-.6-2-.6-3.6v-5h-2v-2c1.2-.2 2-.8 2.4-1.8.4-1 .6-2 .6-3h2.4v3h3v2.8h-3v4.8c0 1 .2 1.6.6 2 .4.4 1 .6 1.6.6.4 0 1-.2 1.4-.4l.8 2.4c-.4.4-1.2.8-2 .8Z" fill="currentColor"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+      
+      {% if settings.social_vimeo_link != blank %}
+        <li class="social-media__item">
+          <a href="{{ settings.social_vimeo_link }}" target="_blank" rel="noopener" aria-label="Follow on Vimeo">
+            <svg aria-hidden="true" focusable="false" width="24" class="icon icon-vimeo" viewBox="0 0 24 24">
+              <path d="M21.2 6.4c-.2 1.2-1.2 3-3 5.4-2 2.6-3.6 4-4.8 4-1 0-1.8-1.2-2.4-3.6-.2-.8-.8-3-1-3.6-.2-.8-.6-1.2-1-1.2-.2 0-.8.4-1.8 1.2L6 7.2c1.2-1 2.2-2 3-3 1.4-1.2 2.4-1.8 3.2-1.8 1.4 0 2.2.8 2.4 2.4.2 1.6.4 3.2.6 4.8.2 1.6.6 2.4 1.2 2.4.4 0 1-.6 1.8-1.8.8-1.2 1.2-2.2 1.4-3 .2-.8-.2-1.2-1.2-1.2-.4 0-1 .2-1.8.4 1-3.2 2.8-4.8 5.4-4.8 2 0 2.8 1.4 2.4 4.2Z" fill="currentColor"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+
     <!-- Original newsletter and social blocks (can be hidden if needed) -->
     {% if section.settings.show_original_newsletter %}
       <div
