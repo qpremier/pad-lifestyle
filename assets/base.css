@@ -3595,7 +3595,11 @@ details-disclosure > details {
 /* Make the header wrapper transparent and position it over the banner */
 .header-wrapper {
   background: transparent !important;
-
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 /* Optional: Change the header text and icon color to white */
