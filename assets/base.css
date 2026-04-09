@@ -3592,26 +3592,20 @@ details-disclosure > details {
 }
 
 /* Qasim is attempting to make it transparent */
-/* Make the main header wrapper transparent */
-.header-wrapper,
-.header {
-  background-color: transparent !important;
+/* Make the header wrapper transparent and position it over the banner */
+.header-wrapper {
   background: transparent !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
 }
 
-/* Optional: Adjust the color of the header icons and links to white */
-/* This ensures they are visible against a dark or busy background image */
-.header__heading-link,
-.header__menu-item,
-.header__icon,
-.header__icon .icon {
+/* Optional: Change the header text and icon color to white */
+/* This makes the menu visible on dark or busy background images */
+.header-wrapper:not(.scrolled) .header__heading-link,
+.header-wrapper:not(.scrolled) .header__menu-item,
+.header-wrapper:not(.scrolled) .header__icon {
   color: #ffffff !important;
-}
-
-/* Optional: Change the hover state color for the links */
-.header__menu-item:hover,
-.header__icon:hover {
-  color: #dddddd !important;
 }
