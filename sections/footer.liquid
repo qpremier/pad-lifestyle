@@ -5,344 +5,113 @@
 {{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
 {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
 
-{%- style -%}
-  .footer {
-    margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
+<style>
+  #shopify-section-{{ section.id }} {
+    --footer-content-justify-items: space-between;
   }
+</style>
 
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
+<footer id="shopify-section-{{ section.id }}" class="shopify-section shopify-section-group-footer-group shopify-section--footer">
+  <div class="footer color-scheme color-scheme--scheme-{{ section.settings.color_scheme }} color-scheme--bg-d5f43c38a7e069fae3c8b11ad1c55603 ">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__block-list">
+          
+          <!-- Column 1: Image -->
+          <div class="footer__block footer__block--image">
+            {% if section.settings.store_image != blank %}
+              <img 
+                src="{{ section.settings.store_image | image_url: width: section.settings.image_width }}" 
+                alt="{{ section.settings.store_image.alt | default: shop.name | escape }}" 
+                srcset="{{ section.settings.store_image | image_url: width: section.settings.image_width }} {{ section.settings.image_width }}w, {{ section.settings.store_image | image_url: width: section.settings.image_width | times: 2 }} {{ section.settings.image_width | times: 2 }}w" 
+                width="{{ section.settings.store_image.width }}" 
+                height="{{ section.settings.store_image.height }}" 
+                sizes="{{ section.settings.image_width }}px" 
+                style="--image-max-width: {{ section.settings.image_width }}px" 
+                class="constrained-image"
+                loading="lazy"
+              >
+            {% else %}
+              {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
 
-  @media screen and (min-width: 750px) {
-    .footer {
-      margin-top: {{ section.settings.margin_top }}px;
-    }
-
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-
-  /* Custom footer styles matching the reference */
-  .footer .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  .footer__inner {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-  }
-
-  .footer__block-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-  }
-
-  .footer__block {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .footer__block--image img {
-    max-width: 150px;
-    height: auto;
-    display: block;
-  }
-
-  .v-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .gap-4 {
-    gap: 1rem;
-  }
-
-  .sm\:gap-5 {
-    gap: 1.25rem;
-  }
-
-  .h6 {
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    line-height: 1.4;
-    margin: 0 0 0.5rem 0;
-    text-transform: uppercase;
-  }
-
-  .text-subdued {
-    color: rgba(var(--color-foreground), 0.7);
-  }
-
-  .prose {
-    line-height: 1.6;
-  }
-
-  .prose p {
-    margin: 0 0 1rem 0;
-  }
-
-  .form-control {
-    position: relative;
-    margin-bottom: 1rem;
-  }
-
-  .input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid rgba(var(--color-foreground), 0.2);
-    border-radius: 0;
-    background: transparent;
-    font-size: 0.875rem;
-    transition: border-color 0.2s;
-  }
-
-  .input:focus {
-    outline: none;
-    border-color: rgba(var(--color-foreground), 0.5);
-  }
-
-  .floating-label {
-    position: absolute;
-    left: 1rem;
-    top: 0.75rem;
-    pointer-events: none;
-    transition: all 0.2s;
-    color: rgba(var(--color-foreground), 0.6);
-    font-size: 0.75rem;
-  }
-
-  .input:focus + .floating-label,
-  .input:not(:placeholder-shown) + .floating-label {
-    transform: translateY(-1.5rem) scale(0.85);
-    background: rgb(var(--color-background));
-    padding: 0 0.25rem;
-  }
-
-  .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    background-color: rgb(var(--color-button));
-    color: rgb(var(--color-button-text));
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.75rem;
-    transition: opacity 0.2s;
-  }
-
-  .button:hover {
-    opacity: 0.8;
-  }
-
-  .align-self-start {
-    align-self: flex-start;
-  }
-
-  .unstyled-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .gap-2\.5 {
-    gap: 0.625rem;
-  }
-
-  .link-faded {
-    color: rgba(var(--color-foreground), 0.7);
-    text-decoration: none;
-    font-size: 0.875rem;
-    transition: color 0.2s;
-  }
-
-  .link-faded:hover {
-    color: rgb(var(--color-foreground));
-    text-decoration: underline;
-  }
-
-  .social-media {
-    display: flex;
-    gap: 1rem;
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0 0 0;
-  }
-
-  .social-media__item a {
-    display: block;
-    padding: 0.5rem;
-    color: rgba(var(--color-foreground), 0.7);
-    transition: color 0.2s;
-  }
-
-  .social-media__item a:hover {
-    color: rgb(var(--color-foreground));
-  }
-
-  .social-media__item svg {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-
-  .footer__aside {
-    padding-top: 2rem;
-    margin-top: 1rem;
-    border-top: 1px solid rgba(var(--color-foreground), 0.1);
-    text-align: center;
-  }
-
-  .text-xxs {
-    font-size: 0.625rem;
-    letter-spacing: 0.05em;
-  }
-
-  .heading {
-    font-weight: 600;
-  }
-
-  /* Responsive */
-  @media screen and (max-width: 989px) {
-    .footer__block-list {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    .footer__block-list {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    
-    .footer__block--image img {
-      margin: 0 auto;
-    }
-    
-    .align-self-start {
-      align-self: center;
-    }
-    
-    .footer__block {
-      text-align: center;
-    }
-    
-    .form-control {
-      max-width: 100%;
-    }
-  }
-{%- endstyle -%}
-
-<footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
-  <div class="container">
-    <div class="footer__inner">
-      <div class="footer__block-list">
-        
-        <!-- Column 1: Image -->
-        <div class="footer__block footer__block--image">
-          {% if section.settings.store_image != blank %}
-            <img
-              src="{{ section.settings.store_image | image_url: width: section.settings.image_width }}"
-              srcset="{{ section.settings.store_image | image_url: width: section.settings.image_width }} {{ section.settings.image_width }}w,
-                      {{ section.settings.store_image | image_url: width: section.settings.image_width | times: 2 }} {{ section.settings.image_width | times: 2 }}w"
-              width="{{ section.settings.store_image.width }}"
-              height="{{ section.settings.store_image.height }}"
-              sizes="{{ section.settings.image_width }}px"
-              alt="{{ section.settings.store_image.alt | default: shop.name | escape }}"
-              style="--image-max-width: {{ section.settings.image_width }}px"
-              class="constrained-image"
-              loading="lazy"
-            >
-          {% else %}
-            {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
-          {% endif %}
-        </div>
-
-        <!-- Column 2: Newsletter -->
-        <div class="footer__block footer__block--newsletter">
-          <div class="v-stack gap-4 sm:gap-5">
-            <p class="h6">{{ section.settings.newsletter_heading | default: 'Newsletter' }}</p>
-            <div class="prose text-subdued">
-              <p>{{ section.settings.newsletter_subtext | default: 'Sign up to our newsletter to receive exclusive offers.' }}</p>
+          <!-- Column 2: Newsletter -->
+          <div class="footer__block footer__block--newsletter">
+            <div class="v-stack gap-4 sm:gap-5">
+              <p class="h6">{{ section.settings.newsletter_heading | default: 'Newsletter' }}</p>
+              <div class="prose text-subdued">
+                <p>{{ section.settings.newsletter_subtext | default: 'Sign up to our newsletter to receive exclusive offers.' }}</p>
+              </div>
+              {%- form 'customer', id: 'newsletter-form-' | append: section.id, class: 'form' -%}
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <div class="form-control">
+                  <input 
+                    id="input--{{ section.id }}--contactemail" 
+                    class="input" 
+                    type="email" 
+                    dir="ltr" 
+                    name="contact[email]" 
+                    placeholder="{{ section.settings.email_placeholder | default: 'E-mail' }}" 
+                    autocomplete="email" 
+                    enterkeyhint="send" 
+                    required
+                  >
+                  <label for="input--{{ section.id }}--contactemail" class="floating-label text-xs">{{ section.settings.email_placeholder | default: 'E-mail' }}</label>
+                </div>
+                <div class="align-self-start">
+                  <button type="submit" class="button">{{ section.settings.subscribe_button_label | default: 'Subscribe' }}</button>
+                </div>
+                {%- if form.posted_successfully? -%}
+                  <p class="form-success" style="color: green; margin-top: 1rem;">{{ 'newsletter.success' | t }}</p>
+                {%- endif -%}
+                {%- if form.errors -%}
+                  <p class="form-error" style="color: red; margin-top: 1rem;">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+                {%- endif -%}
+              {%- endform -%}
             </div>
-            {%- form 'customer', id: 'newsletter-form-' | append: section.id, class: 'form' -%}
-              <input type="hidden" name="contact[tags]" value="newsletter">
-              <div class="form-control">
-                <input
-                  id="input--{{ section.id }}--contactemail"
-                  class="input"
-                  type="email"
-                  dir="ltr"
-                  name="contact[email]"
-                  placeholder=" "
-                  autocomplete="email"
-                  enterkeyhint="send"
-                  required
-                >
-                <label for="input--{{ section.id }}--contactemail" class="floating-label text-xs">
-                  {{ section.settings.email_placeholder | default: 'E-mail' }}
-                </label>
-              </div>
-              <div class="align-self-start">
-                <button type="submit" class="button">{{ section.settings.subscribe_button_label | default: 'Subscribe' }}</button>
-              </div>
-              {%- if form.posted_successfully? -%}
-                <p class="form-success" style="color: green; margin-top: 1rem;">{{ 'newsletter.success' | t }}</p>
-              {%- endif -%}
-              {%- if form.errors -%}
-                <p class="form-error" style="color: red; margin-top: 1rem;">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
-              {%- endif -%}
-            {%- endform -%}
           </div>
-        </div>
 
-        <!-- Column 3: Footer Links -->
-        <div class="footer__block footer__block--links">
-          <div class="v-stack gap-4 sm:gap-5">
-            <p class="h6">{{ section.settings.footer_links_heading | default: 'Footer' }}</p>
-            <ul class="v-stack gap-2.5 unstyled-list" role="list">
-              {% for link in section.settings.footer_menu.links %}
-                <li>
-                  <a href="{{ link.url }}" class="link-faded">{{ link.title | escape }}</a>
-                </li>
-              {% else %}
-                <!-- Default links if no menu is selected -->
-                <li><a href="/pages/about-us" class="link-faded">About</a></li>
-                <li><a href="/pages/social" class="link-faded">Social</a></li>
-                <li><a href="/pages/trade" class="link-faded">Trade</a></li>
-                <li><a href="/pages/security-privacy" class="link-faded">Security & Privacy</a></li>
-                <li><a href="/pages/finance" class="link-faded">0% Finance</a></li>
-              {% endfor %}
-            </ul>
+          <!-- Column 3: Footer Links -->
+          <div class="footer__block footer__block--links">
+            <div class="v-stack gap-4 sm:gap-5">
+              <p class="h6">{{ section.settings.footer_links_heading | default: 'Footer' }}</p>
+              <ul class="v-stack gap-2.5 unstyled-list" role="list">
+                {% for link in section.settings.footer_menu.links %}
+                  <li>
+                    <a href="{{ link.url }}" class="link-faded">{{ link.title | escape }}</a>
+                  </li>
+                {% else %}
+                  <!-- Default links matching your reference -->
+                  <li><a href="/pages/about-us" class="link-faded">About</a></li>
+                  <li><a href="/pages/social" class="link-faded">Social</a></li>
+                  <li><a href="/pages/trade" class="link-faded">Trade</a></li>
+                  <li><a href="/pages/security-privacy" class="link-faded">Security &amp; Privacy</a></li>
+                  <li><a href="/pages/finance" class="link-faded">0% Finance</a></li>
+                  <li><a href="/pages/payment-delivery" class="link-faded">Payment &amp; delivery</a></li>
+                  <li><a href="/pages/returns-refunds" class="link-faded">Returns &amp; refunds</a></li>
+                  <li><a href="/pages/customer-support" class="link-faded">Customer Support</a></li>
+                  <li><a href="/pages/contact" class="link-faded">Contact</a></li>
+                  <li><a href="/blogs/news" class="link-faded">Blog</a></li>
+                  <li><a href="#mailmunch-pop-717389" class="link-faded">Subscribe for 15% off</a></li>
+                  <li><a href="/pages/interior-designers" class="link-faded">Interior Designers</a></li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <!-- Column 4: About Text -->
-        <div class="footer__block footer__block--text">
-          <div class="v-stack gap-4 sm:gap-5">
-            <p class="h6">{{ section.settings.about_heading | default: 'About' }}</p>
-            <div class="prose text-subdued">
-              <p>{{ section.settings.about_description | default: 'Use this text area to tell your customers about your brand and vision. You can change it in the theme editor.' }}</p>
+          <!-- Column 4: About Text -->
+          <div class="footer__block footer__block--text">
+            <div class="v-stack gap-4 sm:gap-5">
+              <p class="h6">{{ section.settings.about_heading | default: 'About' }}</p>
+              <div class="prose text-subdued">
+                <p>{{ section.settings.about_description | default: 'Use this text area to tell your customers about your brand and vision. You can change it in the theme editor.' }}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Social Icons -->
-      {% if section.settings.show_social_icons %}
+        <!-- Social Media Icons -->
         <ul class="social-media social-media--list unstyled-list" role="list">
           {% if settings.social_instagram_link != blank %}
             <li class="social-media__item branding-colors--instagram">
@@ -372,16 +141,16 @@
             </li>
           {% endif %}
         </ul>
-      {% endif %}
 
-      <!-- Footer Aside -->
-      <div class="footer__aside">
-        <p class="heading text-subdued text-xxs">
-          &copy; {{ 'now' | date: '%Y' }} - {{ shop.name }}
-          {% if section.settings.show_powered_by %}
-            <a target="_blank" rel="nofollow" href="https://www.shopify.com?utm_campaign=poweredby&amp;utm_medium=shopify&amp;utm_source=onlinestore">Powered by Shopify</a>
-          {% endif %}
-        </p>
+        <!-- Footer Aside -->
+        <div class="footer__aside">
+          <p class="heading text-subdued text-xxs">
+            © {{ 'now' | date: '%Y' }} - {{ shop.name }} 
+            {% if section.settings.show_powered_by %}
+              <a target="_blank" rel="nofollow" href="https://www.shopify.com?utm_campaign=poweredby&amp;utm_medium=shopify&amp;utm_source=onlinestore">Powered by Shopify</a>
+            {% endif %}
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -478,16 +247,6 @@
     },
     {
       "type": "header",
-      "content": "Social Media"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_social_icons",
-      "label": "Show Social Icons",
-      "default": true
-    },
-    {
-      "type": "header",
       "content": "Footer Bottom"
     },
     {
@@ -495,40 +254,6 @@
       "id": "show_powered_by",
       "label": "Show 'Powered by Shopify'",
       "default": true
-    },
-    {
-      "type": "header",
-      "content": "Spacing"
-    },
-    {
-      "type": "range",
-      "id": "margin_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Margin Top",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding Top",
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding Bottom",
-      "default": 36
     }
   ],
   "blocks": [],
