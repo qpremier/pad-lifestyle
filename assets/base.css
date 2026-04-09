@@ -3592,42 +3592,25 @@ details-disclosure > details {
 }
 
 /* Qasim is attempting to make it transparent */
-/* Make header transparent WITHOUT sticky behavior */
-.sticky-header {
-  position: relative !important;
-  transform: none !important;
-  top: 0 !important;
-}
-
+/* Make the main header wrapper transparent */
 .header-wrapper,
-.header-wrapper.color-scheme-1 {
-  background: transparent !important;
+.header {
   background-color: transparent !important;
-  --color-background: transparent !important;
+  background: transparent !important;
   border-bottom: none !important;
   box-shadow: none !important;
 }
 
-.header {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-/* Remove any gradient overlay */
-.header-wrapper:before,
-.header-wrapper:after {
-  display: none !important;
-}
-
-/* Make the header text and icons white for visibility */
+/* Optional: Adjust the color of the header icons and links to white */
+/* This ensures they are visible against a dark or busy background image */
 .header__heading-link,
 .header__menu-item,
 .header__icon,
-.header__heading-link .h2 {
+.header__icon .icon {
   color: #ffffff !important;
 }
 
-/* Darken text on hover for better UX */
+/* Optional: Change the hover state color for the links */
 .header__menu-item:hover,
 .header__icon:hover {
   color: #dddddd !important;
