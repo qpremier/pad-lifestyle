@@ -3600,11 +3600,10 @@ details-disclosure > details {
 }
 
 .header-wrapper,
-.header-wrapper.color-scheme-1,
-.header-wrapper.gradient {
+.header-wrapper.color-scheme-1 {
   background: transparent !important;
   background-color: transparent !important;
-  background-image: none !important;
+  --color-background: transparent !important;
   border-bottom: none !important;
   box-shadow: none !important;
 }
