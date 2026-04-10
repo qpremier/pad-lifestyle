@@ -1335,37 +1335,3 @@ class CartPerformance {
 
 
 // Qasim added this for header sticky and transparent
-document.addEventListener('DOMContentLoaded', function() {
-  const header = document.querySelector('.header-wrapper');
-  
-  // Create a tracker element if it doesn't exist
-  let tracker = document.getElementById('header-scroll-tracker');
-  if (!tracker) {
-    tracker = document.createElement('div');
-    tracker.id = 'header-scroll-tracker';
-    tracker.style.position = 'absolute';
-    tracker.style.top = '0';
-    tracker.style.left = '0';
-    tracker.style.width = '100%';
-    tracker.style.height = '1px';
-    tracker.style.pointerEvents = 'none';
-    document.body.prepend(tracker);
-  }
-  
-  // Create intersection observer
-  const observer = new IntersectionObserver(function(entries) {
-    // When tracker is NOT visible (scrolled past it) → add scrolled class
-    // When tracker IS visible (at the very top) → remove scrolled class
-    if (!entries[0].isIntersecting) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  }, {
-    threshold: 0,
-    rootMargin: '-50px 0px 0px 0px' // Trigger after scrolling 50px
-  });
-  
-  // Start observing
-  observer.observe(tracker);
-});
