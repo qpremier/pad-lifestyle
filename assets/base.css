@@ -3592,34 +3592,20 @@ details-disclosure > details {
 }
 
 /* Qasim is attempting to make it transparent */
-/* Super aggressive - overrides everything */
-.header-wrapper,
-.header-wrapper *,
-.site-header,
-.site-header *,
-.header,
-.header * {
-  background-color: transparent !important;
-  background-image: none !important;
-  background: transparent !important;
-}
-
+/* Make the header wrapper transparent and position it over the banner */
 .header-wrapper {
-  position: relative !important;
-  margin-bottom: -80px !important;
+  background: transparent !important;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
 }
 
-/* Adjust this value to match your header height */
-#MainContent {
-  padding-top: 80px !important;
-}
-
-/* White text for all header links */
-.header-wrapper a,
-.header-wrapper button,
-.header-wrapper span:not(.price),
-.header-wrapper .header__menu-item,
-.header-wrapper .header__heading-link,
-.header-wrapper .header__icon {
+/* Optional: Change the header text and icon color to white */
+/* This makes the menu visible on dark or busy background images */
+.header-wrapper:not(.scrolled) .header__heading-link,
+.header-wrapper:not(.scrolled) .header__menu-item,
+.header-wrapper:not(.scrolled) .header__icon {
   color: #ffffff !important;
 }
