@@ -53,6 +53,24 @@
           "settings": {
             "image": "shopify://shop_images/image3.webp",
             "image_overlay_opacity": 0,
+            "heading": "<strong>Where Design Meets Dialogue</strong>",
+            "heading_size": "h2",
+            "subheading": "<strong>EVENING ANTHOLOGY</strong>",
+            "button_label": "SHOP NOW",
+            "link": "",
+            "button_style_secondary": true,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide_A6egxe": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/image3.webp",
+            "image_overlay_opacity": 0,
             "heading": "<strong>THE</strong>",
             "heading_size": "h2",
             "subheading": "<strong>EVENING ANTHOLOGY</strong>",
@@ -70,7 +88,8 @@
       "block_order": [
         "slide_mVQ6Y7",
         "slide_UKJJdi",
-        "slide_mGp7tW"
+        "slide_mGp7tW",
+        "slide_A6egxe"
       ],
       "settings": {
         "layout": "full_bleed",
