@@ -3592,20 +3592,33 @@ details-disclosure > details {
 }
 
 /* Qasim is attempting to make it transparent */
-/* Make the header wrapper transparent and position it over the banner */
+/* Base header - transparent AND sticky */
 .header-wrapper {
   background: transparent !important;
-  position: absolute !important;
+  position: sticky !important;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 100;
+  transition: background-color 0.3s ease;
 }
 
-/* Optional: Change the header text and icon color to white */
-/* This makes the menu visible on dark or busy background images */
-.header-wrapper:not(.scrolled) .header__heading-link,
-.header-wrapper:not(.scrolled) .header__menu-item,
-.header-wrapper:not(.scrolled) .header__icon {
+/* White text when transparent */
+.header-wrapper .header__heading-link,
+.header-wrapper .header__menu-item,
+.header-wrapper .header__icon {
   color: #ffffff !important;
+}
+
+/* Class added when scrolled - change background and text color */
+.header-wrapper.scrolled {
+  background: #ffffff !important; /* Change to your desired background */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Dark text when scrolled */
+.header-wrapper.scrolled .header__heading-link,
+.header-wrapper.scrolled .header__menu-item,
+.header-wrapper.scrolled .header__icon {
+  color: #000000 !important;
 }
