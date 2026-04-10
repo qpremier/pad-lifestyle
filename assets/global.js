@@ -1330,3 +1330,31 @@ class CartPerformance {
     );
   }
 }
+
+
+
+
+// Qasim added this for header sticky and transparent
+// Add this JavaScript
+
+document.addEventListener('DOMContentLoaded', function() {
+  const header = document.querySelector('.header-wrapper');
+  if (!header) return;
+  
+  // Function to check scroll position
+  function checkScroll() {
+    if (window.scrollY > 50) {
+      // Scrolled more than 50px - add class
+      header.classList.add('scrolled');
+    } else {
+      // At the top (less than 50px) - remove class
+      header.classList.remove('scrolled');
+    }
+  }
+  
+  // Check on scroll
+  window.addEventListener('scroll', checkScroll);
+  
+  // Check on load
+  checkScroll();
+});
