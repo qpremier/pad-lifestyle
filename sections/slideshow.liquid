@@ -2,6 +2,18 @@
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
 
+<style>
+  .slider-button-q{
+    color: #ffffff;
+    overlay: none;
+    opacity: unset;
+    border: none;
+  }
+  .slider-button-q:after {
+    --border-opacity: 0;
+  }
+</style>
+
 {%- if section.settings.slide_height == 'adapt_image' and section.blocks.first.settings.image != blank -%}
   {%- style -%}
     @media screen and (max-width: 749px) {
@@ -178,7 +190,7 @@
                   {% else %}
                     role="link" aria-disabled="true"
                   {% endif %}
-                  class="button {% if block.settings.button_style_secondary %}button--secondary{% else %}button--primary{% endif %}"
+                  class="button slider-button-q {% if block.settings.button_style_secondary %}button--secondary{% else %}button--primary{% endif %}"
                 >
                   {{- block.settings.button_label | escape -}}
                 </a>
