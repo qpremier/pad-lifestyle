@@ -3592,22 +3592,41 @@ details-disclosure > details {
 }
 
 /* Qasim is attempting to make it transparent */
-/* This makes header transparent but scrolls WITH the page */
+/* Make header transparent AND non-sticky */
 .header-wrapper {
   background: transparent !important;
   position: relative !important;
-  margin-bottom: -80px !important; /* Negative margin equals header height */
+  margin-bottom: -80px !important; /* Pulls content up under header */
   z-index: 10;
 }
 
-/* Add padding to your main content to prevent overlap */
-#MainContent {
-  padding-top: 80px !important; /* Match your header height */
+/* Force header background to stay transparent at all times */
+.header-wrapper,
+.header-wrapper.scrolled,
+.header-wrapper:not(.scrolled),
+.site-header,
+.header {
+  background-color: transparent !important;
+  background: transparent !important;
 }
 
-/* White text */
+/* Prevent theme from adding background on scroll */
+body:not(.scrolled-pinned) .header-wrapper,
+.header-wrapper[data-header="transparent"] {
+  background: transparent !important;
+}
+
+/* Keep text white for visibility */
 .header-wrapper .header__heading-link,
 .header-wrapper .header__menu-item,
-.header-wrapper .header__icon {
+.header-wrapper .header__icon,
+.header-wrapper a,
+.header-wrapper span {
   color: #ffffff !important;
+}
+
+/* Add padding to main content so it doesn't hide under header */
+#MainContent,
+main {
+  padding-top: 80px !important;
 }
