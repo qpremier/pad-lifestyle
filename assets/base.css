@@ -3592,12 +3592,11 @@ details-disclosure > details {
 }
 
 /* Qasim is attempting to make it transparent */
-/* Make the header wrapper transparent and position it over the banner */
+/* Make the header wrapper transparent - NOT sticky */
 .header-wrapper {
   background: transparent !important;
-  position: absolute !important;
-  top: 0;
-  left: 0;
+  /* Remove position: absolute to prevent sticky behavior */
+  position: relative !important;
   width: 100%;
   z-index: 10;
 }
