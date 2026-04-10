@@ -17,9 +17,9 @@
           "settings": {
             "image": "shopify://shop_images/image1.webp",
             "image_overlay_opacity": 0,
-            "heading": "<strong>THE</strong>",
+            "heading": "<strong>ECLECTIC EDIT</strong>",
             "heading_size": "h2",
-            "subheading": "<strong>ECLECTIC EDIT</strong>",
+            "subheading": "<strong>THE</strong>",
             "button_label": "SHOP NOW",
             "link": "",
             "button_style_secondary": true,
@@ -35,9 +35,9 @@
           "settings": {
             "image": "shopify://shop_images/image2.webp",
             "image_overlay_opacity": 0,
-            "heading": "<strong>THE</strong>",
+            "heading": "<strong>PALERMO COLLECTION</strong>",
             "heading_size": "h2",
-            "subheading": "<strong>PALERMO COLLECTION</strong>",
+            "subheading": "<strong>THE</strong>",
             "button_label": "SHOP NOW",
             "link": "",
             "button_style_secondary": true,
