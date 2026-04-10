@@ -3592,13 +3592,20 @@ details-disclosure > details {
 }
 
 /* Qasim is attempting to make it transparent */
-/* Alternative: Keep header transparent but scrolls normally */
+/* Make the header wrapper transparent and position it over the banner */
 .header-wrapper {
   background: transparent !important;
-  position: relative !important;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
 }
 
-/* If banner is hidden behind header, add top padding to main content */
-.main-content {
-  padding-top: 80px; /* Adjust based on your header height */
+/* Optional: Change the header text and icon color to white */
+/* This makes the menu visible on dark or busy background images */
+.header-wrapper:not(.scrolled) .header__heading-link,
+.header-wrapper:not(.scrolled) .header__menu-item,
+.header-wrapper:not(.scrolled) .header__icon {
+  color: #ffffff !important;
 }
