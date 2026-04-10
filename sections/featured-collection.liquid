@@ -64,8 +64,16 @@
   endif
 -%}
 
+<style>
+  .bg-white {
+    background-color: rgb(255, 255, 255);
+    color: rgb(28, 28, 28);
+    border-color: rgb(221, 221, 221);
+  }
+</style>
+
 <div
-  class="color-{{ section.settings.color_scheme }} isolate gradient"
+  class="bg-white color-{{ section.settings.color_scheme }} isolate gradient"
 >
   <div
     class="collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}"
