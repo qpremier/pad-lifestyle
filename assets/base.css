@@ -3592,7 +3592,7 @@ details-disclosure > details {
 }
 
 /* Qasim is attempting to make it transparent */
-/* Make the header wrapper transparent and position it over the banner */
+/* Make header transparent and overlay banner WITHOUT being sticky */
 .header-wrapper {
   background: transparent !important;
   position: absolute !important;
@@ -3600,12 +3600,25 @@ details-disclosure > details {
   left: 0;
   width: 100%;
   z-index: 10;
+  transition: none !important; /* Remove any sticky transition effects */
 }
 
-/* Optional: Change the header text and icon color to white */
-/* This makes the menu visible on dark or busy background images */
-.header-wrapper:not(.scrolled) .header__heading-link,
-.header-wrapper:not(.scrolled) .header__menu-item,
-.header-wrapper:not(.scrolled) .header__icon {
+/* Prevent any sticky class from adding background or position changes */
+.header-wrapper.scrolled {
+  background: transparent !important;
+  position: absolute !important;
+  top: 0 !important;
+  position: sticky !important; /* Override this immediately below */
+}
+
+/* Force remove sticky positioning if theme adds it */
+.header-wrapper {
+  position: absolute !important;
+}
+
+/* White text for visibility on dark backgrounds */
+.header-wrapper .header__heading-link,
+.header-wrapper .header__menu-item,
+.header-wrapper .header__icon {
   color: #ffffff !important;
 }
