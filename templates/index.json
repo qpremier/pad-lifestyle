@@ -71,9 +71,9 @@
           "settings": {
             "image": "shopify://shop_images/image3.webp",
             "image_overlay_opacity": 0,
-            "heading": "<strong>Creative Fusion</strong>",
-            "heading_size": "h2",
-            "subheading": "<strong>Defined by Difference</strong>",
+            "heading": "<strong>Defined by Difference</strong>",
+            "heading_size": "h0",
+            "subheading": "<strong>Creative Fusion</strong>",
             "button_label": "SHOP NOW",
             "link": "",
             "button_style_secondary": true,
