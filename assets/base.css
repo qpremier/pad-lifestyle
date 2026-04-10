@@ -3592,31 +3592,20 @@ details-disclosure > details {
 }
 
 /* Qasim is attempting to make it transparent */
-/* Make header transparent and overlay banner WITHOUT being sticky */
+/* This makes header transparent but scrolls WITH the page */
 .header-wrapper {
   background: transparent !important;
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  width: 100%;
+  position: relative !important;
+  margin-bottom: -80px !important; /* Negative margin equals header height */
   z-index: 10;
-  transition: none !important; /* Remove any sticky transition effects */
 }
 
-/* Prevent any sticky class from adding background or position changes */
-.header-wrapper.scrolled {
-  background: transparent !important;
-  position: absolute !important;
-  top: 0 !important;
-  position: sticky !important; /* Override this immediately below */
+/* Add padding to your main content to prevent overlap */
+#MainContent {
+  padding-top: 80px !important; /* Match your header height */
 }
 
-/* Force remove sticky positioning if theme adds it */
-.header-wrapper {
-  position: absolute !important;
-}
-
-/* White text for visibility on dark backgrounds */
+/* White text */
 .header-wrapper .header__heading-link,
 .header-wrapper .header__menu-item,
 .header-wrapper .header__icon {
