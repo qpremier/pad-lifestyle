@@ -83,31 +83,13 @@
             "text_alignment_mobile": "center",
             "color_scheme": "scheme-1"
           }
-        },
-        "slide_mVQ6Y9": {
-          "type": "slide",
-          "settings": {
-            "image_overlay_opacity": 0,
-            "heading": "<strong>ECLECTIC EDIT</strong>",
-            "heading_size": "h0",
-            "subheading": "<strong>THE</strong>",
-            "button_label": "SHOP NOW",
-            "link": "",
-            "button_style_secondary": true,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-1"
-          }
         }
       },
       "block_order": [
         "slide_mVQ6Y7",
         "slide_UKJJdi",
         "slide_mGp7tW",
-        "slide_A6egxe",
-        "slide_mVQ6Y9"
+        "slide_A6egxe"
       ],
       "settings": {
         "layout": "full_bleed",
