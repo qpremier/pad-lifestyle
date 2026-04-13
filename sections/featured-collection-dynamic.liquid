@@ -82,12 +82,12 @@
     .justify-items-center {
         justify-items: center;
     }
-    .product-list{
+    .product-list {
         display: grid;
-        row-gap: clamp(5rem / 4, 4rem * 1, 5rem * 2);
-        column-gap: clamp(3rem / 4, 3rem * 1, 3rem * 2);
         align-items: start;
-        grid: calc(100% / min(6, 6) - clamp(3rem / 4, 3rem * 1, 3rem * 2) * (min(6, 6) - 1) / min(6, 6));
+        row-gap: clamp(2rem, 3vw, 3rem);
+        column-gap: clamp(1rem, 2vw, 3rem);
+        grid-template-columns: repeat(6, minmax(0, 1fr));
     }
     </style>
 
