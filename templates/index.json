@@ -136,26 +136,26 @@
         "heading_K7eChY": {
           "type": "heading",
           "settings": {
-            "heading": "Image banner",
-            "heading_size": "h1"
+            "heading": "PAD LIFESTYLE",
+            "heading_size": "h0"
           }
         },
         "text_FGwktN": {
           "type": "text",
           "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
+            "text": "From our curated beginnings to a reimagined future.",
             "text_style": "body"
           }
         },
         "buttons_nE8Wib": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Button label",
+            "button_label_1": "THE NEW CHAPTER",
             "button_link_1": "",
-            "button_style_secondary_1": false,
-            "button_label_2": "Button label",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
             "button_link_2": "",
-            "button_style_secondary_2": false
+            "button_style_secondary_2": true
           }
         }
       },
