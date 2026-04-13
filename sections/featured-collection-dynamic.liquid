@@ -34,7 +34,7 @@
           </h2>
         </div>
 
-        <!-- Product Carousel -->
+        <!-- Product Grid -->
         <featured-collections-carousel id="featured-collections-carousel-{{ section.id }}">
 
           <product-list class="product-list justify-center">
@@ -51,8 +51,8 @@
                         alt="{{ product.title }}"
                         class="product-card__image"
                         loading="lazy"
-                        height="400"
                         width="400"
+                        height="400"
                       >
                     {% else %}
                       {{ 'product-1' | placeholder_svg_tag }}
@@ -127,10 +127,10 @@
       "type": "range",
       "id": "limit",
       "label": "Products to show",
-      "min": 2,
-      "max": 12,
-      "step": 1,
-      "default": 6
+      "min": 6,
+      "max": 24,
+      "step": 6,
+      "default": 12
     }
   ],
   "presets": [
