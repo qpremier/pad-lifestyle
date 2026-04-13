@@ -1,46 +1,4 @@
-{% schema %}
-{
-  "name": "Custom Collection Grid",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "SHOP BY ROOM"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "collection_card",
-      "name": "Collection Card",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "ROOM NAME"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link"
-        }
-      ]
-    }
-  ],
-  "max_blocks": 8,
-  "presets": [
-    {
-      "name": "Custom Collection Grid"
-    }
-  ]
-}
-{% endschema %}
+
 
 <style>
   .custom-collection-section {
@@ -121,3 +79,47 @@
     {% endfor %}
   </div>
 </div>
+
+{% schema %}
+{
+  "name": "Custom Collection Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "SHOP BY ROOM"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "ROOM NAME"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Custom Collection Grid"
+    }
+  ]
+}
+{% endschema %}
