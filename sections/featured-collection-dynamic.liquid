@@ -5,59 +5,84 @@
 <section id="shopify-section-{{ section.id }}" class="shopify-section shopify-section--featured-collections">
 
   <style>
+    /* ================================
+        BASE GRID SETTINGS (MOBILE FIRST)
+    ================================= */
     #shopify-section-{{ section.id }} {
-      --product-list-items-per-row: 2;
-      --product-list-horizontal-spacing-factor: 1;
-      --product-list-vertical-spacing-factor: 1;
+        --product-list-items-per-row: 2;
+        --product-list-horizontal-spacing-factor: 1;
+        --product-list-vertical-spacing-factor: 1;
     }
 
+    /* ================================
+        TABLET (≥700px) → 3 ITEMS
+    ================================= */
     @media screen and (min-width: 700px) {
-      #shopify-section-{{ section.id }} {
+        #shopify-section-{{ section.id }} {
+        --product-list-items-per-row: 3;
+        }
+    }
+
+    /* ================================
+        SMALL DESKTOP (≥1000px) → 4 ITEMS
+    ================================= */
+    @media screen and (min-width: 1000px) {
+        #shopify-section-{{ section.id }} {
+        --product-list-items-per-row: 4;
+        }
+    }
+
+    /* ================================
+        LARGE DESKTOP (≥1150px) → 6 ITEMS
+    ================================= */
+    @media screen and (min-width: 1150px) {
+        #shopify-section-{{ section.id }} {
         --product-list-items-per-row: 6;
-      }
-    }
-    .gap-1 {
-        gap: .25rem;
-    }
-    .justify-items-center {
-        justify-items: safe center;
+        }
     }
 
-    .v-stack {
-        grid-template-columns: minmax(0, 1fr);
-        align-content: start;
-        display: grid;
-    }
-    .gap-2 {
-        gap: .5rem;
-    }
-
-    .justify-items-center {
-        justify-items: safe center;
-    }
-    .product-card__info {
-        text-align: center;
-        align-content: start;
-        justify-items: center;
-        gap: .75rem;
-        display: grid;
-    }
+    /* ================================
+        OPTIONAL: PRODUCT CARD CLEANUP
+    ================================= */
     .product-card__figure {
         position: relative;
     }
+
+    .product-card__media {
+        display: block;
+        isolation: isolate;
+    }
+
     .product-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.25rem;
+        position: relative;
+        align-content: start;
         scroll-snap-align: start;
+    }
+
+    .product-card__info {
+        display: grid;
+        gap: 0.75rem;
+        text-align: center;
+        justify-items: center;
+        align-content: start;
+    }
+
+    .v-stack {
+        display: grid;
         grid-template-columns: minmax(0, 1fr);
         align-content: start;
-        gap: 1.25rem;
-        display: grid;
-        position: relative;
     }
-    .product-card__media {
-        isolation: isolate;
-        display: block;
+
+    .gap-1 { gap: 0.25rem; }
+    .gap-2 { gap: 0.5rem; }
+
+    .justify-items-center {
+        justify-items: center;
     }
-  </style>
+    </style>
 
   <div class="section-spacing color-scheme color-scheme--scheme-2">
     <div class="container">
