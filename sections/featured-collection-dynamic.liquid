@@ -1,0 +1,142 @@
+{% assign collection = section.settings.collection %}
+
+{% if collection != blank %}
+
+<section id="shopify-section-{{ section.id }}" class="shopify-section shopify-section--featured-collections">
+
+  <style>
+    #shopify-section-{{ section.id }} {
+      --product-list-items-per-row: 2;
+      --product-list-horizontal-spacing-factor: 1;
+      --product-list-vertical-spacing-factor: 1;
+    }
+
+    @media screen and (min-width: 700px) {
+      #shopify-section-{{ section.id }} {
+        --product-list-items-per-row: 6;
+      }
+    }
+  </style>
+
+  <div class="section-spacing color-scheme color-scheme--scheme-2">
+    <div class="container">
+
+      <div class="section-stack">
+
+        <!-- Heading -->
+        <div class="v-stack justify-self-center gap-4 text-center sm:gap-5">
+          <p class="h6 text-center">
+            {{ section.settings.subheading }}
+          </p>
+
+          <h2 class="h2">
+            {{ collection.title }}
+          </h2>
+        </div>
+
+        <!-- Product Carousel -->
+        <featured-collections-carousel id="featured-collections-carousel-{{ section.id }}">
+
+          <product-list class="product-list justify-center">
+
+            {% for product in collection.products limit: section.settings.limit %}
+              <product-card class="product-card">
+
+                <div class="product-card__figure">
+                  <a href="{{ product.url }}" class="product-card__media">
+
+                    {% if product.featured_image %}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 600 }}"
+                        alt="{{ product.title }}"
+                        class="product-card__image"
+                        loading="lazy"
+                        height="400"
+                        width="400"
+                      >
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    {% endif %}
+
+                  </a>
+                </div>
+
+                <div class="product-card__info empty:hidden">
+
+                  <div class="v-stack justify-items-center gap-1">
+
+                    <a href="{{ product.url }}" class="product-title h6">
+                      {{ product.title }}
+                    </a>
+
+                    <price-list class="price-list">
+                      <sale-price class="h6 text-subdued">
+                        {{ product.price | money }}
+                      </sale-price>
+                    </price-list>
+
+                  </div>
+
+                </div>
+
+              </product-card>
+            {% endfor %}
+
+          </product-list>
+
+          <!-- View All Button -->
+          <div class="justify-self-center">
+            <a class="button" href="{{ collection.url }}">
+              {{ section.settings.button_text }}
+            </a>
+          </div>
+
+        </featured-collections-carousel>
+
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Featured Collection (QG)",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select collection"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Featured collection"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View all"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Products to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection (Dynamic)"
+    }
+  ]
+}
+{% endschema %}
