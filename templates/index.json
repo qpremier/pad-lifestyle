@@ -230,12 +230,23 @@
       "settings": {
         "heading": "SHOP BY ROOM"
       }
+    },
+    "featured_collection_dynamic_EhEEPB": {
+      "type": "featured-collection-dynamic",
+      "name": "Featured Collection (Dynamic)",
+      "settings": {
+        "collection": "frontpage",
+        "subheading": "Featured collection",
+        "button_text": "View all",
+        "limit": 6
+      }
     }
   },
   "order": [
     "slideshow",
     "featured_collection",
     "image_banner_wVFQKW",
-    "custom_collection_grid_homepage_zyx4r9"
+    "custom_collection_grid_homepage_zyx4r9",
+    "featured_collection_dynamic_EhEEPB"
   ]
 }
