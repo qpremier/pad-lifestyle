@@ -28,6 +28,31 @@
         align-content: start;
         display: grid;
     }
+    .gap-2 {
+        gap: .5rem;
+    }
+
+    .justify-items-center {
+        justify-items: safe center;
+    }
+    .product-card__info {
+        text-align: center;
+        align-content: start;
+        justify-items: center;
+        gap: .75rem;
+        display: grid;
+    }
+    .product-card__figure {
+        position: relative;
+    }
+    .product-card {
+        scroll-snap-align: start;
+        grid-template-columns: minmax(0, 1fr);
+        align-content: start;
+        gap: 1.25rem;
+        display: grid;
+        position: relative;
+    }
   </style>
 
   <div class="section-spacing color-scheme color-scheme--scheme-2">
