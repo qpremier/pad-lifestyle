@@ -111,7 +111,7 @@
     {% for block in section.blocks %}
       <a href="{{ block.settings.link }}" class="collection-card">
         {% if block.settings.image %}
-          <img src="{{ block.settings.image | image_url: width: 1200 }}" alt="{{ block.settings.title }}">
+          <img width="2752" height="1536" loading="lazy" sizes="(max-width: 699px) 100vw, (max-width: 1149px) 50vw, 25vw" src="{{ block.settings.image | image_url: width: 1200 }}" alt="{{ block.settings.title }}">
         {% endif %}
 
         <div class="collection-card-content">
