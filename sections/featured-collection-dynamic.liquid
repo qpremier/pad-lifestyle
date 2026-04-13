@@ -101,8 +101,6 @@
         </div>
 
         <!-- Product Grid -->
-        <featured-collections-carousel id="featured-collections-carousel-{{ section.id }}">
-
           <product-list class="product-list justify-center">
 
             {% for product in collection.products limit: section.settings.limit %}
@@ -156,8 +154,6 @@
               {{ section.settings.button_text }}
             </a>
           </div>
-
-        </featured-collections-carousel>
 
       </div>
 
