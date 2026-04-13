@@ -1,5 +1,52 @@
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
 
+<style>
+  .custom-banner-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.prose {
+  max-width: 600px;
+}
+
+.custom-subtitle {
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.custom-title {
+  font-size: 42px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.custom-description p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.custom-button {
+  display: inline-block;
+  border: 1px solid black;
+  padding: 10px 25px;
+  text-decoration: none;
+  color: black;
+  transition: 0.3s;
+}
+
+.custom-button:hover {
+  background: black;
+  color: white;
+}
+
+</style>
+
 {%- if section.settings.image_height == 'adapt' and section.settings.image != blank -%}
   {%- style -%}
     @media screen and (max-width: 749px) {
@@ -117,7 +164,7 @@
   {%- endif -%}
   <div class="banner__content banner__content--{{ section.settings.desktop_content_position }} page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
-      {%- for block in section.blocks -%}
+      {% comment %} {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'heading' -%}
             <h2
@@ -161,7 +208,24 @@
               {%- endif -%}
             </div>
         {%- endcase -%}
-      {%- endfor -%}
+      {%- endfor -%} {% endcomment %}
+       <div class="banner__content banner__content--{{ section.settings.desktop_content_position }} page-width">
+        <div class="custom-banner-content">
+          <div class="prose">
+            <p class="custom-subtitle">evolution of</p>
+            <p class="custom-title">pad lifestyle</p>
+            <div class="custom-description">
+              <p>
+                From our curated beginnings to a reimagined future. <br>
+                Explore our journey and the vision behind our new era of furniture and home accessories.
+              </p>
+            </div>
+            <a class="custom-button" href="/">
+              The New Chapter
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
