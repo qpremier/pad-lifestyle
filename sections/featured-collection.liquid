@@ -71,10 +71,15 @@
     border-color: rgb(221, 221, 221);
   }
   .hhead{
-      font-size: calc(0.75rem * 3);
-      line-height: 1.7;
-      color: black;
-      text-align: center;
+    font-size: calc(0.75rem * 3);
+    line-height: 1.7;
+    color: black;
+    text-align: center;
+  }
+  .col-desc-q{
+    line-height: 1.7;
+    color: black;
+    text-align: center;
   }
 </style>
 
@@ -96,7 +101,7 @@
         or section.settings.show_description
         and section.settings.collection.description != empty
       -%}
-        <div class="collection__description {{ section.settings.description_style }} rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        <div class="col-desc-q collection__description {{ section.settings.description_style }} rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           {%- if section.settings.show_description -%}
             {{ section.settings.collection.description }}
           {%- else -%}
