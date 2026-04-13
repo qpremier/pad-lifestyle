@@ -176,7 +176,12 @@
         "color_scheme": "",
         "stack_images_on_mobile": true,
         "mobile_content_alignment": "center",
-        "show_text_below": true
+        "show_text_below": true,
+        "subtitle": "evolution of",
+        "title": "PAD LIFESTYLE",
+        "description": "<p>From our curated beginnings to a reimagined future. </p><p>Explore our journey and vision.</p>",
+        "button_label": "The New Chapter",
+        "button_link": ""
       }
     }
   },
