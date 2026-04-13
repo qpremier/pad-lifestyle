@@ -82,6 +82,13 @@
     .justify-items-center {
         justify-items: center;
     }
+    .product-list{
+        display: grid;
+        row-gap: clamp(5rem / 4, 4rem * 1, 5rem * 2);
+        column-gap: clamp(3rem / 4, 3rem * 1, 3rem * 2);
+        align-items: start;
+        grid: calc(100% / min(6, 6) - clamp(3rem / 4, 3rem * 1, 3rem * 2) * (min(6, 6) - 1) / min(6, 6));
+    }
     </style>
 
   <div class="section-spacing color-scheme color-scheme--scheme-2">
