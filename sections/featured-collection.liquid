@@ -105,6 +105,12 @@
     letter-spacing: 2px;
     font-weight: lighter;
   }
+  @media screen and (min-width: 990px) {
+    .grid--4-col-desktop .grid-homepage-q {
+        width: calc(20% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+        max-width: calc(20% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+    }
+}
 </style>
 
 <div
