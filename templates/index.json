@@ -442,6 +442,13 @@
             "heading_size": "h1"
           }
         },
+        "extra_heading_WBweTg": {
+          "type": "extra_heading",
+          "settings": {
+            "extra_heading": "FOR 10% OFF",
+            "extra_heading_size": "hxl"
+          }
+        },
         "paragraph_QdT9EK": {
           "type": "paragraph",
           "settings": {
@@ -455,6 +462,7 @@
       },
       "block_order": [
         "heading_bntA6c",
+        "extra_heading_WBweTg",
         "paragraph_QdT9EK",
         "email_form_CQLNXK"
       ],
@@ -462,6 +470,13 @@
       "settings": {
         "color_scheme": "",
         "full_width": true,
+        "background_type": "none",
+        "background_color": "#64642a",
+        "background_gradient": "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+        "background_image_size": "cover",
+        "background_image_position": "center center",
+        "background_image_repeat": "no-repeat",
+        "background_image_attachment": "scroll",
         "padding_top": 72,
         "padding_bottom": 72
       }
