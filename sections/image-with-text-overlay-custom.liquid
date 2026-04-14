@@ -1,0 +1,187 @@
+{% schema %}
+{
+  "name": "Image with text overlay",
+  "class": "shopify-section--image-with-text-overlay",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content position",
+      "options": [
+        {
+          "value": "place-self-start-start text-start",
+          "label": "Top left"
+        },
+        {
+          "value": "place-self-start-center text-center",
+          "label": "Top center"
+        },
+        {
+          "value": "place-self-start-end text-end",
+          "label": "Top right"
+        },
+        {
+          "value": "place-self-center-start text-start",
+          "label": "Center left"
+        },
+        {
+          "value": "place-self-center-center text-center",
+          "label": "Center"
+        },
+        {
+          "value": "place-self-center-end text-end",
+          "label": "Center right"
+        },
+        {
+          "value": "place-self-end-start text-start",
+          "label": "Bottom left"
+        },
+        {
+          "value": "place-self-end-center text-center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "place-self-end-end text-end",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "place-self-center-start text-start"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Golden Hour"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>From morning light to evening cocktails.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "SHOP THE GOLD EDIT"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text overlay"
+    }
+  ]
+}
+{% endschema %}
+
+<section
+  id="shopify-section-{{ section.id }}"
+  class="shopify-section shopify-section--image-with-text-overlay"
+>
+  <div class="color-scheme color-scheme--{{ section.settings.color_scheme }} color-scheme--with-image-overlay">
+    <image-with-text-overlay
+      class="content-over-media content-over-media--md"
+      reveal-on-scroll="true"
+    >
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 2752
+          | image_tag:
+            loading: 'lazy',
+            sizes: '100vw',
+            widths: '600,900,1200,1800,2400,2752',
+            class: 'content-over-media__media'
+        }}
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder content-over-media__media' }}
+      {%- endif -%}
+
+      <div class="content-over-media__content content {{ section.settings.content_position }}" style="color: #ffffff;">
+        <div class="prose" style="color: #ffffff;">
+          {%- if section.settings.heading != blank -%}
+            <p class="h4" style="color: #ffffff;">{{ section.settings.heading }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.text != blank -%}
+            <div style="color: #ffffff;">{{ section.settings.text }}</div>
+          {%- endif -%}
+
+          {%- if section.settings.button_text != blank -%}
+            <a
+              href="{{ section.settings.button_link | default: '#' }}"
+              class="button button--outline"
+              style="--button-text-color: 255 255 255; --button-background: transparent; --button-border-color: 255 255 255; color: #ffffff; border-color: #ffffff;"
+            >
+              {{- section.settings.button_text -}}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </image-with-text-overlay>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .content-over-media {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    min-height: 450px;
+  }
+  
+  #shopify-section-{{ section.id }} .content-over-media__media {
+    grid-area: 1 / 1 / -1 / -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  #shopify-section-{{ section.id }} .content-over-media__content {
+    grid-area: 1 / 1 / -1 / -1;
+    z-index: 2;
+    padding: 2rem;
+  }
+  
+  #shopify-section-{{ section.id }} .prose {
+    color: #ffffff !important;
+  }
+  
+  #shopify-section-{{ section.id }} .prose p,
+  #shopify-section-{{ section.id }} .prose .h4 {
+    color: #ffffff !important;
+  }
+  
+  #shopify-section-{{ section.id }} .button--outline {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+    background: transparent !important;
+  }
+  
+  #shopify-section-{{ section.id }} .button--outline:hover {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  @media screen and (max-width: 699px) {
+    #shopify-section-{{ section.id }} .content-over-media {
+      min-height: 350px;
+    }
+  }
+</style>
