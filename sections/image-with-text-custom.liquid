@@ -133,41 +133,43 @@
     <image-with-text class="image-with-text-custom">
       {%- if section.settings.layout == 'text_first' -%}
         <div class="image-with-text-custom__content prose text-center sm:text-start">
-          {%- for block in section.blocks -%}
-            {% case block.type %}
-              {%- when 'subheading' -%}
-                {% if block.settings.subheading != blank %}
-                  <p class="image-with-text-custom__subheading h6" {{ block.shopify_attributes }}>
-                    {{ block.settings.subheading }}
-                  </p>
-                {% endif %}
-              {%- when 'heading' -%}
-                {% if block.settings.heading != blank %}
-                  <h2 class="image-with-text-custom__heading h1" {{ block.shopify_attributes }}>
-                    {{ block.settings.heading }}
-                  </h2>
-                {% endif %}
-              {%- when 'text' -%}
-                {% if block.settings.text != blank %}
-                  <div class="image-with-text-custom__text" {{ block.shopify_attributes }}>
-                    {{ block.settings.text }}
-                  </div>
-                {% endif %}
-              {%- when 'button' -%}
-                {% if block.settings.button_label != blank %}
-                  <button 
-                    type="button" 
-                    class="image-with-text-custom__button button"
-                    {{ block.shopify_attributes }}
-                    {% if block.settings.button_link != blank %}
-                      onclick="window.location.href='{{ block.settings.button_link }}'"
+            <div class="image-with-text-custom__content-inner" style="max-width: {{ section.settings.content_max_width }}px; margin: 0 auto;">
+            {%- for block in section.blocks -%}
+                {% case block.type %}
+                {%- when 'subheading' -%}
+                    {% if block.settings.subheading != blank %}
+                    <p class="image-with-text-custom__subheading h6" {{ block.shopify_attributes }}>
+                        {{ block.settings.subheading }}
+                    </p>
                     {% endif %}
-                  >
-                    {{ block.settings.button_label | escape }}
-                  </button>
-                {% endif %}
-            {%- endcase -%}
-          {%- endfor -%}
+                {%- when 'heading' -%}
+                    {% if block.settings.heading != blank %}
+                    <h2 class="image-with-text-custom__heading h1" {{ block.shopify_attributes }}>
+                        {{ block.settings.heading }}
+                    </h2>
+                    {% endif %}
+                {%- when 'text' -%}
+                    {% if block.settings.text != blank %}
+                    <div class="image-with-text-custom__text" {{ block.shopify_attributes }}>
+                        {{ block.settings.text }}
+                    </div>
+                    {% endif %}
+                {%- when 'button' -%}
+                    {% if block.settings.button_label != blank %}
+                    <button 
+                        type="button" 
+                        class="image-with-text-custom__button button"
+                        {{ block.shopify_attributes }}
+                        {% if block.settings.button_link != blank %}
+                        onclick="window.location.href='{{ block.settings.button_link }}'"
+                        {% endif %}
+                    >
+                        {{ block.settings.button_label | escape }}
+                    </button>
+                    {% endif %}
+                {%- endcase -%}
+            {%- endfor -%}
+          </div>
         </div>
         <div class="image-with-text-custom__media">
           {%- if section.settings.image != blank -%}
