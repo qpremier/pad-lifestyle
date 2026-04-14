@@ -431,6 +431,40 @@
         "button_link": "shopify://collections",
         "color_scheme": ""
       }
+    },
+    "newsletter_CiNT8h": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_bntA6c": {
+          "type": "heading",
+          "settings": {
+            "heading": "SUBSCRIBE",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph_QdT9EK": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Subscribe for exclusive updates and a <strong>10%</strong> welcome gift toward your first order.</p>"
+          }
+        },
+        "email_form_CQLNXK": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_bntA6c",
+        "paragraph_QdT9EK",
+        "email_form_CQLNXK"
+      ],
+      "name": "t:sections.newsletter.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
     }
   },
   "order": [
@@ -445,6 +479,7 @@
     "dynamic_video_3E4gj4",
     "featured_collection_dynamic_yAdK33",
     "shop_the_look_PW4Afi",
-    "image_with_text_overlay_custom_8mKAH9"
+    "image_with_text_overlay_custom_8mKAH9",
+    "newsletter_CiNT8h"
   ]
 }
