@@ -90,7 +90,7 @@
 }
 {% endschema %}
 
-{{ 'tailwind-q.css' | asset_url | stylesheet_tag }}
+{% comment %} {{ 'tailwind-q.css' | asset_url | stylesheet_tag }} {% endcomment %}
 
 <section
   id="shopify-section-{{ section.id }}"
