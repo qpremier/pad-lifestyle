@@ -25,10 +25,10 @@
     background: rgb(232 220 209);
   }
 
-    .image-with-text-custom__content p,
-    .image-with-text-custom__content h2 {
-        color: #1C1C1C;
-    }
+  .image-with-text-custom__content p,
+  .image-with-text-custom__content h2 {
+    color: #1C1C1C;
+  }
 
   .image-with-text-custom__media {
     flex: 1;
@@ -39,8 +39,8 @@
     width: 100%;
     height: auto;
     object-fit: cover;
-    display: block;  /* Add this */
-    vertical-align: bottom;  /* Add this */
+    display: block;
+    vertical-align: bottom;
   }
 
   .image-with-text-custom__content {
@@ -48,6 +48,48 @@
     width: 50%;
     margin: 0 auto;
     text-align: {{ section.settings.desktop_content_alignment }};
+  }
+
+  /* Inner content wrapper - this gets the max-width constraint */
+  .image-with-text-custom__content-inner {
+    max-width: {{ section.settings.content_max_width }}px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Adjust inner wrapper alignment based on text alignment */
+  .image-with-text-custom__content.text-left .image-with-text-custom__content-inner {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .image-with-text-custom__content.text-right .image-with-text-custom__content-inner {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .image-with-text-custom__content.text-center .image-with-text-custom__content-inner {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* For the second content block without inner wrapper (add this to maintain consistency) */
+  .image-with-text-custom__content:not(:has(.image-with-text-custom__content-inner)) > * {
+    max-width: {{ section.settings.content_max_width }}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Override for the second layout where inner wrapper is missing */
+  .image-with-text-custom__content.text-left:not(:has(.image-with-text-custom__content-inner)) > * {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .image-with-text-custom__content.text-right:not(:has(.image-with-text-custom__content-inner)) > * {
+    margin-left: auto;
+    margin-right: 0;
   }
 
   @media screen and (max-width: 749px) {
@@ -63,12 +105,16 @@
 
     .image-with-text-custom__content {
       text-align: {{ section.settings.mobile_content_alignment }};
+    }
+    
+    /* Reset margins on mobile for better responsiveness */
+    .image-with-text-custom__content-inner,
+    .image-with-text-custom__content:not(:has(.image-with-text-custom__content-inner)) > * {
+      margin-left: auto;
+      margin-right: auto;
       max-width: 100%;
     }
   }
-  /*************/
-
-  /*************/
 
   /* Typography styles */
   .image-with-text-custom__heading {
@@ -123,7 +169,7 @@
     border-color: {{ section.settings.button_hover_border_color }};
   }
 
-  .py-0{
+  .py-0 {
     padding-top: 0;
     padding-bottom: 0;
   }
