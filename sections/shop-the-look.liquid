@@ -1,0 +1,386 @@
+{%- style -%}
+  .shop-the-look {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+  }
+
+  .shop-the-look__image-container {
+    position: relative;
+    width: 100%;
+    border-radius: var(--block-border-radius, 0px);
+    overflow: hidden;
+  }
+
+  .shop-the-look__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Hotspot Styling */
+  .hotspot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: rgb(var(--background));
+    border: 1px solid rgba(var(--text-color), 0.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .hotspot::after {
+    content: '';
+    width: 0.75rem;
+    height: 0.75rem;
+    background: rgb(var(--text-color));
+    border-radius: 50%;
+    display: block;
+  }
+
+  .hotspot:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .hotspot.is-active {
+    background: rgb(var(--text-color));
+  }
+  .hotspot.is-active::after {
+    background: rgb(var(--background));
+  }
+
+  /* Right Side Product Panel */
+  .shop-the-look__products {
+    padding: 1rem 0;
+  }
+
+  .product-card {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .product-card__media {
+    width: 120px;
+    flex-shrink: 0;
+  }
+
+  .product-card__info {
+    flex: 1;
+  }
+
+  .product-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: rgb(var(--text-color));
+  }
+
+  .product-price {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    background: rgb(var(--button-background));
+    color: rgb(var(--button-text));
+    text-decoration: none;
+    border-radius: var(--button-border-radius, 0);
+    font-weight: 500;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .button--outline {
+    background: transparent;
+    border-color: rgb(var(--text-color));
+    color: rgb(var(--text-color));
+  }
+
+  /* Mobile Layout */
+  @media screen and (max-width: 749px) {
+    .shop-the-look {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .shop-the-look__image-container {
+      min-height: 400px;
+    }
+    
+    .product-card {
+      gap: 1rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-spacing color-scheme color-scheme--{{ section.settings.color_scheme.id }}">
+  <div class="container container--xl">
+    <div class="section-stack">
+      
+      {%- if section.settings.title != blank -%}
+        <div class="section-header justify-self-center text-center">
+          <div class="prose">
+            <h2 class="h2">{{ section.settings.title }}</h2>
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="shop-the-look">
+        {# LEFT SIDE: IMAGE WITH HOTSPOTS #}
+        <div class="shop-the-look__image-container">
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 1200 | image_tag:
+              loading: 'lazy',
+              widths: '400, 600, 800, 1000, 1200',
+              class: 'shop-the-look__image'
+            }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'shop-the-look__image placeholder' }}
+          {%- endif -%}
+
+          {# Render Hotspots from Schema Blocks #}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'hotspot' -%}
+              {%- assign product = block.settings.product -%}
+              {%- if product != blank -%}
+                <button 
+                  class="hotspot {% if forloop.first %}is-active{% endif %}"
+                  style="
+                    top: {{ block.settings.top_position }}%;
+                    left: {{ block.settings.left_position }}%;
+                    --background: {{ section.settings.hotspot_background.red }}, {{ section.settings.hotspot_background.green }}, {{ section.settings.hotspot_background.blue }};
+                    --text-color: {{ section.settings.hotspot_text.red }}, {{ section.settings.hotspot_text.green }}, {{ section.settings.hotspot_text.blue }};
+                  "
+                  data-product-index="{{ forloop.index0 }}"
+                  aria-label="View {{ product.title }}"
+                >
+                  <span class="sr-only">View {{ product.title }}</span>
+                </button>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {# RIGHT SIDE: PRODUCT DETAILS #}
+        <div class="shop-the-look__products">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'hotspot' -%}
+              {%- assign product = block.settings.product -%}
+              {%- if product != blank -%}
+                <div 
+                  class="product-panel" 
+                  data-product-index="{{ forloop.index0 }}"
+                  {% unless forloop.first %}style="display: none;"{% endunless %}
+                >
+                  <div class="product-card">
+                    <a href="{{ product.url }}" class="product-card__media">
+                      {{ product.featured_image | image_url: width: 300 | image_tag:
+                        loading: 'lazy',
+                        widths: '150, 300',
+                        class: 'product-card__image'
+                      }}
+                    </a>
+                    
+                    <div class="product-card__info">
+                      <a href="{{ product.url }}" class="product-title h6">
+                        {{ product.title }}
+                      </a>
+                      
+                      <div class="product-price text-subdued">
+                        {{ product.price | money }}
+                        {%- if product.compare_at_price > product.price -%}
+                          <span class="line-through">{{ product.compare_at_price | money }}</span>
+                        {%- endif -%}
+                      </div>
+
+                      <div class="product-actions">
+                        {%- if product.available -%}
+                          {%- form 'product', product, class: 'shopify-product-form' -%}
+                            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="button">
+                              {{- 'products.product.add_to_cart' | t -}}
+                            </button>
+                          {%- endform -%}
+                        {%- else -%}
+                          <span class="badge badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
+                        {%- endif -%}
+                        
+                        <a href="{{ product.url }}" class="button button--outline" style="margin-left: 0.5rem;">
+                          View Details
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          {%- else -%}
+            <p>Add products to the hotspots in the theme editor.</p>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Simple JavaScript to toggle product panels when hotspots are clicked
+    // (This replicates the core functionality without requiring custom elements)
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.querySelector('.shop-the-look');
+      if (!container) return;
+
+      const hotspots = container.querySelectorAll('.hotspot');
+      const panels = container.querySelectorAll('.product-panel');
+
+      function activateIndex(index) {
+        // Update hotspots
+        hotspots.forEach((h, i) => {
+          if (i === index) {
+            h.classList.add('is-active');
+          } else {
+            h.classList.remove('is-active');
+          }
+        });
+
+        // Update product panels
+        panels.forEach((p, i) => {
+          if (i === index) {
+            p.style.display = 'block';
+          } else {
+            p.style.display = 'none';
+          }
+        });
+      }
+
+      hotspots.forEach((hotspot, idx) => {
+        hotspot.addEventListener('click', function() {
+          activateIndex(idx);
+        });
+      });
+
+      // Optional: Add keyboard navigation for accessibility
+      hotspots.forEach((hotspot) => {
+        hotspot.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Shop the Look",
+  "class": "shopify-section--shop-the-look",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Shop the look"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Main Image"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Hotspot Colors"
+    },
+    {
+      "type": "color",
+      "id": "hotspot_background",
+      "label": "Hotspot Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "hotspot_text",
+      "label": "Hotspot Dot Color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Product Hotspot",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        },
+        {
+          "type": "range",
+          "id": "top_position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Vertical Position (Top)",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "left_position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Horizontal Position (Left)",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the Look",
+      "blocks": [
+        {
+          "type": "hotspot",
+          "settings": {
+            "top_position": 30,
+            "left_position": 30
+          }
+        },
+        {
+          "type": "hotspot",
+          "settings": {
+            "top_position": 70,
+            "left_position": 70
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
