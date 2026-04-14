@@ -111,9 +111,13 @@
     color: {{ section.settings.button_hover_text_color }};
     border-color: {{ section.settings.button_hover_border_color }};
   }
+
+  .py-0{
+    padding: 0;
+  }
 {%- endstyle -%}
 
-<div class="section-{{ section.id }}-padding color-scheme color-scheme--{{ section.settings.color_scheme }}">
+<div class="section-{{ section.id }}-padding color-scheme color-scheme--{{ section.settings.color_scheme }} py-0">
     <image-with-text class="image-with-text-custom">
       {%- if section.settings.layout == 'text_first' -%}
         <div class="image-with-text-custom__content prose text-center sm:text-start">
