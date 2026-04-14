@@ -367,14 +367,14 @@
     "shop_the_look_PW4Afi": {
       "type": "shop-the-look",
       "blocks": {
-        "hotspot_yBPWen": {
+        "hotspot_HntrrC": {
           "type": "hotspot",
           "settings": {
-            "product": "150ml-rnd-glass-jar-clip-top-clear-lid",
-            "label": "Featured item",
+            "product": "11-heart-shapes-ice-cube-red-tray",
+            "label": "third label",
             "description": "",
-            "top": 82,
-            "left": 55
+            "top": 66,
+            "left": 66
           }
         },
         "hotspot_7TtXB3": {
@@ -391,7 +391,7 @@
         }
       },
       "block_order": [
-        "hotspot_yBPWen",
+        "hotspot_HntrrC",
         "hotspot_7TtXB3",
         "hotspot_3NAXCj"
       ],
