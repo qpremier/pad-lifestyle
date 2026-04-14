@@ -14,8 +14,8 @@
     }
   }
 
-  /* Dynamic background styles */
-  .newsletter-{{ section.id }} {
+  /* Dynamic background styles - applied to the section itself */
+  #shopify-section-{{ section.id }}.section {
     {% if section.settings.background_type == 'color' %}
       background-color: {{ section.settings.background_color }};
     {% elsif section.settings.background_type == 'gradient' %}
@@ -28,10 +28,42 @@
       background-attachment: {{ section.settings.background_image_attachment }};
     {% endif %}
   }
+
+  /* Make the inner wrapper transparent so the section background shows through */
+  #shopify-section-{{ section.id }} .newsletter__wrapper {
+    background-color: transparent !important;
+    {% if section.settings.background_type == 'image' and section.settings.overlay_opacity > 0 %}
+      position: relative;
+      z-index: 1;
+    {% endif %}
+  }
+
+  /* Add an overlay for better text readability on background images */
+  {% if section.settings.background_type == 'image' and section.settings.overlay_opacity > 0 %}
+    #shopify-section-{{ section.id }}.section {
+      position: relative;
+    }
+    #shopify-section-{{ section.id }}.section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: {{ section.settings.overlay_color }};
+      opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+      pointer-events: none;
+      z-index: 0;
+    }
+    #shopify-section-{{ section.id }} .newsletter__wrapper {
+      position: relative;
+      z-index: 1;
+    }
+  {% endif %}
 {%- endstyle -%}
 
-<div class="newsletter-{{ section.id }} newsletter center {% if section.settings.full_width == false %}newsletter--narrow page-width{% endif %}">
-  <div class="newsletter__wrapper color-{{ section.settings.color_scheme }} gradient content-container isolate{% if section.settings.full_width %} content-container--full-width{% endif %} section-{{ section.id }}-padding">
+<div class="newsletter center {% if section.settings.full_width == false %}newsletter--narrow page-width{% endif %}">
+  <div class="newsletter__wrapper gradient content-container isolate{% if section.settings.full_width %} content-container--full-width{% endif %} section-{{ section.id }}-padding">
     {%- for block in section.blocks -%}
       {%- case block.type -%}
         {%- when '@app' -%}
@@ -148,7 +180,7 @@
 
 {% schema %}
 {
-  "name": "t:sections.newsletter.name",
+  "name": "Newsletter with BG",
   "tag": "section",
   "class": "section",
   "disabled_on": {
@@ -163,7 +195,8 @@
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
+      "default": "scheme-1",
+      "info": "This affects text and button colors. The background will be transparent to show your dynamic background below."
     },
     {
       "type": "checkbox",
@@ -182,7 +215,7 @@
       "options": [
         {
           "value": "none",
-          "label": "None"
+          "label": "None (Transparent)"
         },
         {
           "value": "color",
@@ -203,13 +236,13 @@
       "type": "color",
       "id": "background_color",
       "label": "Background Color",
-      "default": "#FFFFFF"
+      "default": "#F3F4F6"
     },
     {
       "type": "text",
       "id": "background_gradient",
       "label": "Background Gradient",
-      "default": "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+      "default": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       "info": "Example: linear-gradient(45deg, #ff0000, #0000ff)"
     },
     {
@@ -316,10 +349,30 @@
         },
         {
           "value": "fixed",
-          "label": "Fixed"
+          "label": "Fixed (Parallax)"
         }
       ],
       "default": "scroll"
+    },
+    {
+      "type": "header",
+      "content": "Overlay Settings (for background images)"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 0
     },
     {
       "type": "header",
@@ -453,7 +506,7 @@
   ],
   "presets": [
     {
-      "name": "t:sections.newsletter.presets.name",
+      "name": "Newsletter with Dynamic BG",
       "blocks": [
         {
           "type": "heading"
