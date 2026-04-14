@@ -110,12 +110,20 @@
     .gap-1 { gap: 0.25rem; }
     .gap-2 { gap: 0.5rem; }
     .gap-4 { gap: 1rem; }
+    @media screen and (min-width: 700px) {
+        .sm:gap-5 {
+            gap: 1.25rem;
+        }
+    }
 
     .justify-items-center {
         justify-items: center;
     }
     .justify-self-center {
         justify-self: center;
+    }
+    .text-center {
+        text-align: center;
     }
     .product-list {
         display: grid;
