@@ -1,0 +1,208 @@
+{% comment %}
+  Dynamic Media Grid Section
+  Allows you to add image and video blocks dynamically from theme customizer
+{% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --media-grid-row-height: 140px;
+    --media-grid-gap: 0rem;
+    --container-gutter: var(--media-grid-gap);
+    --section-vertical-spacing-override: var(--media-grid-gap);
+  }
+
+  @media screen and (min-width: 700px) {
+    #shopify-section-{{ section.id }} {
+      --media-grid-row-height: 300px;
+    }
+  }
+
+  @media screen and (min-width: 1150px) {
+    #shopify-section-{{ section.id }} {
+      --media-grid-gap: 0rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-spacing color-scheme color-scheme--{{ section.settings.color_scheme }} color-scheme--bg-b1a022fbc02678797cd8c1ed7ebbfaaf">
+  <div class="container">
+    <div class="section-stack">
+      <media-grid class="media-grid">
+        {%- for block in section.blocks -%}
+          <div class="media-grid__item" 
+               style="--media-grid-item-column-span: {{ block.settings.column_span | default: 6 }}; 
+                      --media-grid-item-row-span: {{ block.settings.row_span | default: 2 }}"
+               {{ block.shopify_attributes }}>
+            
+            <div class="content-over-media color-scheme color-scheme--scheme-4 group" 
+                 reveal-on-scroll="true" 
+                 style="--content-over-media-overlay: 0 0 0 / 0.0;">
+              
+              {%- if block.type == 'image' -%}
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | img_url: 'master' }}" 
+                       alt="{{ block.settings.image.alt | default: 'Media image' }}" 
+                       width="{{ block.settings.image.width }}" 
+                       height="{{ block.settings.image.height }}" 
+                       loading="lazy" 
+                       sizes="(max-width: 699px) 100vw, 67vw" 
+                       class="zoom-image group-hover:zoom">
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-image' }}
+                {%- endif -%}
+              
+              {%- elsif block.type == 'video' -%}
+                {%- if block.settings.video_url != blank -%}
+                  <video-media type="video" 
+                               {% if block.settings.autoplay %}autoplay{% endif %} 
+                               style="--aspect-ratio: {{ block.settings.aspect_ratio | default: '0.667' }}; 
+                                      --play-button-background: #ffffff" 
+                               {% if block.settings.autoplay %}playing{% endif %}>
+                    
+                    <video playsinline="true" 
+                           {% if block.settings.autoplay %}muted="muted" loop="loop"{% endif %} 
+                           preload="metadata" 
+                           {% if block.settings.poster_image != blank %}poster="{{ block.settings.poster_image | img_url: '400x' }}"{% endif %}>
+                      <source src="{{ block.settings.video_url }}" type="video/mp4">
+                      {% if block.settings.poster_image != blank %}
+                        <img src="{{ block.settings.poster_image | img_url: '400x' }}" height="30" width="30">
+                      {% endif %}
+                    </video>
+                  </video-media>
+                {%- else -%}
+                  <div class="placeholder-video">Please add a video URL</div>
+                {%- endif -%}
+              {%- endif -%}
+              
+            </div>
+          </div>
+        {%- endfor -%}
+      </media-grid>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Dynamic Media Grid",
+  "tag": "section",
+  "class": "shopify-section--media-grid",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Choose an image to display"
+        },
+        {
+          "type": "range",
+          "id": "column_span",
+          "label": "Column span",
+          "min": 2,
+          "max": 12,
+          "default": 6,
+          "info": "How many columns this block spans (12 column grid)"
+        },
+        {
+          "type": "range",
+          "id": "row_span",
+          "label": "Row span",
+          "min": 1,
+          "max": 4,
+          "default": 2,
+          "info": "How many rows this block spans"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL",
+          "info": "Enter a direct .mp4 video URL (e.g., Shopify hosted video or external)",
+          "placeholder": "https://example.com/video.mp4"
+        },
+        {
+          "type": "image_picker",
+          "id": "poster_image",
+          "label": "Poster image",
+          "info": "Image shown before video plays"
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Autoplay",
+          "default": true,
+          "info": "Video will loop and be muted if autoplay is enabled"
+        },
+        {
+          "type": "text",
+          "id": "aspect_ratio",
+          "label": "Aspect ratio",
+          "default": "0.667",
+          "info": "e.g., 0.667 for portrait, 1.777 for landscape"
+        },
+        {
+          "type": "range",
+          "id": "column_span",
+          "label": "Column span",
+          "min": 2,
+          "max": 12,
+          "default": 4,
+          "info": "How many columns this block spans (12 column grid)"
+        },
+        {
+          "type": "range",
+          "id": "row_span",
+          "label": "Row span",
+          "min": 1,
+          "max": 4,
+          "default": 2,
+          "info": "How many rows this block spans"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic Media Grid",
+      "blocks": [
+        {
+          "type": "image",
+          "settings": {
+            "column_span": 8,
+            "row_span": 2
+          }
+        },
+        {
+          "type": "video",
+          "settings": {
+            "column_span": 4,
+            "row_span": 2
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
