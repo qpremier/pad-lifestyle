@@ -316,19 +316,13 @@
         "image_CVR7W3": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/big_img_homepage.webp",
-            "column_span": 8,
-            "row_span": 2
+            "image": "shopify://shop_images/big_img_homepage.webp"
           }
         },
         "video_y6ccee": {
           "type": "video",
           "settings": {
-            "video_url": "//17t57u6v5imhnx1p-7506435.shopifypreview.com/cdn/shop/videos/c/vp/dc332a3bd906456a9f28c89b2ca3c222/dc332a3bd906456a9f28c89b2ca3c222.HD-1080p-7.2Mbps-80531616.mp4?v=0",
-            "autoplay": true,
-            "aspect_ratio": "0.667",
-            "column_span": 4,
-            "row_span": 2
+            "video_url": "//17t57u6v5imhnx1p-7506435.shopifypreview.com/cdn/shop/videos/c/vp/dc332a3bd906456a9f28c89b2ca3c222/dc332a3bd906456a9f28c89b2ca3c222.HD-1080p-7.2Mbps-80531616.mp4?v=0"
           }
         }
       },
@@ -340,6 +334,16 @@
       "settings": {
         "color_scheme": ""
       }
+    },
+    "featured_collection_dynamic_ndxGim": {
+      "type": "featured-collection-dynamic",
+      "name": "Featured Collection (Dynamic)",
+      "settings": {
+        "collection": "spring",
+        "subheading": "",
+        "button_text": "View all",
+        "limit": 12
+      }
     }
   },
   "order": [
@@ -349,6 +353,7 @@
     "custom_collection_grid_homepage_zyx4r9",
     "featured_collection_dynamic_EhEEPB",
     "image_with_text_custom_qkhDUa",
-    "media_grid_rY7w8g"
+    "media_grid_rY7w8g",
+    "featured_collection_dynamic_ndxGim"
   ]
 }
