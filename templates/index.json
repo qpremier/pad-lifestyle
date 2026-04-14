@@ -353,6 +353,16 @@
         "centered_text": "SUMMER SALE",
         "text_size": "text-large"
       }
+    },
+    "featured_collection_dynamic_yAdK33": {
+      "type": "featured-collection-dynamic",
+      "name": "Featured Collection (Dynamic)",
+      "settings": {
+        "collection": "summer",
+        "subheading": "",
+        "button_text": "View all",
+        "limit": 12
+      }
     }
   },
   "order": [
@@ -364,6 +374,7 @@
     "image_with_text_custom_qkhDUa",
     "media_grid_rY7w8g",
     "featured_collection_dynamic_ndxGim",
-    "dynamic_video_3E4gj4"
+    "dynamic_video_3E4gj4",
+    "featured_collection_dynamic_yAdK33"
   ]
 }
