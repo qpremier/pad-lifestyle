@@ -132,6 +132,15 @@
         column-gap: clamp(1rem, 2vw, 3rem);
         grid-template-columns: repeat(6, minmax(0, 1fr));
     }
+
+    .small-heading-css{
+        color: #1C1C1C;
+        font-size: 18px;
+        letter-spacing: 0.18em;
+        line-height: 1.7;
+        text-transform: uppercase;
+        font-weight: 400;
+    }
     </style>
 
   <div class="section-spacing color-scheme color-scheme--scheme-2">
@@ -141,7 +150,7 @@
 
         <!-- Heading -->
         <div class="v-stack justify-self-center gap-4 text-center sm:gap-5">
-          <p class="h6 text-center">
+          <p class="h6 text-center small-heading-css">
             {{ section.settings.subheading }}
           </p>
 
