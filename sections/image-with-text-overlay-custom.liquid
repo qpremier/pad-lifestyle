@@ -140,14 +140,32 @@
 </section>
 
 <style>
-  #shopify-section-{{ section.id }} .content-over-media {
+    #shopify-section-{{ section.id }} .content-over-media {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 450px;
+      max-height: 576px;
+      background-color: #000;
+    }
+    
+    #shopify-section-{{ section.id }} .content-over-media__media {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+  {% comment %} #shopify-section-{{ section.id }} .content-over-media {
     position: relative;
     display: grid;
     overflow: hidden;
     aspect-ratio: 16 / 9; /* Adjust based on your image's natural ratio */
-    {% comment %} min-height: 450px;
-    max-height: 576px; {% endcomment %}
-  }
+    min-height: 450px;
+    max-height: 576px;
+  } {% endcomment %}
 
   .img-1-qq{
     color: #ffffff !important;
@@ -156,17 +174,13 @@
     text-transform: uppercase;
   }
   
-  #shopify-section-{{ section.id }} .content-over-media__media {
+  {% comment %} #shopify-section-{{ section.id }} .content-over-media__media {
     grid-area: 1 / 1 / -1 / -1;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: bottom left; /* Change to 'top center' to show top of image */
-  }
-  
-  #shopify-section-{{ section.id }} .content-over-media {
-    position: relative;
-  }
+  } {% endcomment %}
   
   #shopify-section-{{ section.id }} .content-over-media__content {
     position: absolute;
