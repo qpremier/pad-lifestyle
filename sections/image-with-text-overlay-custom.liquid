@@ -117,7 +117,7 @@
       <div class="content-over-media__content content" style="color: #ffffff;">
         <div class="prose" style="color: #ffffff;">
           {%- if section.settings.heading != blank -%}
-            <p class="h4" style="color: #ffffff;">{{ section.settings.heading }}</p>
+            <p class="h4 img-1-qq" style="color: #ffffff;">{{ section.settings.heading }}</p>
           {%- endif -%}
 
           {%- if section.settings.text != blank -%}
@@ -145,6 +145,13 @@
     display: grid;
     overflow: hidden;
     min-height: 450px;
+  }
+
+  .img-1-qq{
+    color: #ffffff !important;
+    font-size: 26px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
   }
   
   #shopify-section-{{ section.id }} .content-over-media__media {
