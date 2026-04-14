@@ -344,6 +344,15 @@
         "button_text": "View all",
         "limit": 6
       }
+    },
+    "dynamic_video_3E4gj4": {
+      "type": "dynamic-video",
+      "name": "Dynamic Video with Text",
+      "settings": {
+        "video_url": "//17t57u6v5imhnx1p-7506435.shopifypreview.com/cdn/shop/videos/c/vp/f7abeef7e6cd4fa2aff1094202f225db/f7abeef7e6cd4fa2aff1094202f225db.HD-1080p-7.2Mbps-42583308.mp4?v=0",
+        "centered_text": "SUMMER SALE",
+        "text_size": "text-large"
+      }
     }
   },
   "order": [
@@ -354,6 +363,7 @@
     "featured_collection_dynamic_EhEEPB",
     "image_with_text_custom_qkhDUa",
     "media_grid_rY7w8g",
-    "featured_collection_dynamic_ndxGim"
+    "featured_collection_dynamic_ndxGim",
+    "dynamic_video_3E4gj4"
   ]
 }
