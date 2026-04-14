@@ -244,6 +244,14 @@
     "image_with_text_custom_qkhDUa": {
       "type": "image-with-text-custom",
       "blocks": {
+        "caption_UVymGb": {
+          "type": "caption",
+          "settings": {
+            "caption": "THE",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "large"
+          }
+        },
         "heading_7jpjAH": {
           "type": "heading",
           "settings": {
@@ -268,6 +276,7 @@
         }
       },
       "block_order": [
+        "caption_UVymGb",
         "heading_7jpjAH",
         "text_thnHz3",
         "button_YdXqA6"
