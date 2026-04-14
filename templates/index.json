@@ -470,7 +470,7 @@
       "settings": {
         "color_scheme": "",
         "full_width": true,
-        "background_type": "color",
+        "background_type": "gradient",
         "background_color": "#64642a",
         "background_gradient": "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
         "background_image_size": "cover",
