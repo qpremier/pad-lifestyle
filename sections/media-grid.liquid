@@ -58,6 +58,37 @@
         position: relative;
         overflow: hidden;
     }
+    .content-over-media:before {
+        content: "";
+        background: 0 0 0 / 0.0;
+        border-radius: inherit;
+        z-index: 1;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    @media screen and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+        .features--zoom-image .zoom-image {
+            transform-origin: center;
+            transition: scale 8s cubic-bezier(.25, .46, .45, .94);
+        }
+    }
+    .content-over-media>:is(img,video,iframe,svg,video-media), .content-over-media>picture img, .content-over-media>image-parallax img {
+        overflow-wrap: anywhere;
+        object-fit: cover;
+        object-position: center;
+        border-radius: inherit;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+        grid-area: full-start / full-start / full-end / full-end;
+        min-width: 100%;
+        min-height: 100%;
+        max-height: 100%;
+    }
 {%- endstyle -%}
 
 <div class="section-spacing color-scheme color-scheme--{{ section.settings.color_scheme }} color-scheme--bg-b1a022fbc02678797cd8c1ed7ebbfaaf">
