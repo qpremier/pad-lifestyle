@@ -144,8 +144,9 @@
     position: relative;
     display: grid;
     overflow: hidden;
-    min-height: 450px;
-    max-height: 576px;
+    aspect-ratio: 16 / 9; /* Adjust based on your image's natural ratio */
+    {% comment %} min-height: 450px;
+    max-height: 576px; {% endcomment %}
   }
 
   .img-1-qq{
