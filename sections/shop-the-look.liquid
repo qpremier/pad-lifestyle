@@ -7,7 +7,7 @@
 
 <section
   id="shopify-section-{{ section.id }}"
-  class="shop-the-look-points color-{{ section.settings.color_scheme }}"
+  class="shop-the-look-points color-{{ section.settings.color_scheme }} bg-white"
   data-section-id="{{ section.id }}"
 >
   <div class="shop-the-look-points__inner page-width">
@@ -137,6 +137,9 @@
   </div>
 
   <style>
+    .bg-white{
+        background: white;
+    }
     #shopify-section-{{ section.id }} {
       --shop-look-bg: {{ section.settings.card_background.red }}, {{ section.settings.card_background.green }}, {{ section.settings.card_background.blue }};
       --shop-look-accent: {{ section.settings.hotspot_color.red }}, {{ section.settings.hotspot_color.green }}, {{ section.settings.hotspot_color.blue }};
