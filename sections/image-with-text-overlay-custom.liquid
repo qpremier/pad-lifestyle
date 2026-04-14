@@ -14,43 +14,43 @@
       "label": "Content position",
       "options": [
         {
-          "value": "place-self-start-start text-start",
+          "value": "justify-start items-start text-start",
           "label": "Top left"
         },
         {
-          "value": "place-self-start-center text-center",
+          "value": "justify-center items-start text-center",
           "label": "Top center"
         },
         {
-          "value": "place-self-start-end text-end",
-          "label": "Top right"
+        "value": "justify-end items-start text-end",
+        "label": "Top right"
         },
         {
-          "value": "place-self-center-start text-start",
-          "label": "Center left"
+        "value": "justify-start items-center text-start",
+        "label": "Center left"
         },
         {
-          "value": "place-self-center-center text-center",
-          "label": "Center"
+        "value": "justify-center items-center text-center",
+        "label": "Center"
         },
         {
-          "value": "place-self-center-end text-end",
-          "label": "Center right"
+        "value": "justify-end items-center text-end",
+        "label": "Center right"
         },
         {
-          "value": "place-self-end-start text-start",
-          "label": "Bottom left"
+        "value": "justify-start items-end text-start",
+        "label": "Bottom left"
         },
         {
-          "value": "place-self-end-center text-center",
-          "label": "Bottom center"
+        "value": "justify-center items-end text-center",
+        "label": "Bottom center"
         },
         {
-          "value": "place-self-end-end text-end",
-          "label": "Bottom right"
+        "value": "justify-end items-end text-end",
+        "label": "Bottom right"
         }
       ],
-      "default": "place-self-center-start text-start"
+      "default": "justify-start items-center text-start"
     },
     {
       "type": "text",
@@ -155,9 +155,14 @@
     object-fit: cover;
   }
   
+  #shopify-section-{{ section.id }} .content-over-media {
+    position: relative;
+  }
+  
   #shopify-section-{{ section.id }} .content-over-media__content {
-    grid-area: 1 / 1 / -1 / -1;
-    z-index: 2;
+    position: absolute;
+    inset: 0;
+    display: flex;
     padding: 2rem;
   }
   
