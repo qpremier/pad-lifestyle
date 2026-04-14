@@ -148,7 +148,7 @@
                            preload="auto">
                       <source src="{{ block.settings.video_url }}" type="video/mp4">
                       {% if block.settings.poster_image != blank %}
-                        <img src="{{ block.settings.poster_image | img_url: 'master' }}">
+                        <img src="{{ block.settings.poster_image | img_url: 'master' }}" width="" height="">
                       {% endif %}
                     </video>
                   </video-media>
