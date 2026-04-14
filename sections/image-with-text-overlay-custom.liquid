@@ -127,7 +127,7 @@
           {%- if section.settings.button_text != blank -%}
             <a
               href="{{ section.settings.button_link | default: '#' }}"
-              class="button button--outline"
+              class="button button--outline-q"
               style="--button-text-color: 255 255 255; --button-background: transparent; --button-border-color: 255 255 255; color: #ffffff; border-color: #ffffff;"
             >
               {{- section.settings.button_text -}}
@@ -176,17 +176,17 @@
     color: #ffffff !important;
   }
   
-  #shopify-section-{{ section.id }} .button--outline {
+  #shopify-section-{{ section.id }} .button--outline-q {
     color: #ffffff !important;
     border-color: #ffffff !important;
     background: transparent !important;
   }
 
-  #shopify-section-{{ section.id }} .button--outline::after {
+  #shopify-section-{{ section.id }} .button--outline-q::after {
     box-shadow: unset;
   }
   
-  #shopify-section-{{ section.id }} .button--outline:hover {
+  #shopify-section-{{ section.id }} .button--outline-q:hover {
     background: #ffffff !important;
     color: #000000 !important;
   }
