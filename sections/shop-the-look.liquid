@@ -1,361 +1,550 @@
-{%- style -%}
-  .shop-the-look {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 2rem;
-  }
+{% liquid
+  assign section_title = section.settings.heading
+  assign section_subheading = section.settings.subheading
+  assign cta_label = section.settings.button_label | default: 'View product'
+  assign image_alt = section.settings.image.alt | default: section_title
+%}
 
-  .shop-the-look__image-container {
-    position: relative;
-    width: 100%;
-    border-radius: var(--block-border-radius, 0px);
-    overflow: hidden;
-  }
+<section
+  id="shopify-section-{{ section.id }}"
+  class="shop-the-look-points color-{{ section.settings.color_scheme }}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="shop-the-look-points__inner page-width">
+    {% if section_title != blank or section_subheading != blank %}
+      <div class="shop-the-look-points__header">
+        {% if section_subheading != blank %}
+          <p class="shop-the-look-points__eyebrow">{{ section_subheading }}</p>
+        {% endif %}
+        {% if section_title != blank %}
+          <h2 class="shop-the-look-points__title">{{ section_title }}</h2>
+        {% endif %}
+      </div>
+    {% endif %}
 
-  .shop-the-look__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+    <div class="shop-the-look-points__layout">
+      <div class="shop-the-look-points__media">
+        <div class="shop-the-look-points__image-wrap">
+          {% if section.settings.image != blank %}
+            {{
+              section.settings.image
+              | image_url: width: 2000
+              | image_tag:
+                loading: 'lazy',
+                widths: '500, 700, 900, 1100, 1400, 1700, 2000',
+                class: 'shop-the-look-points__image',
+                alt: image_alt
+            }}
+          {% else %}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'shop-the-look-points__image shop-the-look-points__image--placeholder' }}
+          {% endif %}
 
-  /* Hotspot Styling */
-  .hotspot {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    background: rgb(var(--background));
-    border: 1px solid rgba(var(--text-color), 0.15);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-  }
-
-  .hotspot::after {
-    content: '';
-    width: 0.75rem;
-    height: 0.75rem;
-    background: rgb(var(--text-color));
-    border-radius: 50%;
-    display: block;
-  }
-
-  .hotspot:hover {
-    transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  }
-
-  .hotspot.is-active {
-    background: rgb(var(--text-color));
-  }
-  .hotspot.is-active::after {
-    background: rgb(var(--background));
-  }
-
-  /* Right Side Product Panel */
-  .shop-the-look__products {
-    padding: 1rem 0;
-  }
-
-  .product-card {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-  }
-
-  .product-card__media {
-    width: 120px;
-    flex-shrink: 0;
-  }
-
-  .product-card__info {
-    flex: 1;
-  }
-
-  .product-title {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.1rem;
-    font-weight: 500;
-    text-decoration: none;
-    color: rgb(var(--text-color));
-  }
-
-  .product-price {
-    margin-bottom: 1rem;
-    font-size: 1rem;
-  }
-
-  .button {
-    display: inline-block;
-    padding: 0.6rem 1.5rem;
-    background: rgb(var(--button-background));
-    color: rgb(var(--button-text));
-    text-decoration: none;
-    border-radius: var(--button-border-radius, 0);
-    font-weight: 500;
-    border: 1px solid transparent;
-    cursor: pointer;
-  }
-
-  .button--outline {
-    background: transparent;
-    border-color: rgb(var(--text-color));
-    color: rgb(var(--text-color));
-  }
-
-  /* Mobile Layout */
-  @media screen and (max-width: 749px) {
-    .shop-the-look {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-    
-    .shop-the-look__image-container {
-      min-height: 400px;
-    }
-    
-    .product-card {
-      gap: 1rem;
-    }
-  }
-{%- endstyle -%}
-
-<div class="section-spacing color-scheme color-scheme--{{ section.settings.color_scheme.id }}">
-  <div class="container container--xl">
-    <div class="section-stack">
-      
-      {%- if section.settings.title != blank -%}
-        <div class="section-header justify-self-center text-center">
-          <div class="prose">
-            <h2 class="h2">{{ section.settings.title }}</h2>
+          <div class="shop-the-look-points__hotspots" role="tablist" aria-label="{{ section_title | default: 'Shop the look' | escape }}">
+            {% for block in section.blocks %}
+              {% assign product = block.settings.product %}
+              {% assign hotspot_label = block.settings.label | default: product.title | default: 'Hotspot' %}
+              <button
+                class="shop-the-look-points__hotspot{% if forloop.first %} is-active{% endif %}"
+                type="button"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                aria-controls="ShopTheLookPanel-{{ section.id }}-{{ block.id }}"
+                id="ShopTheLookTab-{{ section.id }}-{{ block.id }}"
+                data-target="{{ block.id }}"
+                style="--hotspot-top: {{ block.settings.top }}%; --hotspot-left: {{ block.settings.left }}%;"
+                {{ block.shopify_attributes }}
+              >
+                <span class="shop-the-look-points__hotspot-dot"></span>
+                <span class="visually-hidden">{{ hotspot_label }}</span>
+              </button>
+            {% endfor %}
           </div>
         </div>
-      {%- endif -%}
+      </div>
 
-      <div class="shop-the-look">
-        {# LEFT SIDE: IMAGE WITH HOTSPOTS #}
-        <div class="shop-the-look__image-container">
-          {%- if section.settings.image != blank -%}
-            {{ section.settings.image | image_url: width: 1200 | image_tag:
-              loading: 'lazy',
-              widths: '400, 600, 800, 1000, 1200',
-              class: 'shop-the-look__image'
-            }}
-          {%- else -%}
-            {{ 'lifestyle-1' | placeholder_svg_tag: 'shop-the-look__image placeholder' }}
-          {%- endif -%}
-
-          {# Render Hotspots from Schema Blocks #}
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'hotspot' -%}
-              {%- assign product = block.settings.product -%}
-              {%- if product != blank -%}
-                <button 
-                  class="hotspot {% if forloop.first %}is-active{% endif %}"
-                  style="
-                    top: {{ block.settings.top_position }}%;
-                    left: {{ block.settings.left_position }}%;
-                    --background: {{ section.settings.hotspot_background.red }}, {{ section.settings.hotspot_background.green }}, {{ section.settings.hotspot_background.blue }};
-                    --text-color: {{ section.settings.hotspot_text.red }}, {{ section.settings.hotspot_text.green }}, {{ section.settings.hotspot_text.blue }};
-                  "
-                  data-product-index="{{ forloop.index0 }}"
-                  aria-label="View {{ product.title }}"
-                >
-                  <span class="sr-only">View {{ product.title }}</span>
-                </button>
-              {%- endif -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-
-        {# RIGHT SIDE: PRODUCT DETAILS #}
-        <div class="shop-the-look__products">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'hotspot' -%}
-              {%- assign product = block.settings.product -%}
-              {%- if product != blank -%}
-                <div 
-                  class="product-panel" 
-                  data-product-index="{{ forloop.index0 }}"
-                  {% unless forloop.first %}style="display: none;"{% endunless %}
-                >
-                  <div class="product-card">
-                    <a href="{{ product.url }}" class="product-card__media">
-                      {{ product.featured_image | image_url: width: 300 | image_tag:
-                        loading: 'lazy',
-                        widths: '150, 300',
-                        class: 'product-card__image'
+      <div class="shop-the-look-points__products">
+        {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+            {% assign product = block.settings.product %}
+            <article
+              id="ShopTheLookPanel-{{ section.id }}-{{ block.id }}"
+              class="shop-the-look-points__product{% if forloop.first %} is-active{% endif %}"
+              role="tabpanel"
+              aria-labelledby="ShopTheLookTab-{{ section.id }}-{{ block.id }}"
+              {% unless forloop.first %}hidden{% endunless %}
+            >
+              {% if product != blank %}
+                <div class="shop-the-look-points__product-card">
+                  <a href="{{ product.url }}" class="shop-the-look-points__product-media">
+                    {% if product.featured_image != blank %}
+                      {{
+                        product.featured_image
+                        | image_url: width: 900
+                        | image_tag:
+                          loading: 'lazy',
+                          widths: '300, 450, 600, 750, 900',
+                          class: 'shop-the-look-points__product-image',
+                          alt: product.featured_image.alt | default: product.title
                       }}
-                    </a>
-                    
-                    <div class="product-card__info">
-                      <a href="{{ product.url }}" class="product-title h6">
-                        {{ product.title }}
-                      </a>
-                      
-                      <div class="product-price text-subdued">
-                        {{ product.price | money }}
-                        {%- if product.compare_at_price > product.price -%}
-                          <span class="line-through">{{ product.compare_at_price | money }}</span>
-                        {%- endif -%}
-                      </div>
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'shop-the-look-points__product-image shop-the-look-points__product-image--placeholder' }}
+                    {% endif %}
+                  </a>
 
-                      <div class="product-actions">
-                        {%- if product.available -%}
-                          {%- form 'product', product, class: 'shopify-product-form' -%}
-                            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                            <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="button">
-                              {{- 'products.product.add_to_cart' | t -}}
-                            </button>
-                          {%- endform -%}
-                        {%- else -%}
-                          <span class="badge badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
-                        {%- endif -%}
-                        
-                        <a href="{{ product.url }}" class="button button--outline" style="margin-left: 0.5rem;">
-                          View Details
-                        </a>
-                      </div>
+                  <div class="shop-the-look-points__product-content">
+                    {% if block.settings.label != blank %}
+                      <p class="shop-the-look-points__product-kicker">{{ block.settings.label }}</p>
+                    {% endif %}
+
+                    <h3 class="shop-the-look-points__product-title">
+                      <a href="{{ product.url }}">{{ product.title }}</a>
+                    </h3>
+
+                    <div class="shop-the-look-points__product-price">
+                      {% if product.compare_at_price > product.price %}
+                        <span class="shop-the-look-points__product-price--sale">{{ product.price | money }}</span>
+                        <span class="shop-the-look-points__product-price--compare">{{ product.compare_at_price | money }}</span>
+                      {% else %}
+                        <span>{{ product.price | money }}</span>
+                      {% endif %}
                     </div>
+
+                    {% if block.settings.description != blank %}
+                      <div class="shop-the-look-points__product-description rte">
+                        {{ block.settings.description }}
+                      </div>
+                    {% endif %}
+
+                    <a href="{{ product.url }}" class="button shop-the-look-points__button">
+                      {{ cta_label }}
+                    </a>
                   </div>
                 </div>
-              {%- endif -%}
-            {%- endif -%}
-          {%- else -%}
-            <p>Add products to the hotspots in the theme editor.</p>
-          {%- endfor -%}
-        </div>
+              {% else %}
+                <div class="shop-the-look-points__empty">
+                  <p>Choose a product for this hotspot in the theme editor.</p>
+                </div>
+              {% endif %}
+            </article>
+          {% endfor %}
+        {% else %}
+          <div class="shop-the-look-points__empty">
+            <p>Add hotspot blocks and assign products to build this section.</p>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
-</div>
 
-<script>
-  (function() {
-    // Simple JavaScript to toggle product panels when hotspots are clicked
-    // (This replicates the core functionality without requiring custom elements)
-    document.addEventListener('DOMContentLoaded', function() {
-      const container = document.querySelector('.shop-the-look');
-      if (!container) return;
+  <style>
+    #shopify-section-{{ section.id }} {
+      --shop-look-bg: {{ section.settings.card_background.red }}, {{ section.settings.card_background.green }}, {{ section.settings.card_background.blue }};
+      --shop-look-accent: {{ section.settings.hotspot_color.red }}, {{ section.settings.hotspot_color.green }}, {{ section.settings.hotspot_color.blue }};
+      --shop-look-text: {{ section.settings.text_color.red }}, {{ section.settings.text_color.green }}, {{ section.settings.text_color.blue }};
+      --shop-look-border: rgba({{ section.settings.text_color.red }}, {{ section.settings.text_color.green }}, {{ section.settings.text_color.blue }}, 0.12);
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
 
-      const hotspots = container.querySelectorAll('.hotspot');
-      const panels = container.querySelectorAll('.product-panel');
+    #shopify-section-{{ section.id }} .shop-the-look-points__inner {
+      color: rgb(var(--shop-look-text));
+    }
 
-      function activateIndex(index) {
-        // Update hotspots
-        hotspots.forEach((h, i) => {
-          if (i === index) {
-            h.classList.add('is-active');
-          } else {
-            h.classList.remove('is-active');
-          }
-        });
+    #shopify-section-{{ section.id }} .shop-the-look-points__header {
+      text-align: center;
+      max-width: 52rem;
+      margin: 0 auto 2.5rem;
+    }
 
-        // Update product panels
-        panels.forEach((p, i) => {
-          if (i === index) {
-            p.style.display = 'block';
-          } else {
-            p.style.display = 'none';
-          }
-        });
+    #shopify-section-{{ section.id }} .shop-the-look-points__eyebrow {
+      margin: 0 0 0.75rem;
+      font-size: 1.2rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__title {
+      margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.85fr);
+      gap: 2rem;
+      align-items: start;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__image-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: {{ section.settings.image_radius }}px;
+      background: rgba(var(--shop-look-bg), 0.35);
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__image,
+    #shopify-section-{{ section.id }} .shop-the-look-points__image--placeholder {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__hotspots {
+      position: absolute;
+      inset: 0;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__hotspot {
+      position: absolute;
+      top: var(--hotspot-top);
+      left: var(--hotspot-left);
+      transform: translate(-50%, -50%);
+      width: 2.6rem;
+      height: 2.6rem;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__hotspot::before,
+    #shopify-section-{{ section.id }} .shop-the-look-points__hotspot::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__hotspot::before {
+      background: rgba(var(--shop-look-accent), 0.18);
+      animation: shop-the-look-pulse-{{ section.id }} 2s ease-out infinite;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__hotspot::after {
+      inset: 0.35rem;
+      background: rgb(var(--shop-look-accent));
+      border: 0.2rem solid #fff;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__hotspot.is-active::after,
+    #shopify-section-{{ section.id }} .shop-the-look-points__hotspot:hover::after,
+    #shopify-section-{{ section.id }} .shop-the-look-points__hotspot:focus-visible::after {
+      transform: scale(1.08);
+      box-shadow: 0 0 0 4px rgba(var(--shop-look-accent), 0.18);
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__products {
+      position: sticky;
+      top: 2rem;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product.is-active {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product-card,
+    #shopify-section-{{ section.id }} .shop-the-look-points__empty {
+      background: rgb(var(--shop-look-bg));
+      border: 1px solid var(--shop-look-border);
+      border-radius: {{ section.settings.card_radius }}px;
+      overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product-media {
+      display: block;
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product-image,
+    #shopify-section-{{ section.id }} .shop-the-look-points__product-image--placeholder {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product-content {
+      padding: 1.8rem;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product-kicker {
+      margin: 0 0 0.75rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.65;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product-title {
+      margin: 0 0 0.85rem;
+      font-size: clamp(2rem, 2.2vw, 2.6rem);
+      line-height: 1.1;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product-price {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product-price--compare {
+      opacity: 0.55;
+      text-decoration: line-through;
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__product-description {
+      margin-bottom: 1.4rem;
+      opacity: 0.8;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    #shopify-section-{{ section.id }} .shop-the-look-points__empty {
+      padding: 2rem;
+    }
+
+    @keyframes shop-the-look-pulse-{{ section.id }} {
+      0% {
+        transform: scale(0.75);
+        opacity: 0.9;
+      }
+      70% {
+        transform: scale(1.3);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.3);
+        opacity: 0;
+      }
+    }
+
+    @media screen and (max-width: 989px) {
+      #shopify-section-{{ section.id }} .shop-the-look-points__layout {
+        grid-template-columns: 1fr;
       }
 
-      hotspots.forEach((hotspot, idx) => {
-        hotspot.addEventListener('click', function() {
-          activateIndex(idx);
+      #shopify-section-{{ section.id }} .shop-the-look-points__products {
+        position: static;
+      }
+    }
+  </style>
+
+  <script>
+    (() => {
+      const sectionEl = document.querySelector('#shopify-section-{{ section.id }}');
+      if (!sectionEl || sectionEl.dataset.initialized === 'true') return;
+      sectionEl.dataset.initialized = 'true';
+
+      const tabs = Array.from(sectionEl.querySelectorAll('.shop-the-look-points__hotspot'));
+      const panels = Array.from(sectionEl.querySelectorAll('.shop-the-look-points__product'));
+
+      if (!tabs.length || !panels.length) return;
+
+      const activate = (targetId) => {
+        tabs.forEach((tab) => {
+          const isActive = tab.dataset.target === targetId;
+          tab.classList.toggle('is-active', isActive);
+          tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        panels.forEach((panel) => {
+          const isActive = panel.id === `ShopTheLookPanel-{{ section.id }}-${targetId}`;
+          panel.classList.toggle('is-active', isActive);
+          panel.hidden = !isActive;
+        });
+      };
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => activate(tab.dataset.target));
+
+        tab.addEventListener('keydown', (event) => {
+          const currentIndex = tabs.indexOf(tab);
+          let nextIndex = null;
+
+          if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+            nextIndex = (currentIndex + 1) % tabs.length;
+          }
+
+          if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+            nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+          }
+
+          if (event.key === 'Home') {
+            nextIndex = 0;
+          }
+
+          if (event.key === 'End') {
+            nextIndex = tabs.length - 1;
+          }
+
+          if (nextIndex === null) return;
+
+          event.preventDefault();
+          tabs[nextIndex].focus();
+          activate(tabs[nextIndex].dataset.target);
         });
       });
 
-      // Optional: Add keyboard navigation for accessibility
-      hotspots.forEach((hotspot) => {
-        hotspot.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            this.click();
-          }
-        });
-      });
-    });
-  })();
-</script>
+      activate(tabs[0].dataset.target);
+    })();
+  </script>
+</section>
 
 {% schema %}
 {
-  "name": "Shop the Look",
-  "class": "shopify-section--shop-the-look",
+  "name": "Shop the look points",
   "tag": "section",
+  "class": "section",
   "settings": [
     {
       "type": "text",
-      "id": "title",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Interactive look"
+    },
+    {
+      "type": "text",
+      "id": "heading",
       "label": "Heading",
       "default": "Shop the look"
     },
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Main Image"
+      "label": "Main image"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View product"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color Scheme",
+      "label": "Color scheme",
       "default": "scheme-1"
     },
     {
-      "type": "header",
-      "content": "Hotspot Colors"
+      "type": "color",
+      "id": "card_background",
+      "label": "Product card background",
+      "default": "#f8f4ee"
     },
     {
       "type": "color",
-      "id": "hotspot_background",
-      "label": "Hotspot Background",
-      "default": "#FFFFFF"
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1f1a17"
     },
     {
       "type": "color",
-      "id": "hotspot_text",
-      "label": "Hotspot Dot Color",
-      "default": "#000000"
+      "id": "hotspot_color",
+      "label": "Hotspot color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Product card corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
     }
   ],
   "blocks": [
     {
       "type": "hotspot",
-      "name": "Product Hotspot",
+      "name": "Hotspot product",
       "settings": [
         {
           "type": "product",
           "id": "product",
-          "label": "Select Product"
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Hotspot label",
+          "default": "Featured item"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
         },
         {
           "type": "range",
-          "id": "top_position",
+          "id": "top",
+          "label": "Vertical position",
           "min": 0,
           "max": 100,
           "step": 1,
           "unit": "%",
-          "label": "Vertical Position (Top)",
           "default": 50
         },
         {
           "type": "range",
-          "id": "left_position",
+          "id": "left",
+          "label": "Horizontal position",
           "min": 0,
           "max": 100,
           "step": 1,
           "unit": "%",
-          "label": "Horizontal Position (Left)",
           "default": 50
         }
       ]
@@ -363,21 +552,16 @@
   ],
   "presets": [
     {
-      "name": "Shop the Look",
+      "name": "Shop the look points",
       "blocks": [
         {
-          "type": "hotspot",
-          "settings": {
-            "top_position": 30,
-            "left_position": 30
-          }
+          "type": "hotspot"
         },
         {
-          "type": "hotspot",
-          "settings": {
-            "top_position": 70,
-            "left_position": 70
-          }
+          "type": "hotspot"
+        },
+        {
+          "type": "hotspot"
         }
       ]
     }
