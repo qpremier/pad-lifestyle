@@ -424,7 +424,7 @@
       "name": "Image with text overlay",
       "settings": {
         "image": "shopify://shop_images/img_txt_overlay.webp",
-        "content_position": "place-self-end-start text-start",
+        "content_position": "place-self-end-end text-end",
         "heading": "Golden Hour",
         "text": "<p>From morning light to evening cocktails.</p>",
         "button_text": "SHOP THE GOLD EDIT",
