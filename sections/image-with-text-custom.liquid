@@ -68,28 +68,9 @@
   }
 
   /*************************/
-.image-with-text-custom__heading {
-  outline: 1px solid red;
-}
-
-.image-with-text-custom__content {
-  outline: 2px solid blue;
-}
-
-.image-with-text-custom__content.prose {
-  outline: 2px solid green;
-}
-
-.image-with-text-custom__content.prose::before {
-  outline: 1px solid orange;
-  content: '';
-  display: block;
-}
-
+.image-with-text-custom__content.prose::before,
 .image-with-text-custom__content.prose::after {
-  outline: 1px solid purple;
-  content: '';
-  display: block;
+  display: none;
 }
   /*************************/
 
