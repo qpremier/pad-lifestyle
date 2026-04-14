@@ -34,6 +34,11 @@
         grid: auto-flow dense 300 / repeat(12, minmax(0, 1fr));
         display: grid;
     }
+    @media screen and (min-width: 700px) {
+        .media-grid__item {
+            grid-area: span 2 / span 8;
+        }
+    }
 {%- endstyle -%}
 
 <div class="section-spacing color-scheme color-scheme--{{ section.settings.color_scheme }} color-scheme--bg-b1a022fbc02678797cd8c1ed7ebbfaaf">
