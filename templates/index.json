@@ -468,7 +468,7 @@
       ],
       "name": "t:sections.newsletter.presets.name",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "full_width": true,
         "background_type": "color",
         "background_color": "#64642a",
