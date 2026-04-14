@@ -115,7 +115,6 @@
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding color-scheme color-scheme--{{ section.settings.color_scheme }}">
-  <div class="page-width">
     <image-with-text class="image-with-text-custom">
       {%- if section.settings.layout == 'text_first' -%}
         <div class="image-with-text-custom__content prose text-center sm:text-start">
@@ -213,7 +212,6 @@
         </div>
       {%- endif -%}
     </image-with-text>
-  </div>
 </div>
 
 {% schema %}
