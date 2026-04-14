@@ -13,9 +13,24 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Dynamic background styles */
+  .newsletter-{{ section.id }} {
+    {% if section.settings.background_type == 'color' %}
+      background-color: {{ section.settings.background_color }};
+    {% elsif section.settings.background_type == 'gradient' %}
+      background: {{ section.settings.background_gradient }};
+    {% elsif section.settings.background_type == 'image' and section.settings.background_image != blank %}
+      background-image: url('{{ section.settings.background_image | img_url: 'master' }}');
+      background-size: {{ section.settings.background_image_size }};
+      background-position: {{ section.settings.background_image_position }};
+      background-repeat: {{ section.settings.background_image_repeat }};
+      background-attachment: {{ section.settings.background_image_attachment }};
+    {% endif %}
+  }
 {%- endstyle -%}
 
-<div class="newsletter center {% if section.settings.full_width == false %}newsletter--narrow page-width{% endif %}">
+<div class="newsletter-{{ section.id }} newsletter center {% if section.settings.full_width == false %}newsletter--narrow page-width{% endif %}">
   <div class="newsletter__wrapper color-{{ section.settings.color_scheme }} gradient content-container isolate{% if section.settings.full_width %} content-container--full-width{% endif %} section-{{ section.id }}-padding">
     {%- for block in section.blocks -%}
       {%- case block.type -%}
@@ -32,6 +47,17 @@
           >
             {{ block.settings.heading }}
           </h2>
+        {%- when 'extra_heading' -%}
+          <h3
+            class="inline-richtext {{ block.settings.extra_heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {{ block.shopify_attributes }}
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+          >
+            {{ block.settings.extra_heading }}
+          </h3>
         {%- when 'paragraph' -%}
           <div
             class="newsletter__subheading rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
@@ -147,6 +173,156 @@
     },
     {
       "type": "header",
+      "content": "Dynamic Background Settings"
+    },
+    {
+      "type": "select",
+      "id": "background_type",
+      "label": "Background Type",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "color",
+          "label": "Solid Color"
+        },
+        {
+          "value": "gradient",
+          "label": "Gradient"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background Gradient",
+      "default": "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+      "info": "Example: linear-gradient(45deg, #ff0000, #0000ff)"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "select",
+      "id": "background_image_size",
+      "label": "Image Size",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "select",
+      "id": "background_image_position",
+      "label": "Image Position",
+      "options": [
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "top left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top right",
+          "label": "Top Right"
+        },
+        {
+          "value": "center left",
+          "label": "Center Left"
+        },
+        {
+          "value": "center right",
+          "label": "Center Right"
+        },
+        {
+          "value": "bottom left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom right",
+          "label": "Bottom Right"
+        }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "select",
+      "id": "background_image_repeat",
+      "label": "Image Repeat",
+      "options": [
+        {
+          "value": "no-repeat",
+          "label": "No Repeat"
+        },
+        {
+          "value": "repeat",
+          "label": "Repeat"
+        },
+        {
+          "value": "repeat-x",
+          "label": "Repeat X"
+        },
+        {
+          "value": "repeat-y",
+          "label": "Repeat Y"
+        }
+      ],
+      "default": "no-repeat"
+    },
+    {
+      "type": "select",
+      "id": "background_image_attachment",
+      "label": "Image Attachment",
+      "options": [
+        {
+          "value": "scroll",
+          "label": "Scroll"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed"
+        }
+      ],
+      "default": "scroll"
+    },
+    {
+      "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
     },
     {
@@ -173,14 +349,14 @@
   "blocks": [
     {
       "type": "heading",
-      "name": "t:sections.newsletter.blocks.heading.name",
+      "name": "Main Heading",
       "limit": 1,
       "settings": [
         {
           "type": "inline_richtext",
           "id": "heading",
-          "default": "t:sections.newsletter.blocks.heading.settings.heading.default",
-          "label": "t:sections.newsletter.blocks.heading.settings.heading.label"
+          "default": "Subscribe to our newsletter",
+          "label": "Heading Text"
         },
         {
           "type": "select",
@@ -188,27 +364,68 @@
           "options": [
             {
               "value": "h2",
-              "label": "t:sections.all.heading_size.options__1.label"
+              "label": "Small"
             },
             {
               "value": "h1",
-              "label": "t:sections.all.heading_size.options__2.label"
+              "label": "Medium"
             },
             {
               "value": "h0",
-              "label": "t:sections.all.heading_size.options__3.label"
+              "label": "Large"
             },
             {
               "value": "hxl",
-              "label": "t:sections.all.heading_size.options__4.label"
+              "label": "Extra Large"
             },
             {
               "value": "hxxl",
-              "label": "t:sections.all.heading_size.options__5.label"
+              "label": "Extra Extra Large"
             }
           ],
           "default": "h1",
-          "label": "t:sections.all.heading_size.label"
+          "label": "Heading Size"
+        }
+      ]
+    },
+    {
+      "type": "extra_heading",
+      "name": "Extra Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "extra_heading",
+          "default": "Get exclusive updates",
+          "label": "Extra Heading Text"
+        },
+        {
+          "type": "select",
+          "id": "extra_heading_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "Small"
+            },
+            {
+              "value": "h1",
+              "label": "Medium"
+            },
+            {
+              "value": "h0",
+              "label": "Large"
+            },
+            {
+              "value": "hxl",
+              "label": "Extra Large"
+            },
+            {
+              "value": "hxxl",
+              "label": "Extra Extra Large"
+            }
+          ],
+          "default": "h2",
+          "label": "Extra Heading Size"
         }
       ]
     },
@@ -240,6 +457,9 @@
       "blocks": [
         {
           "type": "heading"
+        },
+        {
+          "type": "extra_heading"
         },
         {
           "type": "paragraph"
