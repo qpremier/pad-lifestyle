@@ -90,8 +90,6 @@
 }
 {% endschema %}
 
-{% comment %} {{ 'tailwind-q.css' | asset_url | stylesheet_tag }} {% endcomment %}
-
 <section
   id="shopify-section-{{ section.id }}"
   class="shopify-section shopify-section--image-with-text-overlay"
@@ -115,7 +113,7 @@
         {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder content-over-media__media' }}
       {%- endif -%}
 
-      <div class="content-over-media__content content {{ section.settings.content_position }}" style="color: #ffffff;">
+      <div class="content-over-media__content content" style="color: #ffffff;">
         <div class="prose" style="color: #ffffff;">
           {%- if section.settings.heading != blank -%}
             <p class="h4" style="color: #ffffff;">{{ section.settings.heading }}</p>
@@ -161,9 +159,11 @@
   
   #shopify-section-{{ section.id }} .content-over-media__content {
     position: absolute;
-    inset: 0;
-    display: flex;
+    bottom: 0;
+    left: 0;
     padding: 2rem;
+    z-index: 2;
+    max-width: 500px;
   }
   
   #shopify-section-{{ section.id }} .prose {
