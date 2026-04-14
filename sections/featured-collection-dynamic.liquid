@@ -2,7 +2,7 @@
 
 {% if collection != blank %}
 
-<section id="shopify-section-{{ section.id }}" class="shopify-section shopify-section--featured-collections bg-white">
+<section id="shopify-section-{{ section.id }}" class="shopify-section shopify-section--featured-collections bg-white pt-5">
 
   <style>
     /* ================================
@@ -39,6 +39,10 @@
         #shopify-section-{{ section.id }} {
         --product-list-items-per-row: 6;
         }
+    }
+
+    .pt-5{
+        padding-top: 1.25rem;
     }
     
     .section-stack {
