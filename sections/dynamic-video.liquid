@@ -1,0 +1,218 @@
+{% comment %}
+  Dynamic Video with Centered Text - Custom Section
+  Merchant can paste any video URL (YouTube, Vimeo, or direct MP4) and edit the centered text.
+{% endcomment %}
+
+<style>
+/* section-video.css */
+.dynamic-video-section {
+  width: 100%;
+  position: relative;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.custom-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 80vh;
+  aspect-ratio: 16 / 9;
+}
+
+.placeholder-video {
+  background: #1a1a1a;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.placeholder-content {
+  text-align: center;
+  color: #fff;
+}
+
+.placeholder-content span {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.placeholder-content p {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.placeholder-content small {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.centered-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.centered-text {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.5em 1.2em;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  font-family: inherit;
+}
+
+.text-small {
+  font-size: clamp(1rem, 4vw, 1.5rem);
+}
+
+.text-medium {
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+}
+
+.text-large {
+  font-size: clamp(2rem, 8vw, 4rem);
+}
+
+.text-xlarge {
+  font-size: clamp(2.5rem, 10vw, 6rem);
+}
+
+@media (max-width: 768px) {
+  .centered-text {
+    padding: 0.3em 0.8em;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .custom-video {
+    max-height: 60vh;
+  }
+}
+</style>
+
+{{ 'section-video.css' | asset_url | stylesheet_tag }}
+
+<div class="dynamic-video-section">
+  <div class="video-container">
+    {% if section.settings.video_url != blank %}
+      {% if section.settings.video_url contains 'youtu' or section.settings.video_url contains 'vimeo' %}
+        <div class="video-wrapper">
+          <iframe 
+            src="{{ section.settings.video_url | escape }}" 
+            frameborder="0" 
+            allow="autoplay; fullscreen; picture-in-picture" 
+            allowfullscreen
+            class="video-iframe">
+          </iframe>
+        </div>
+      {% else %}
+        <video 
+          class="custom-video" 
+          autoplay 
+          muted 
+          loop 
+          playsinline
+          poster="{{ section.settings.poster_image | img_url: 'master' }}"
+        >
+          <source src="{{ section.settings.video_url | escape }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      {% endif %}
+    {% else %}
+      <div class="placeholder-video">
+        <div class="placeholder-content">
+          <span>🎬</span>
+          <p>Paste a video link in the section settings</p>
+          <small>Supports YouTube, Vimeo, or direct .mp4 URL</small>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.settings.centered_text != blank %}
+      <div class="centered-overlay">
+        <div class="centered-text {{ section.settings.text_size }}">
+          {{ section.settings.centered_text }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Dynamic Video with Text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video Link",
+      "info": "Paste a YouTube URL, Vimeo URL, or direct .mp4 file link",
+      "placeholder": "https://www.youtube.com/watch?v=... or https://example.com/video.mp4"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Poster Image (for MP4 videos)",
+      "info": "Optional: Show an image before video loads"
+    },
+    {
+      "type": "text",
+      "id": "centered_text",
+      "label": "Centered Text",
+      "default": "SUMMER SALE",
+      "placeholder": "Enter text to display in center"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Text Size",
+      "default": "text-large",
+      "options": [
+        { "value": "text-small", "label": "Small" },
+        { "value": "text-medium", "label": "Medium" },
+        { "value": "text-large", "label": "Large" },
+        { "value": "text-xlarge", "label": "Extra Large" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic Video with Text",
+      "category": "Video"
+    }
+  ]
+}
+{% endschema %}
