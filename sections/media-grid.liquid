@@ -4,28 +4,34 @@
 {% endcomment %}
 
 {%- style -%}
-  #shopify-section-{{ section.id }} {
-    --media-grid-row-height: 140px;
-    --media-grid-gap: 0rem;
-    --container-gutter: var(--media-grid-gap);
-    --section-vertical-spacing-override: var(--media-grid-gap);
-  }
-
-  @media screen and (min-width: 700px) {
     #shopify-section-{{ section.id }} {
-      --media-grid-row-height: 300px;
+        --media-grid-row-height: 140px;
+        --media-grid-gap: 0rem;
+        --container-gutter: var(--media-grid-gap);
+        --section-vertical-spacing-override: var(--media-grid-gap);
     }
-  }
 
-  @media screen and (min-width: 1150px) {
-    #shopify-section-{{ section.id }} {
-      --media-grid-gap: 0rem;
+    @media screen and (min-width: 700px) {
+        #shopify-section-{{ section.id }} {
+        --media-grid-row-height: 300px;
+        }
     }
-  }
 
-  .section-stack {
+    @media screen and (min-width: 1150px) {
+        #shopify-section-{{ section.id }} {
+        --media-grid-gap: 0rem;
+        }
+    }
+
+    .section-stack {
         gap: 4rem;
         grid-auto-columns: minmax(0, 1fr);
+        display: grid;
+    }
+    .media-grid {
+        align-items: start;
+        gap: 0;
+        grid: auto-flow dense 300 / repeat(12, minmax(0, 1fr));
         display: grid;
     }
 {%- endstyle -%}
