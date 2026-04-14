@@ -42,6 +42,22 @@
     .media-grid__item>* {
         height: 100%;
     }
+    @media screen and (min-width: 1000px) {
+        .content-over-media {
+            --content-over-media-gap: 3rem;
+        }
+    }
+    @media screen and (min-width: 700px) {
+        .content-over-media {
+            --content-over-media-gap: 2rem;
+        }
+    }
+    .content-over-media {
+        place-items: center;
+        display: grid;
+        position: relative;
+        overflow: hidden;
+    }
 {%- endstyle -%}
 
 <div class="section-spacing color-scheme color-scheme--{{ section.settings.color_scheme }} color-scheme--bg-b1a022fbc02678797cd8c1ed7ebbfaaf">
