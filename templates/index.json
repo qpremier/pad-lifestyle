@@ -363,6 +363,32 @@
         "button_text": "View all",
         "limit": 6
       }
+    },
+    "shop_the_look_PW4Afi": {
+      "type": "shop-the-look",
+      "blocks": {
+        "hotspot_7TtXB3": {
+          "type": "hotspot",
+          "settings": {
+            "product": ""
+          }
+        },
+        "hotspot_3NAXCj": {
+          "type": "hotspot",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_7TtXB3",
+        "hotspot_3NAXCj"
+      ],
+      "name": "Shop the Look",
+      "settings": {
+        "image": "shopify://shop_images/forth_img_collection_home.webp",
+        "color_scheme": ""
+      }
     }
   },
   "order": [
@@ -375,6 +401,7 @@
     "media_grid_rY7w8g",
     "featured_collection_dynamic_ndxGim",
     "dynamic_video_3E4gj4",
-    "featured_collection_dynamic_yAdK33"
+    "featured_collection_dynamic_yAdK33",
+    "shop_the_look_PW4Afi"
   ]
 }
