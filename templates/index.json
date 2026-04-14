@@ -367,6 +367,16 @@
     "shop_the_look_PW4Afi": {
       "type": "shop-the-look",
       "blocks": {
+        "hotspot_yBPWen": {
+          "type": "hotspot",
+          "settings": {
+            "product": "150ml-rnd-glass-jar-clip-top-clear-lid",
+            "label": "Featured item",
+            "description": "",
+            "top": 82,
+            "left": 55
+          }
+        },
         "hotspot_7TtXB3": {
           "type": "hotspot",
           "settings": {
@@ -381,6 +391,7 @@
         }
       },
       "block_order": [
+        "hotspot_yBPWen",
         "hotspot_7TtXB3",
         "hotspot_3NAXCj"
       ],
