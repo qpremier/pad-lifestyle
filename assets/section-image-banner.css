@@ -72,7 +72,7 @@
   }
 
   .banner--medium:not(.banner--mobile-bottom):not(.banner--adapt) .banner__content {
-    min-height: 91rem;
+    min-height: 34rem;
   }
 
   .banner--large:not(.banner--mobile-bottom):not(.banner--adapt) .banner__content {
@@ -90,7 +90,7 @@
   }
 
   .banner--medium:not(.banner--adapt) {
-    min-height: 85rem;
+    min-height: 56rem;
   }
 
   .banner--large:not(.banner--adapt) {
