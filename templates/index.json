@@ -291,7 +291,7 @@
         "text_size_mobile": 14,
         "desktop_gap": 50,
         "mobile_gap": 30,
-        "heading_margin_bottom": 20,
+        "heading_margin_bottom": 40,
         "subheading_margin_bottom": 10,
         "text_margin_bottom": 25,
         "content_max_width": 430,
