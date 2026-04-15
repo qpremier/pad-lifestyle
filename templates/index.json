@@ -96,7 +96,7 @@
         "slide_height": "medium",
         "slider_visual": "dots",
         "auto_rotate": true,
-        "change_slides_speed": 5,
+        "change_slides_speed": 3,
         "image_behavior": "ambient",
         "show_text_below": true,
         "accessibility_info": "Slideshow about our brand"
@@ -477,6 +477,8 @@
         "background_image_position": "center center",
         "background_image_repeat": "no-repeat",
         "background_image_attachment": "scroll",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
         "padding_top": 72,
         "padding_bottom": 72
       }
