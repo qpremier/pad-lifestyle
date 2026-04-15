@@ -17,6 +17,22 @@
   .slideshow__text.banner__box {
     max-width: 66.5rem;
   }
+  .slideshow__text .banner__heading.h2 {
+    font-size: calc(var(--font-heading-scale) * 2rem);
+  }
+  .slideshow__text .banner__heading.h1 {
+    font-size: calc(var(--font-heading-scale) * 3rem);
+  }
+  .slideshow__text .banner__heading.h0 {
+    font-size: calc(var(--font-heading-scale) * 4rem);
+  }
+  .slideshow__text .banner__heading.hxl {
+    font-size: calc(var(--font-heading-scale) * 5rem);
+  }
+  .slideshow__text .banner__heading.hxxl {
+    font-size: clamp(calc(var(--font-heading-scale) * 5.6rem), 14vw, calc(var(--font-heading-scale) * 7.2rem));
+    line-height: 1.1;
+  }
   .slider-txt {
       font-size: 2rem;
   }
@@ -56,6 +72,24 @@
   @media screen and (min-width: 750px) and (max-width: 989px) {
     .slideshow__text.banner__box {
       max-width: 52rem;
+    }
+  }
+
+  @media only screen and (min-width: 750px) {
+    .slideshow__text .banner__heading.h2 {
+      font-size: calc(var(--font-heading-scale) * 2.4rem);
+    }
+
+    .slideshow__text .banner__heading.h1 {
+      font-size: calc(var(--font-heading-scale) * 4rem);
+    }
+
+    .slideshow__text .banner__heading.h0 {
+      font-size: calc(var(--font-heading-scale) * 5.2rem);
+    }
+
+    .slideshow__text .banner__heading.hxl {
+      font-size: calc(var(--font-heading-scale) * 6.2rem);
     }
   }
 </style>
