@@ -17,45 +17,51 @@
 {%- endif -%}
 
 <style>
-   .header-wrapper {
+  .header-wrapper {
     background: transparent !important;
-    position: absolute;
     width: 100%;
     z-index: 10;
+  
+    /* IMPORTANT: keep fixed always for smooth animation */
+    position: fixed;
+    top: 0;
+    left: 0;
+  
+    /* smooth movement */
+    transform: translateY(0);
+    transition: transform 0.35s ease, background 0.35s ease;
   }
+  
+  /* transparent header content */
   .header {
     background: transparent !important;
   }
+  
   .header-wrapper--border-bottom {
     border-bottom: none;
   }
+  
   .header * {
     color: #fff !important;
     fill: #fff !important;
   }
-  /* When scrolled */
+  
+  /* scrolled state (colored header) */
+  .header-wrapper.scrolled {
+    background: #000 !important;
+    transform: translateY(0);
+  }
+  
+  /* hidden state (moves header up smoothly) */
   .header-wrapper.not-sticky {
-    position: relative !important;
+    transform: translateY(-100%);
   }
-  /* Optional background when scrolled */
-  .header-wrapper.scrolled {
-    background: #000 !important;
-  }
-  /* Sticky state */
-  .header-wrapper.scrolled {
-    position: fixed;
-    top: 0;
-    background: #000 !important;
-  }
-  /* Qasim did this for making logo on header bigger */
-   .header__heading-logo {
+  
+  /* logo size */
+  .header__heading-logo {
     max-width: 100%;
     width: 235px;
     height: 100px;
-  }
-  /* If you see a jump in scrolling */
-  .header-wrapper {
-    transition: all 0.3s ease;
   }
   /** End Custom CSS **/
   header-drawer {
@@ -472,16 +478,13 @@
     const scrollY = window.scrollY;
   
     if (scrollY <= 50) {
-      // Top → transparent overlay
       header.classList.remove("scrolled", "not-sticky");
     } 
     else if (scrollY > 50 && scrollY <= 300) {
-      // قلي scroll → sticky + colored
       header.classList.add("scrolled");
       header.classList.remove("not-sticky");
     } 
     else {
-      // More scroll → remove sticky
       header.classList.add("not-sticky");
     }
   });
