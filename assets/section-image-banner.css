@@ -90,7 +90,7 @@
   }
 
   .banner--medium:not(.banner--adapt) {
-    min-height: 90rem;
+    min-height: 85rem;
   }
 
   .banner--large:not(.banner--adapt) {
