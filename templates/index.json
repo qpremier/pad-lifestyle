@@ -12,31 +12,13 @@
     "slideshow": {
       "type": "slideshow",
       "blocks": {
-        "slide_mVQ6Y7": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/image1.webp",
-            "image_overlay_opacity": 0,
-            "heading": "ECLECTIC EDIT",
-            "heading_size": "h2",
-            "subheading": "THE",
-            "button_label": "SHOP NOW",
-            "link": "shopify://collections/all",
-            "button_style_secondary": true,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-1"
-          }
-        },
         "slide_UKJJdi": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/image2.webp",
             "image_overlay_opacity": 0,
             "heading": "PALERMO COLLECTION",
-            "heading_size": "h0",
+            "heading_size": "h1",
             "subheading": "THE",
             "button_label": "SHOP NOW",
             "link": "shopify://collections",
@@ -83,17 +65,37 @@
             "text_alignment_mobile": "center",
             "color_scheme": "scheme-1"
           }
+        },
+        "slide_mVQ6Y7": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/image1.webp",
+            "image_overlay_opacity": 0,
+            "heading": "ECLECTIC EDIT",
+            "heading_size": "h2",
+            "subheading": "THE",
+            "button_label": "SHOP NOW",
+            "link": "shopify://collections/all",
+            "button_style_secondary": true,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-1"
+          }
         }
       },
       "block_order": [
-        "slide_mVQ6Y7",
         "slide_UKJJdi",
         "slide_mGp7tW",
-        "slide_A6egxe"
+        "slide_A6egxe",
+        "slide_mVQ6Y7"
       ],
       "settings": {
         "layout": "full_bleed",
         "slide_height": "medium",
+        "full_screen_hero": true,
+        "show_scroll_button": true,
         "slider_visual": "dots",
         "auto_rotate": true,
         "change_slides_speed": 3,
