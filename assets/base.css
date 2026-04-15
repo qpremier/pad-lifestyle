@@ -2853,6 +2853,26 @@ details[open] > .header__menu-item .icon-caret {
   margin: 1rem 0;
 }
 
+@media screen and (min-width: 990px) {
+  .header__submenu > li {
+    position: relative;
+  }
+
+  .header__submenu > li > details {
+    position: relative;
+  }
+
+  .header__submenu .header__submenu {
+    background-color: rgb(var(--color-background));
+    left: calc(100% - 0.2rem);
+    margin: 0;
+    min-width: 22rem;
+    position: absolute;
+    top: -1rem;
+    width: max-content;
+  }
+}
+
 .header__submenu .header__menu-item:after {
   right: 2rem;
 }
