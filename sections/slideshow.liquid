@@ -6,6 +6,32 @@
   .aaaaaa{
     margin-bottom: -44px !important;
   }
+  .slideshow-component-q {
+    position: relative;
+  }
+  .slideshow-component-q.is-full-screen,
+  .slideshow-component-q.is-full-screen .slideshow {
+    min-height: 100svh;
+  }
+  .slideshow-component-q.is-full-screen .slideshow__slide,
+  .slideshow-component-q.is-full-screen .banner__content,
+  .slideshow-component-q.is-full-screen .banner__media,
+  .slideshow-component-q.is-full-screen .media {
+    min-height: 100svh;
+  }
+  .slideshow-component-q.is-full-screen .slideshow__media {
+    background: rgb(var(--color-background));
+  }
+  .slideshow-component-q.is-full-screen .slideshow__media > img,
+  .slideshow-component-q.is-full-screen .slideshow__media > svg {
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+  }
+  .slideshow__image--mobile {
+    display: none;
+  }
   .slider-button-q{
     color: #ffffff;
     opacity: unset;
@@ -28,6 +54,35 @@
     border: none;
     position: relative;
     top: -45px;
+  }
+  .slideshow-scroll-button {
+    align-items: center;
+    background: rgba(var(--color-background), 0.72);
+    border: 0.1rem solid rgba(var(--color-foreground), 0.18);
+    border-radius: 999px;
+    bottom: 3rem;
+    box-shadow: 0 1rem 3rem rgba(var(--color-shadow), 0.14);
+    color: rgb(var(--color-foreground));
+    cursor: pointer;
+    display: inline-flex;
+    height: 5.2rem;
+    justify-content: center;
+    left: 50%;
+    padding: 0;
+    position: absolute;
+    transform: translateX(-50%);
+    transition: transform var(--duration-default) ease, background-color var(--duration-default) ease;
+    width: 5.2rem;
+    z-index: 3;
+  }
+  .slideshow-scroll-button:hover {
+    background: rgb(var(--color-background));
+    transform: translateX(-50%) translateY(0.4rem);
+  }
+  .slideshow-scroll-button .icon-arrow {
+    height: 1.4rem;
+    transform: rotate(90deg);
+    width: 1.8rem;
   }
   @media screen and (max-width: 749px) {
     .aaaaaa {
@@ -53,6 +108,29 @@
       justify-content: center !important;
       top: 0;
       margin-top: 1.2rem;
+    }
+
+    .slideshow-component-q.is-full-screen,
+    .slideshow-component-q.is-full-screen .slideshow,
+    .slideshow-component-q.is-full-screen .slideshow__slide,
+    .slideshow-component-q.is-full-screen .banner__content,
+    .slideshow-component-q.is-full-screen .banner__media,
+    .slideshow-component-q.is-full-screen .media {
+      min-height: 100svh;
+    }
+
+    .slideshow__image--desktop.has-mobile-image {
+      display: none;
+    }
+
+    .slideshow__image--mobile {
+      display: block;
+    }
+
+    .slideshow-scroll-button {
+      bottom: 2rem;
+      height: 4.8rem;
+      width: 4.8rem;
     }
   }
 
@@ -93,7 +171,7 @@
 {%- endif -%}
 
 <slideshow-component
-  class="aaaaaa slider-mobile-gutter{% if section.settings.layout == 'grid' %} page-width{% endif %}{% if section.settings.show_text_below %} mobile-text-below{% endif %}"
+  class="aaaaaa slideshow-component-q{% if section.settings.full_screen_hero %} is-full-screen{% endif %} slider-mobile-gutter{% if section.settings.layout == 'grid' %} page-width{% endif %}{% if section.settings.show_text_below %} mobile-text-below{% endif %}"
   role="region"
   aria-roledescription="{{ 'sections.slideshow.carousel' | t }}"
   aria-label="{{ section.settings.accessibility_info | escape }}"
@@ -165,7 +243,7 @@
   {%- endif -%}
 
   <div
-    class="slideshow banner banner--{{ section.settings.slide_height }} grid grid--1-col slider slider--everywhere{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}{% if section.blocks.first.settings.image == blank %} slideshow--placeholder{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+    class="slideshow banner banner--{{ section.settings.slide_height }}{% if section.settings.full_screen_hero %} slideshow--full-screen{% endif %} grid grid--1-col slider slider--everywhere{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}{% if section.blocks.first.settings.image == blank %} slideshow--placeholder{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
     id="Slider-{{ section.id }}"
     aria-live="polite"
     aria-atomic="true"
@@ -187,34 +265,83 @@
         aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
         tabindex="-1"
       >
-        <div class="slideshow__media banner__media media{% if block.settings.image == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
-          {%- if block.settings.image -%}
+        <div class="slideshow__media banner__media media{% if block.settings.image == blank and block.settings.mobile_image == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
+          {%- if block.settings.image or block.settings.mobile_image -%}
             {%- liquid
-              assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
-              if section.settings.image_behavior == 'ambient'
-                assign sizes = '120vw'
-                assign widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
-              else
-                assign sizes = '100vw'
-                assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+              assign desktop_image = block.settings.image
+              assign mobile_image = block.settings.mobile_image | default: block.settings.image
+              assign desktop_image_class = 'slideshow__image--desktop'
+              if block.settings.mobile_image != blank
+                assign desktop_image_class = 'slideshow__image--desktop has-mobile-image'
               endif
+              assign desktop_height = desktop_image.width | divided_by: desktop_image.aspect_ratio | round
+              assign mobile_height = mobile_image.width | divided_by: mobile_image.aspect_ratio | round
+
+              if section.settings.image_behavior == 'ambient'
+                assign desktop_sizes = '120vw'
+                assign desktop_widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
+              else
+                assign desktop_sizes = '100vw'
+                assign desktop_widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+              endif
+
+              assign mobile_sizes = '100vw'
+              assign mobile_widths = '375, 550, 750, 1100, 1500, 1780, 2000'
               assign fetch_priority = 'auto'
               if section.index == 1
                 assign fetch_priority = 'high'
               endif
             -%}
-            {%- if forloop.first %}
-              {{
-                block.settings.image
-                | image_url: width: 3840
-                | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority
-              }}
-            {%- else -%}
-              {{
-                block.settings.image
-                | image_url: width: 3840
-                | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
-              }}
+            {%- if desktop_image -%}
+              {%- if forloop.first %}
+                {{
+                  desktop_image
+                  | image_url: width: 3840
+                  | image_tag:
+                    class: desktop_image_class,
+                    height: desktop_height,
+                    sizes: desktop_sizes,
+                    widths: desktop_widths,
+                    fetchpriority: fetch_priority
+                }}
+              {%- else -%}
+                {{
+                  desktop_image
+                  | image_url: width: 3840
+                  | image_tag:
+                    class: desktop_image_class,
+                    loading: 'lazy',
+                    height: desktop_height,
+                    sizes: desktop_sizes,
+                    widths: desktop_widths
+                }}
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if block.settings.mobile_image != blank -%}
+              {%- if forloop.first -%}
+                {{
+                  block.settings.mobile_image
+                  | image_url: width: 2000
+                  | image_tag:
+                    class: 'slideshow__image--mobile',
+                    height: mobile_height,
+                    sizes: mobile_sizes,
+                    widths: mobile_widths,
+                    fetchpriority: fetch_priority
+                }}
+              {%- else -%}
+                {{
+                  block.settings.mobile_image
+                  | image_url: width: 2000
+                  | image_tag:
+                    class: 'slideshow__image--mobile',
+                    loading: 'lazy',
+                    height: mobile_height,
+                    sizes: mobile_sizes,
+                    widths: mobile_widths
+                }}
+              {%- endif -%}
             {%- endif -%}
           {%- else -%}
             {%- assign placeholder_slide = forloop.index | modulo: 2 -%}
@@ -255,10 +382,7 @@
                     assign slide_heading_size_desktop = 'clamp(calc(var(--font-heading-scale) * 5.6rem), 14vw, calc(var(--font-heading-scale) * 7.2rem))'
                 endcase
               -%}
-              <h2
-                class="banner__heading inline-richtext {{ block.settings.heading_size }}"
-                style="--slide-heading-size-mobile: {{ slide_heading_size_mobile }}; --slide-heading-size-desktop: {{ slide_heading_size_desktop }};"
-              >
+              <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}" style="--slide-heading-size-mobile: {{ slide_heading_size_mobile }}; --slide-heading-size-desktop: {{ slide_heading_size_desktop }};">
                 {{ block.settings.heading }}
               </h2>
             {%- endif -%}
@@ -347,11 +471,48 @@
       {%- endif -%}
     </div>
   {%- endif -%}
+
+  {%- if section.settings.show_scroll_button -%}
+    <button type="button" class="slideshow-scroll-button" data-slideshow-scroll aria-label="Scroll to next section">
+      <span class="svg-wrapper">
+        {{- 'icon-arrow.svg' | inline_asset_content -}}
+      </span>
+    </button>
+  {%- endif -%}
 </slideshow-component>
 
 {%- if request.design_mode -%}
   <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
+
+{% javascript %}
+  if (!window.__padlifeSlideshowScrollBound) {
+    window.__padlifeSlideshowScrollBound = true;
+
+    document.addEventListener('click', (event) => {
+      const trigger = event.target.closest('[data-slideshow-scroll]');
+      if (!trigger) return;
+
+      const currentSection = trigger.closest('.shopify-section') || trigger.closest('section');
+      let nextSection = currentSection ? currentSection.nextElementSibling : null;
+
+      while (nextSection && !nextSection.matches('.shopify-section, section')) {
+        nextSection = nextSection.nextElementSibling;
+      }
+
+      const header = document.querySelector('.section-header');
+      const headerOffset = header ? header.offsetHeight : 0;
+
+      if (nextSection) {
+        const top = nextSection.getBoundingClientRect().top + window.scrollY - headerOffset + 24;
+        window.scrollTo({ top, behavior: 'smooth' });
+        return;
+      }
+
+      window.scrollBy({ top: Math.round(window.innerHeight * 0.85), behavior: 'smooth' });
+    });
+  }
+{% endjavascript %}
 
 {% schema %}
 {
@@ -401,6 +562,18 @@
       ],
       "default": "medium",
       "label": "t:sections.slideshow.settings.slide_height.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_screen_hero",
+      "label": "Full screen hero",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_button",
+      "label": "Show scroll down button",
+      "default": true
     },
     {
       "type": "select",
@@ -486,6 +659,11 @@
           "type": "image_picker",
           "id": "image",
           "label": "t:sections.slideshow.blocks.slide.settings.image.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image"
         },
         {
           "type": "range",
