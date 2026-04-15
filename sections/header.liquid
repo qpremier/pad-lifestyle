@@ -452,6 +452,17 @@
   }
 
   customElements.define('sticky-header', StickyHeader);
+
+  // Qasim added this for header scrolling
+  window.addEventListener("scroll", function () {
+    const header = document.querySelector(".header-wrapper");
+    if (window.scrollY > 50) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  });
+  // end js that Qasim added
 {% endjavascript %}
 
 <script type="application/ld+json">
