@@ -18,7 +18,7 @@
             "image": "shopify://shop_images/image1.webp",
             "image_overlay_opacity": 0,
             "heading": "ECLECTIC EDIT",
-            "heading_size": "h2",
+            "heading_size": "hxxl",
             "subheading": "THE",
             "button_label": "SHOP NOW",
             "link": "shopify://collections/all",
