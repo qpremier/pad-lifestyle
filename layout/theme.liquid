@@ -257,6 +257,7 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'tailwind.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
@@ -373,14 +374,5 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-    {% comment %} for production, install it bcz its slow for store {% endcomment %}
-    {% comment %} <script>
-      tailwind.config = {
-        corePlugins: {
-          preflight: false
-        }
-      }
-    </script>
-    <script src="https://cdn.tailwindcss.com" defer="defer"></script> {% endcomment %}
   </body>
 </html>

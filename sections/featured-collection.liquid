@@ -65,13 +65,12 @@
 -%}
 
 <style>
-  .bg-white {
+  .featured-collection-homepage {
     background-color: rgb(255, 255, 255);
     color: rgb(28, 28, 28) !important;
-    border-color: rgb(221, 221, 221);
   }
   .hhead{
-    font-size: calc(0.75rem * 3);
+    font-size: clamp(2.4rem, 4vw, calc(0.75rem * 3));
     line-height: 1.7;
     color: #1C1C1C;
     text-align: center;
@@ -108,19 +107,53 @@
     letter-spacing: 2px;
     font-weight: lighter;
   }
-  @media screen and (min-width: 990px) {
-    .grid--4-col-desktop .grid-homepage-q {
-        width: calc(20% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
-        max-width: calc(20% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+  .featured-collection-homepage .collection__title {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
+  .featured-collection-homepage .col-desc-q {
+    max-width: 62rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .featured-collection-homepage .prod-g-q {
+    justify-content: flex-start !important;
+    row-gap: 2.4rem;
+  }
+  .featured-collection-homepage .grid-homepage-q {
+    width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-mobile-horizontal-spacing)) / {{ columns_mobile_int }});
+    max-width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-mobile-horizontal-spacing)) / {{ columns_mobile_int }});
+  }
+  .featured-collection-homepage .slider-buttons {
+    margin-top: 2rem;
+  }
+  @media screen and (max-width: 749px) {
+    .featured-collection-homepage .card__heading {
+      font-size: 1.4rem;
+      letter-spacing: 0.2rem;
     }
-}
-.prod-g-q{
-  justify-content: center !important;
-}
+
+    .featured-collection-homepage .price .price-item,
+    .featured-collection-homepage .price--on-sale .price__sale {
+      letter-spacing: 0.12rem;
+    }
+  }
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .featured-collection-homepage .grid-homepage-q {
+      width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_mobile_int }});
+      max-width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_mobile_int }});
+    }
+  }
+  @media screen and (min-width: 990px) {
+    .featured-collection-homepage .grid-homepage-q {
+        width: calc((100% - {{ columns_desktop_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_desktop_int }});
+        max-width: calc((100% - {{ columns_desktop_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_desktop_int }});
+    }
+  }
 </style>
 
 <div
-  class="bg-white color-{{ section.settings.color_scheme }} isolate gradient"
+  class="featured-collection-homepage color-{{ section.settings.color_scheme }} isolate gradient"
 >
   <div
     class="collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}"

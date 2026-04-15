@@ -44,98 +44,118 @@
 
 <style>
   .custom-collection-section {
-  padding: 40px 0px 0px 0px;
-}
-
-.custom-collection-heading {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.custom-collection-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0;
-}
-
-@media (min-width: 700px) {
-  .custom-collection-grid {
-    grid-template-columns: repeat(2, 1fr);
+    padding: 4rem 1.6rem 0;
   }
-}
 
-@media (min-width: 1150px) {
-  .custom-collection-grid {
-    grid-template-columns: repeat(4, 1fr);
+  .custom-collection-heading {
+    text-align: center;
+    margin-bottom: 2.4rem;
   }
-}
 
-/* CARD */
-.collection-card {
-  position: relative;
-  overflow: hidden;
-  display: block;
-}
+  .custom-collection-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
 
-/* IMAGE */
-.collection-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  .custom-collection-grid {
+    max-width: 144rem;
+    margin: 0 auto;
+  }
 
-/* EXACT ZOOM EFFECT */
-@media screen and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  @media (min-width: 700px) {
+    .custom-collection-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1150px) {
+    .custom-collection-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+  }
+
+  .collection-card {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    min-height: 28rem;
+    background: #f5f5f5;
+  }
+
   .collection-card img {
-    transform-origin: center;
-    transition: transform 8s cubic-bezier(.25, .46, .45, .94);
+    width: 100%;
+    height: 100%;
+    min-height: 28rem;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
   }
 
-  .collection-card:hover img {
-    transform: scale(1.1);
+  @media screen and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .collection-card img {
+      transform-origin: center;
+      transition: transform 8s cubic-bezier(.25, .46, .45, .94);
+    }
+
+    .collection-card:hover img {
+      transform: scale(1.1);
+    }
   }
-}
 
-/* CONTENT OVER IMAGE */
-.collection-card-content {
-  position: absolute;
-  bottom: 40px;
-  left: 40px;
-}
-
-/* BUTTON BASE (matches your theme style) */
-.collection-card-content button {
-  position: relative;
-  color: white;
-  border: 1px solid white;
-  padding: 10px 18px;
-  font-size: 14px;
-  background: transparent;
-  cursor: pointer;
-
-  background-image: 
-    linear-gradient(transparent, transparent),
-    linear-gradient(white, white);
-
-  background-repeat: no-repeat;
-  background-size: 100% 100%, 0 100%;
-  background-position: left, right;
-
-  transition: 
-    color 0.3s ease,
-    background-size 0.4s ease,
-    border-color 0.3s ease;
-}
-
-/* BUTTON HOVER EFFECT */
-@media screen and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .collection-card-content button:hover {
-    color: black;
-    background-size: 0 100%, 100% 100%;
-    border-color: white;
+  .collection-card-content {
+    position: absolute;
+    bottom: 1.6rem;
+    left: 1.6rem;
+    right: 1.6rem;
   }
-}
-  
+
+  .collection-card-content button {
+    position: relative;
+    color: white;
+    border: 1px solid white;
+    padding: 1rem 1.8rem;
+    font-size: 1.3rem;
+    letter-spacing: 0.12em;
+    background: transparent;
+    cursor: pointer;
+
+    background-image:
+      linear-gradient(transparent, transparent),
+      linear-gradient(white, white);
+
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 0 100%;
+    background-position: left, right;
+
+    transition:
+      color 0.3s ease,
+      background-size 0.4s ease,
+      border-color 0.3s ease;
+  }
+
+  @media screen and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .collection-card-content button:hover {
+      color: black;
+      background-size: 0 100%, 100% 100%;
+      border-color: white;
+    }
+  }
+
+  @media (max-width: 699px) {
+    .custom-collection-heading h2 {
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
+    }
+
+    .collection-card {
+      min-height: 22rem;
+    }
+
+    .collection-card img {
+      min-height: 22rem;
+    }
+  }
 </style>
 
 <div class="custom-collection-section">
