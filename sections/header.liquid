@@ -41,6 +41,12 @@
   .header-wrapper.scrolled {
     background: #000 !important;
   }
+  /* Sticky state */
+  .header-wrapper.scrolled {
+    position: fixed;
+    top: 0;
+    background: #000 !important;
+  }
   /* Qasim did this for making logo on header bigger */
    .header__heading-logo {
     max-width: 100%;
@@ -463,13 +469,20 @@
   // Qasim added this for header scrolling
   window.addEventListener("scroll", function () {
     const header = document.querySelector(".header-wrapper");
+    const scrollY = window.scrollY;
   
-    if (window.scrollY > 50) {
+    if (scrollY <= 50) {
+      // Top → transparent overlay
+      header.classList.remove("scrolled", "not-sticky");
+    } 
+    else if (scrollY > 50 && scrollY <= 200) {
+      // قلي scroll → sticky + colored
       header.classList.add("scrolled");
-      header.classList.add("not-sticky");
-    } else {
-      header.classList.remove("scrolled");
       header.classList.remove("not-sticky");
+    } 
+    else {
+      // More scroll → remove sticky
+      header.classList.add("not-sticky");
     }
   });
   // end js that Qasim added
