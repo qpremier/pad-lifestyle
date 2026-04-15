@@ -17,6 +17,9 @@
   .slideshow__text.banner__box {
     max-width: 66.5rem;
   }
+  .slideshow__text .banner__heading {
+    font-size: var(--slide-heading-size-mobile, calc(var(--font-heading-scale) * 3rem));
+  }
   .slider-txt {
       font-size: 2rem;
   }
@@ -56,6 +59,12 @@
   @media screen and (min-width: 750px) and (max-width: 989px) {
     .slideshow__text.banner__box {
       max-width: 52rem;
+    }
+  }
+
+  @media only screen and (min-width: 750px) {
+    .slideshow__text .banner__heading {
+      font-size: var(--slide-heading-size-desktop, calc(var(--font-heading-scale) * 4rem));
     }
   }
 </style>
@@ -224,7 +233,32 @@
               </div>
             {%- endif -%}
             {%- if block.settings.heading != blank -%}
-              <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
+              {%- liquid
+                assign slide_heading_size_mobile = 'calc(var(--font-heading-scale) * 3rem)'
+                assign slide_heading_size_desktop = 'calc(var(--font-heading-scale) * 4rem)'
+
+                case block.settings.heading_size
+                  when 'h2'
+                    assign slide_heading_size_mobile = 'calc(var(--font-heading-scale) * 2rem)'
+                    assign slide_heading_size_desktop = 'calc(var(--font-heading-scale) * 2.4rem)'
+                  when 'h1'
+                    assign slide_heading_size_mobile = 'calc(var(--font-heading-scale) * 3rem)'
+                    assign slide_heading_size_desktop = 'calc(var(--font-heading-scale) * 4rem)'
+                  when 'h0'
+                    assign slide_heading_size_mobile = 'calc(var(--font-heading-scale) * 4rem)'
+                    assign slide_heading_size_desktop = 'calc(var(--font-heading-scale) * 5.2rem)'
+                  when 'hxl'
+                    assign slide_heading_size_mobile = 'calc(var(--font-heading-scale) * 5rem)'
+                    assign slide_heading_size_desktop = 'calc(var(--font-heading-scale) * 6.2rem)'
+                  when 'hxxl'
+                    assign slide_heading_size_mobile = 'clamp(calc(var(--font-heading-scale) * 5.6rem), 14vw, calc(var(--font-heading-scale) * 7.2rem))'
+                    assign slide_heading_size_desktop = 'clamp(calc(var(--font-heading-scale) * 5.6rem), 14vw, calc(var(--font-heading-scale) * 7.2rem))'
+                endcase
+              -%}
+              <h2
+                class="banner__heading inline-richtext {{ block.settings.heading_size }}"
+                style="--slide-heading-size-mobile: {{ slide_heading_size_mobile }}; --slide-heading-size-desktop: {{ slide_heading_size_desktop }};"
+              >
                 {{ block.settings.heading }}
               </h2>
             {%- endif -%}
