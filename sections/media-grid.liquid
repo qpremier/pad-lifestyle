@@ -1,180 +1,154 @@
-{% comment %}
+{% comment %} 
   Dynamic Media Grid Section - 70% Image / 30% Video
-  No padding on any side, video autoplay enabled
 {% endcomment %}
 
 {%- style -%}
-  #shopify-section-{{ section.id }} {
-    --media-grid-row-height: 100vh;
-    --media-grid-gap: 0rem;
-    --container-gutter: 0;
-    --section-vertical-spacing-override: 0;
+#shopify-section-{{ section.id }} {
+  --media-grid-row-height: 100vh;
+  --media-grid-gap: 0rem;
+  --container-gutter: 0;
+  --section-vertical-spacing-override: 0;
+}
+
+/* Remove spacing */
+#shopify-section-{{ section.id }} .section-spacing {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#shopify-section-{{ section.id }} .container {
+  padding: 0 !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+#shopify-section-{{ section.id }} .section-stack {
+  gap: 0 !important;
+  display: block !important;
+}
+
+/* Grid */
+.media-grid {
+  display: grid !important;
+  grid-template-columns: 70% 30% !important;
+  gap: 0 !important;
+  width: 100% !important;
+}
+
+.media-grid__item {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.media-grid__item > * {
+  height: 100%;
+  display: block;
+}
+
+/* Wrapper */
+.content-over-media {
+  display: grid !important;
+  position: relative !important;
+  overflow: hidden !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* Media */
+.content-over-media img,
+.content-over-media video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+/* =========================
+   HOVER ZOOM EFFECT
+   ========================= */
+@media screen and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  
+  #shopify-section-{{ section.id }} .group:hover .group-hover\:zoom {
+    transform: scale(1.2);
   }
 
-  /* Remove all padding/margin from parent containers */
-  #shopify-section-{{ section.id }} .section-spacing {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+  #shopify-section-{{ section.id }} .zoom-image {
+    transform-origin: center;
+    transition: transform 8s cubic-bezier(.25, .46, .45, .94);
   }
+}
 
-  #shopify-section-{{ section.id }} .container {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    width: 100% !important;
-  }
-
-  #shopify-section-{{ section.id }} .section-stack {
-    gap: 0 !important;
-    display: block !important;
-  }
-
-  /* Media grid - full width with no gaps */
+/* Mobile */
+@media screen and (max-width: 749px) {
   .media-grid {
-    display: grid !important;
-    grid-template-columns: 70% 30% !important;
-    gap: 0 !important;
-    width: 100% !important;
+    grid-template-columns: 1fr !important;
   }
 
-  /* Remove default media-grid__item styling */
-  .media-grid__item {
-    margin: 0 !important;
-    padding: 0 !important;
+  #shopify-section-{{ section.id }} {
+    --media-grid-row-height: auto;
   }
-
-  /* Ensure each grid item takes full height */
-  .media-grid__item > * {
-    height: 100%;
-    display: block;
-  }
-
-  /* Content overlay takes full space */
-  .content-over-media {
-    display: grid !important;
-    position: relative !important;
-    overflow: hidden !important;
-    height: 100% !important;
-    width: 100% !important;
-  }
-
-  .content-over-media:before {
-    content: "";
-    background: rgba(0, 0, 0, 0);
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  /* Images and videos - full coverage */
-  .content-over-media > :is(img, video, iframe, svg, video-media),
-  .content-over-media > picture img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center !important;
-    display: block !important;
-  }
-
-  /* Video specific styles */
-  video-media {
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-  }
-
-  video-media > video,
-  video-media > img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center !important;
-  }
-
-  /* Remove any default spacing */
-  body .shopify-section--media-grid {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* Responsive: Stack on mobile */
-  @media screen and (max-width: 749px) {
-    .media-grid {
-      grid-template-columns: 1fr !important;
-      grid-template-rows: auto auto !important;
-    }
-    
-    #shopify-section-{{ section.id }} {
-      --media-grid-row-height: auto;
-    }
-  }
+}
 {%- endstyle -%}
+
 
 <div class="section-spacing color-scheme color-scheme--{{ section.settings.color_scheme }}">
   <div class="container">
     <div class="section-stack">
       <div class="media-grid">
+
         {%- for block in section.blocks -%}
           <div class="media-grid__item" {{ block.shopify_attributes }}>
             
-            <div class="content-over-media color-scheme color-scheme--scheme-4 group" 
-                 style="--content-over-media-overlay: 0 0 0 / 0.0;">
-              
+            <div class="content-over-media group">
+
               {%- if block.type == 'image' -%}
                 {%- if block.settings.image != blank -%}
-                  <img src="{{ block.settings.image | img_url: 'master' }}" 
-                       alt="{{ block.settings.image.alt | default: 'Media image' }}" 
-                       width="{{ block.settings.image.width }}" 
-                       height="{{ block.settings.image.height }}" 
-                       loading="lazy">
+                  
+                  <img 
+                    class="zoom-image group-hover:zoom"
+                    src="{{ block.settings.image | img_url: 'master' }}" 
+                    alt="{{ block.settings.image.alt | default: 'Media image' }}" 
+                    loading="lazy"
+                    height=""
+                    width=""
+                  >
+
                 {%- else -%}
                   {{ 'image' | placeholder_svg_tag: 'placeholder-image' }}
                 {%- endif -%}
-              
+
               {%- elsif block.type == 'video' -%}
                 {%- if block.settings.video_url != blank -%}
-                  <video-media type="video" autoplay playing>
-                    <video playsinline="true" 
-                           muted="muted" 
-                           loop="loop" 
-                           autoplay="autoplay"
-                           preload="auto">
-                      <source src="{{ block.settings.video_url }}" type="video/mp4">
-                      {% if block.settings.poster_image != blank %}
-                        <img src="{{ block.settings.poster_image | img_url: 'master' }}" width="" height="">
-                      {% endif %}
-                    </video>
-                  </video-media>
+
+                  <!-- VIDEO -->
+                  <video autoplay muted loop playsinline>
+                    <source src="{{ block.settings.video_url }}" type="video/mp4">
+                  </video>
+
                 {%- else -%}
-                  <div class="placeholder-video" style="background: #f0f0f0; display: flex; align-items: center; justify-content: center; height: 100%;">
-                    Please add a video URL
+                  <div style="background:#eee; height:100%; display:flex; align-items:center; justify-content:center;">
+                    Add video URL
                   </div>
                 {%- endif -%}
               {%- endif -%}
-              
+
             </div>
           </div>
         {%- endfor -%}
+
       </div>
     </div>
   </div>
 </div>
+
 
 {% schema %}
 {
   "name": "Media Grid 70/30",
   "tag": "section",
   "class": "shopify-section--media-grid",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
   "settings": [
     {
       "type": "color_scheme",
@@ -186,34 +160,25 @@
   "blocks": [
     {
       "type": "image",
-      "name": "Image (Left - 70%)",
+      "name": "Image (70%)",
       "limit": 1,
       "settings": [
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image",
-          "info": "Choose an image to display (will take 70% width)"
+          "label": "Image"
         }
       ]
     },
     {
       "type": "video",
-      "name": "Video (Right - 30%)",
+      "name": "Video (30%)",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "video_url",
-          "label": "Video URL",
-          "info": "Enter a direct .mp4 video URL (Shopify hosted or external)",
-          "placeholder": "https://cdn.shopify.com/videos/.../video.mp4"
-        },
-        {
-          "type": "image_picker",
-          "id": "poster_image",
-          "label": "Poster image (optional)",
-          "info": "Image shown while video loads"
+          "label": "Video URL"
         }
       ]
     }
@@ -222,12 +187,8 @@
     {
       "name": "Media Grid 70/30",
       "blocks": [
-        {
-          "type": "image"
-        },
-        {
-          "type": "video"
-        }
+        { "type": "image" },
+        { "type": "video" }
       ]
     }
   ]
