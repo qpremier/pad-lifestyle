@@ -240,6 +240,8 @@
         "collection": "frontpage",
         "subheading": "Featured collection",
         "button_text": "View all",
+        "display_mode": "grid",
+        "slider_products_per_row": 6,
         "limit": 12
       }
     },
@@ -344,6 +346,8 @@
         "collection": "spring",
         "subheading": "",
         "button_text": "View all",
+        "display_mode": "slider",
+        "slider_products_per_row": 6,
         "limit": 6
       }
     },
@@ -363,6 +367,8 @@
         "collection": "summer",
         "subheading": "",
         "button_text": "View all",
+        "display_mode": "grid",
+        "slider_products_per_row": 6,
         "limit": 6
       }
     },
