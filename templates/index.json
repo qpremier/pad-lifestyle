@@ -367,8 +367,8 @@
         "collection": "summer",
         "subheading": "",
         "button_text": "View all",
-        "display_mode": "grid",
-        "products_per_row": 4,
+        "display_mode": "slider",
+        "products_per_row": 6,
         "total_products": 12
       }
     },
