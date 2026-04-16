@@ -1,6 +1,15 @@
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
 {% assign collection = section.settings.collection %}
 
 {% if collection != blank %}
+
+{% liquid
+  assign is_slider_mode = false
+  if section.settings.display_mode == 'slider'
+    assign is_slider_mode = true
+  endif
+%}
 
 <section id="shopify-section-{{ section.id }}" class="shopify-section shopify-section--featured-collections bg-white top-margin-q8q">
 
@@ -160,6 +169,44 @@
         font-weight: 400;
         margin: 0;
     }
+
+    .featured-collection-dynamic__slider {
+      display: block;
+      width: 100%;
+    }
+
+    .featured-collection-dynamic__slider-list {
+      column-gap: clamp(1rem, 2vw, 3rem);
+      display: flex;
+    }
+
+    .featured-collection-dynamic__slide {
+      min-width: calc(50% - 0.5rem);
+      scroll-snap-align: start;
+    }
+
+    @media screen and (min-width: 700px) {
+      .featured-collection-dynamic__slide {
+        min-width: calc(33.333% - 0.84rem);
+      }
+    }
+
+    @media screen and (min-width: 1000px) {
+      .featured-collection-dynamic__slide {
+        min-width: calc(25% - 1rem);
+      }
+    }
+
+    @media screen and (min-width: 1150px) {
+      .featured-collection-dynamic__slide {
+        min-width: calc(16.666% - 1.1rem);
+      }
+    }
+
+    .featured-collection-dynamic__slider + .slider-buttons {
+      margin-top: 3rem;
+      justify-content: center;
+    }
     </style>
 
   <div class="section-spacing color-scheme color-scheme--scheme-2">
@@ -178,7 +225,96 @@
           </h2>
         </div>
 
-        <!-- Product Grid -->
+        <!-- Products -->
+        {% if is_slider_mode %}
+          {% paginate collection.products by 1000 %}
+            <slider-component class="featured-collection-dynamic__slider">
+              <product-list
+                id="Slider-{{ section.id }}"
+                class="product-list featured-collection-dynamic__slider-list slider slider--everywhere"
+                aria-label="{{ collection.title | escape }}"
+              >
+                {% for product in collection.products %}
+                  <div class="featured-collection-dynamic__slide slider__slide">
+                    <product-card class="product-card">
+
+                      <div class="product-card__figure">
+                        <a href="{{ product.url }}" class="product-card__media">
+
+                          {% if product.featured_image %}
+                            <img
+                              src="{{ product.featured_image | image_url: width: 600 }}"
+                              alt="{{ product.title }}"
+                              class="product-card__image"
+                              loading="lazy"
+                              width="169"
+                              height="169"
+                            >
+                          {% else %}
+                            {{ 'product-1' | placeholder_svg_tag }}
+                          {% endif %}
+
+                        </a>
+                      </div>
+
+                      <div class="product-card__info empty:hidden">
+
+                        <div class="v-stack justify-items-center gap-1">
+
+                          <a href="{{ product.url }}" class="product-title h6">
+                            {{ product.title }}
+                          </a>
+
+                          <price-list class="price-list">
+                            <sale-price class="h6 text-subdued">
+                              {{ product.price | money }}
+                            </sale-price>
+                          </price-list>
+
+                        </div>
+
+                      </div>
+
+                    </product-card>
+                  </div>
+                {% endfor %}
+              </product-list>
+
+              {% if collection.products_count > 1 %}
+                <div class="slider-buttons">
+                  <button
+                    type="button"
+                    class="slider-button slider-button--prev"
+                    name="previous"
+                    aria-label="{{ 'general.slider.previous_slide' | t }}"
+                    aria-controls="Slider-{{ section.id }}"
+                  >
+                    <span class="svg-wrapper">
+                      {{- 'icon-caret.svg' | inline_asset_content -}}
+                    </span>
+                  </button>
+                  <div class="slider-counter caption">
+                    <span class="slider-counter--current">1</span>
+                    <span aria-hidden="true"> / </span>
+                    <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+                    <span class="slider-counter--total">{{ collection.products_count }}</span>
+                  </div>
+                  <button
+                    type="button"
+                    class="slider-button slider-button--next"
+                    name="next"
+                    aria-label="{{ 'general.slider.next_slide' | t }}"
+                    aria-controls="Slider-{{ section.id }}"
+                  >
+                    <span class="svg-wrapper">
+                      {{- 'icon-caret.svg' | inline_asset_content -}}
+                    </span>
+                  </button>
+                </div>
+              {% endif %}
+            </slider-component>
+          {% endpaginate %}
+        {% else %}
           <product-list class="product-list justify-center">
 
             {% for product in collection.products limit: section.settings.limit %}
@@ -225,6 +361,7 @@
             {% endfor %}
 
           </product-list>
+        {% endif %}
 
           <!-- View All Button -->
           <div class="justify-self-center">
@@ -262,6 +399,22 @@
       "id": "button_text",
       "label": "Button text",
       "default": "View all"
+    },
+    {
+      "type": "select",
+      "id": "display_mode",
+      "label": "Display mode",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "slider",
+          "label": "Slider"
+        }
+      ],
+      "default": "grid"
     },
     {
       "type": "range",
