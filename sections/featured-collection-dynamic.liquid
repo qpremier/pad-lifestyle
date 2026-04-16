@@ -10,11 +10,12 @@
     assign is_slider_mode = true
   endif
 
-  assign products_per_row_desktop = section.settings.products_per_row | plus: 0
-  assign products_per_row_tablet = products_per_row_desktop | at_most: 3
-  assign products_per_row_mobile = products_per_row_desktop | at_most: 2
   assign products_to_display = section.settings.total_products | plus: 0
   assign products_to_display = products_to_display | at_most: collection.products_count
+  assign products_per_row_desktop = section.settings.products_per_row | plus: 0
+  assign products_per_row_desktop = products_per_row_desktop | at_most: products_to_display
+  assign products_per_row_tablet = products_per_row_desktop | at_most: 3
+  assign products_per_row_mobile = products_per_row_desktop | at_most: 2
 %}
 
 <section id="shopify-section-{{ section.id }}" class="shopify-section shopify-section--featured-collections bg-white top-margin-q8q">
@@ -29,7 +30,7 @@
         --product-list-vertical-spacing-factor: 1;
     }
 
-    .top-margin-q8q {
+    #shopify-section-{{ section.id }}.top-margin-q8q {
       padding-top: 10rem;
       padding-bottom: 10rem;
     }
@@ -61,29 +62,29 @@
         }
     }
 
-    .py-5{
+    #shopify-section-{{ section.id }} .py-5{
         padding-top: 5rem;
         padding-bottom: 5rem;
     }
 
-    .section-heading-q{
+    #shopify-section-{{ section.id }} .section-heading-q{
         font-size: 41px;
         color: black;
         letter-spacing: 0.2em;
         margin-top: 10px;
     }
     
-    .section-stack {
+    #shopify-section-{{ section.id }} .section-stack {
         gap: 5rem;
         grid-auto-columns: minmax(0, 1fr);
         display: grid;
     }
 
-    .bg-white{
+    #shopify-section-{{ section.id }}.bg-white{
         background: white;
     }
 
-    .container{
+    #shopify-section-{{ section.id }} .container{
         margin-left: 48px;
         margin-right: 48px;
     }
@@ -91,16 +92,16 @@
     /* ================================
         OPTIONAL: PRODUCT CARD CLEANUP
     ================================= */
-    .product-card__figure {
+    #shopify-section-{{ section.id }} .product-card__figure {
         position: relative;
     }
 
-    .product-card__media {
+    #shopify-section-{{ section.id }} .product-card__media {
         display: grid;
         justify-content: center;
     }
 
-    .product-card {
+    #shopify-section-{{ section.id }} .product-card {
         display: grid;
         grid-template-columns: minmax(0, 1fr);
         gap: 1.25rem;
@@ -109,7 +110,7 @@
         scroll-snap-align: start;
     }
 
-    .product-card__info {
+    #shopify-section-{{ section.id }} .product-card__info {
         display: grid;
         gap: 0.75rem;
         text-align: center;
@@ -117,7 +118,7 @@
         align-content: start;
     }
 
-    a.product-title.h6{
+    #shopify-section-{{ section.id }} a.product-title.h6{
         text-decoration: none !important;
         font-weight: 400;
         font-size: 16px;
@@ -128,36 +129,36 @@
         margin: 0;
     }
 
-    .text-subdued {
+    #shopify-section-{{ section.id }} .text-subdued {
         color: rgb(28 28 28 / .65);
         font-size: 1.8rem;
     }
 
-    .v-stack {
+    #shopify-section-{{ section.id }} .v-stack {
         display: grid;
         grid-template-columns: minmax(0, 1fr);
         align-content: start;
     }
 
-    .gap-1 { gap: 0.25rem; }
-    .gap-2 { gap: 0.5rem; }
-    .gap-4 { gap: 1rem; }
+    #shopify-section-{{ section.id }} .gap-1 { gap: 0.25rem; }
+    #shopify-section-{{ section.id }} .gap-2 { gap: 0.5rem; }
+    #shopify-section-{{ section.id }} .gap-4 { gap: 1rem; }
     @media screen and (min-width: 700px) {
-        .sm:gap-5 {
+        #shopify-section-{{ section.id }} .sm\:gap-5 {
             gap: 1.25rem;
         }
     }
 
-    .justify-items-center {
+    #shopify-section-{{ section.id }} .justify-items-center {
         justify-items: center;
     }
-    .justify-self-center {
+    #shopify-section-{{ section.id }} .justify-self-center {
         justify-self: center;
     }
-    .text-center {
+    #shopify-section-{{ section.id }} .text-center {
         text-align: center;
     }
-    .featured-collection-dynamic__product-grid {
+    #shopify-section-{{ section.id }} .featured-collection-dynamic__product-grid {
         --featured-collection-dynamic-grid-columns: {{ products_per_row_mobile }};
         display: grid;
         align-items: start;
@@ -166,7 +167,7 @@
         grid-template-columns: repeat(var(--featured-collection-dynamic-grid-columns), minmax(0, 1fr));
     }
 
-    .small-heading-css{
+    #shopify-section-{{ section.id }} .small-heading-css{
         color: #1C1C1C;
         font-size: 18px;
         letter-spacing: 0.38em;
@@ -176,14 +177,14 @@
         margin: 0;
     }
 
-    .featured-collection-dynamic__slider {
+    #shopify-section-{{ section.id }} .featured-collection-dynamic__slider {
       display: block;
       position: relative;
       width: 100%;
       overflow: visible;
     }
 
-    .featured-collection-dynamic__slider-list {
+    #shopify-section-{{ section.id }} .featured-collection-dynamic__slider-list {
       --featured-collection-dynamic-slider-gap: clamp(1rem, 2vw, 3rem);
       --featured-collection-dynamic-slider-columns: {{ products_per_row_mobile }};
       align-items: stretch;
@@ -197,7 +198,7 @@
       width: 100%;
     }
 
-    .featured-collection-dynamic__slide {
+    #shopify-section-{{ section.id }} .featured-collection-dynamic__slide {
       flex: 0 0 calc((100% - ((var(--featured-collection-dynamic-slider-columns) - 1) * var(--featured-collection-dynamic-slider-gap))) / var(--featured-collection-dynamic-slider-columns));
       max-width: calc((100% - ((var(--featured-collection-dynamic-slider-columns) - 1) * var(--featured-collection-dynamic-slider-gap))) / var(--featured-collection-dynamic-slider-columns));
       min-width: calc((100% - ((var(--featured-collection-dynamic-slider-columns) - 1) * var(--featured-collection-dynamic-slider-gap))) / var(--featured-collection-dynamic-slider-columns));
@@ -206,26 +207,26 @@
     }
 
     @media screen and (min-width: 750px) {
-      .featured-collection-dynamic__product-grid {
+      #shopify-section-{{ section.id }} .featured-collection-dynamic__product-grid {
         --featured-collection-dynamic-grid-columns: {{ products_per_row_tablet }};
       }
 
-      .featured-collection-dynamic__slider-list {
+      #shopify-section-{{ section.id }} .featured-collection-dynamic__slider-list {
         --featured-collection-dynamic-slider-columns: {{ products_per_row_tablet }};
       }
     }
 
     @media screen and (min-width: 990px) {
-      .featured-collection-dynamic__product-grid {
+      #shopify-section-{{ section.id }} .featured-collection-dynamic__product-grid {
         --featured-collection-dynamic-grid-columns: {{ products_per_row_desktop }};
       }
 
-      .featured-collection-dynamic__slider-list {
+      #shopify-section-{{ section.id }} .featured-collection-dynamic__slider-list {
         --featured-collection-dynamic-slider-columns: {{ products_per_row_desktop }};
       }
     }
 
-    .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons {
+    #shopify-section-{{ section.id }} .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons {
       display: flex !important;
       inset: 50% 0 auto;
       justify-content: space-between;
@@ -236,7 +237,7 @@
       z-index: 2;
     }
 
-    .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button {
+    #shopify-section-{{ section.id }} .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button {
       align-items: center;
       background: rgba(255, 255, 255, 0.95);
       border: 0.1rem solid rgba(28, 28, 28, 0.08);
@@ -249,25 +250,25 @@
       width: 4.4rem;
     }
 
-    .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--prev {
+    #shopify-section-{{ section.id }} .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--prev {
       transform: translateX(-2.2rem);
     }
 
-    .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--next {
+    #shopify-section-{{ section.id }} .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--next {
       transform: translateX(2.2rem);
     }
 
     @media screen and (max-width: 749px) {
-      .container{
+      #shopify-section-{{ section.id }} .container{
         margin-left: 2rem;
         margin-right: 2rem;
       }
 
-      .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--prev {
+      #shopify-section-{{ section.id }} .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--prev {
         transform: translateX(-0.8rem);
       }
 
-      .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--next {
+      #shopify-section-{{ section.id }} .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--next {
         transform: translateX(0.8rem);
       }
     }
@@ -291,93 +292,91 @@
 
         <!-- Products -->
         {% if is_slider_mode %}
-          {% paginate collection.products by products_to_display %}
-            <slider-component class="featured-collection-dynamic__slider">
-              <product-list
-                id="Slider-{{ section.id }}"
-                class="featured-collection-dynamic__slider-list slider slider--everywhere"
-                aria-label="{{ collection.title | escape }}"
-              >
-                {% for product in collection.products limit: products_to_display %}
-                  <div id="Slide-{{ section.id }}-{{ forloop.index }}" class="featured-collection-dynamic__slide slider__slide">
-                    <product-card class="product-card">
+          <slider-component class="featured-collection-dynamic__slider">
+            <product-list
+              id="Slider-{{ section.id }}"
+              class="featured-collection-dynamic__slider-list slider slider--everywhere"
+              aria-label="{{ collection.title | escape }}"
+            >
+              {% for product in collection.products limit: products_to_display %}
+                <div id="Slide-{{ section.id }}-{{ forloop.index }}" class="featured-collection-dynamic__slide slider__slide">
+                  <product-card class="product-card">
 
-                      <div class="product-card__figure">
-                        <a href="{{ product.url }}" class="product-card__media">
+                    <div class="product-card__figure">
+                      <a href="{{ product.url }}" class="product-card__media">
 
-                          {% if product.featured_image %}
-                            <img
-                              src="{{ product.featured_image | image_url: width: 600 }}"
-                              alt="{{ product.title }}"
-                              class="product-card__image"
-                              loading="lazy"
-                              width="169"
-                              height="169"
-                            >
-                          {% else %}
-                            {{ 'product-1' | placeholder_svg_tag }}
-                          {% endif %}
+                        {% if product.featured_image %}
+                          <img
+                            src="{{ product.featured_image | image_url: width: 600 }}"
+                            alt="{{ product.title }}"
+                            class="product-card__image"
+                            loading="lazy"
+                            width="169"
+                            height="169"
+                          >
+                        {% else %}
+                          {{ 'product-1' | placeholder_svg_tag }}
+                        {% endif %}
 
+                      </a>
+                    </div>
+
+                    <div class="product-card__info empty:hidden">
+
+                      <div class="v-stack justify-items-center gap-1">
+
+                        <a href="{{ product.url }}" class="product-title h6">
+                          {{ product.title }}
                         </a>
-                      </div>
 
-                      <div class="product-card__info empty:hidden">
-
-                        <div class="v-stack justify-items-center gap-1">
-
-                          <a href="{{ product.url }}" class="product-title h6">
-                            {{ product.title }}
-                          </a>
-
-                          <price-list class="price-list">
-                            <sale-price class="h6 text-subdued">
-                              {{ product.price | money }}
-                            </sale-price>
-                          </price-list>
-
-                        </div>
+                        <price-list class="price-list">
+                          <sale-price class="h6 text-subdued">
+                            {{ product.price | money }}
+                          </sale-price>
+                        </price-list>
 
                       </div>
 
-                    </product-card>
-                  </div>
-                {% endfor %}
-              </product-list>
+                    </div>
 
-              {% if products_to_display > 1 %}
-                <div class="slider-buttons featured-collection-dynamic__slider-buttons">
-                  <button
-                    type="button"
-                    class="slider-button slider-button--prev"
-                    name="previous"
-                    aria-label="{{ 'general.slider.previous_slide' | t }}"
-                    aria-controls="Slider-{{ section.id }}"
-                  >
-                    <span class="svg-wrapper">
-                      {{- 'icon-caret.svg' | inline_asset_content -}}
-                    </span>
-                  </button>
-                  <div class="slider-counter caption visually-hidden">
-                    <span class="slider-counter--current">1</span>
-                    <span aria-hidden="true"> / </span>
-                    <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-                    <span class="slider-counter--total">{{ products_to_display }}</span>
-                  </div>
-                  <button
-                    type="button"
-                    class="slider-button slider-button--next"
-                    name="next"
-                    aria-label="{{ 'general.slider.next_slide' | t }}"
-                    aria-controls="Slider-{{ section.id }}"
-                  >
-                    <span class="svg-wrapper">
-                      {{- 'icon-caret.svg' | inline_asset_content -}}
-                    </span>
-                  </button>
+                  </product-card>
                 </div>
-              {% endif %}
-            </slider-component>
-          {% endpaginate %}
+              {% endfor %}
+            </product-list>
+
+            {% if products_to_display > 1 %}
+              <div class="slider-buttons featured-collection-dynamic__slider-buttons">
+                <button
+                  type="button"
+                  class="slider-button slider-button--prev"
+                  name="previous"
+                  aria-label="{{ 'general.slider.previous_slide' | t }}"
+                  aria-controls="Slider-{{ section.id }}"
+                >
+                  <span class="svg-wrapper">
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+                <div class="slider-counter caption visually-hidden">
+                  <span class="slider-counter--current">1</span>
+                  <span aria-hidden="true"> / </span>
+                  <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+                  <span class="slider-counter--total">{{ products_to_display }}</span>
+                </div>
+                <button
+                  type="button"
+                  class="slider-button slider-button--next"
+                  name="next"
+                  aria-label="{{ 'general.slider.next_slide' | t }}"
+                  aria-controls="Slider-{{ section.id }}"
+                >
+                  <span class="svg-wrapper">
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+              </div>
+            {% endif %}
+          </slider-component>
         {% else %}
           <product-list class="featured-collection-dynamic__product-grid justify-center">
 
@@ -494,7 +493,7 @@
       "id": "total_products",
       "label": "Total products to show",
       "min": 2,
-      "max": 12,
+      "max": 24,
       "step": 1,
       "default": 12
     }

@@ -239,10 +239,7 @@
       "settings": {
         "collection": "frontpage",
         "subheading": "Featured collection",
-        "button_text": "View all",
-        "display_mode": "grid",
-        "products_per_row": 4,
-        "total_products": 12
+        "button_text": "View all"
       }
     },
     "image_with_text_custom_qkhDUa": {
@@ -345,10 +342,7 @@
       "settings": {
         "collection": "spring",
         "subheading": "",
-        "button_text": "View all",
-        "display_mode": "slider",
-        "products_per_row": 5,
-        "total_products": 12
+        "button_text": "View all"
       }
     },
     "dynamic_video_3E4gj4": {
@@ -366,10 +360,7 @@
       "settings": {
         "collection": "summer",
         "subheading": "",
-        "button_text": "View all",
-        "display_mode": "grid",
-        "products_per_row": 4,
-        "total_products": 12
+        "button_text": "View all"
       }
     },
     "shop_the_look_PW4Afi": {
