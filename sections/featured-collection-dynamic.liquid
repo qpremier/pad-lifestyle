@@ -10,9 +10,11 @@
     assign is_slider_mode = true
   endif
 
-  assign slider_columns_desktop = section.settings.slider_products_per_row | plus: 0
-  assign slider_columns_tablet = slider_columns_desktop | at_most: 3
-  assign slider_columns_mobile = slider_columns_desktop | at_most: 2
+  assign products_per_row_desktop = section.settings.products_per_row | plus: 0
+  assign products_per_row_tablet = products_per_row_desktop | at_most: 3
+  assign products_per_row_mobile = products_per_row_desktop | at_most: 2
+  assign products_to_display = section.settings.total_products | plus: 0
+  assign products_to_display = products_to_display | at_most: collection.products_count
 %}
 
 <section id="shopify-section-{{ section.id }}" class="shopify-section shopify-section--featured-collections bg-white top-margin-q8q">
@@ -156,12 +158,12 @@
         text-align: center;
     }
     .featured-collection-dynamic__product-grid {
+        --featured-collection-dynamic-grid-columns: {{ products_per_row_mobile }};
         display: grid;
         align-items: start;
         row-gap: clamp(2rem, 3vw, 3rem);
         column-gap: clamp(1rem, 2vw, 3rem);
-        {% comment %} grid-template-columns: repeat(6, minmax(0, 1fr)); {% endcomment %}
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+        grid-template-columns: repeat(var(--featured-collection-dynamic-grid-columns), minmax(0, 1fr));
     }
 
     .small-heading-css{
@@ -183,7 +185,7 @@
 
     .featured-collection-dynamic__slider-list {
       --featured-collection-dynamic-slider-gap: clamp(1rem, 2vw, 3rem);
-      --featured-collection-dynamic-slider-columns: {{ slider_columns_mobile }};
+      --featured-collection-dynamic-slider-columns: {{ products_per_row_mobile }};
       align-items: stretch;
       column-gap: 0;
       display: flex !important;
@@ -204,14 +206,22 @@
     }
 
     @media screen and (min-width: 750px) {
+      .featured-collection-dynamic__product-grid {
+        --featured-collection-dynamic-grid-columns: {{ products_per_row_tablet }};
+      }
+
       .featured-collection-dynamic__slider-list {
-        --featured-collection-dynamic-slider-columns: {{ slider_columns_tablet }};
+        --featured-collection-dynamic-slider-columns: {{ products_per_row_tablet }};
       }
     }
 
     @media screen and (min-width: 990px) {
+      .featured-collection-dynamic__product-grid {
+        --featured-collection-dynamic-grid-columns: {{ products_per_row_desktop }};
+      }
+
       .featured-collection-dynamic__slider-list {
-        --featured-collection-dynamic-slider-columns: {{ slider_columns_desktop }};
+        --featured-collection-dynamic-slider-columns: {{ products_per_row_desktop }};
       }
     }
 
@@ -281,14 +291,14 @@
 
         <!-- Products -->
         {% if is_slider_mode %}
-          {% paginate collection.products by 1000 %}
+          {% paginate collection.products by products_to_display %}
             <slider-component class="featured-collection-dynamic__slider">
               <product-list
                 id="Slider-{{ section.id }}"
                 class="featured-collection-dynamic__slider-list slider slider--everywhere"
                 aria-label="{{ collection.title | escape }}"
               >
-                {% for product in collection.products %}
+                {% for product in collection.products limit: products_to_display %}
                   <div id="Slide-{{ section.id }}-{{ forloop.index }}" class="featured-collection-dynamic__slide slider__slide">
                     <product-card class="product-card">
 
@@ -334,7 +344,7 @@
                 {% endfor %}
               </product-list>
 
-              {% if collection.products_count > 1 %}
+              {% if products_to_display > 1 %}
                 <div class="slider-buttons featured-collection-dynamic__slider-buttons">
                   <button
                     type="button"
@@ -351,7 +361,7 @@
                     <span class="slider-counter--current">1</span>
                     <span aria-hidden="true"> / </span>
                     <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-                    <span class="slider-counter--total">{{ collection.products_count }}</span>
+                    <span class="slider-counter--total">{{ products_to_display }}</span>
                   </div>
                   <button
                     type="button"
@@ -371,7 +381,7 @@
         {% else %}
           <product-list class="featured-collection-dynamic__product-grid justify-center">
 
-            {% for product in collection.products limit: section.settings.limit %}
+            {% for product in collection.products limit: products_to_display %}
               <product-card class="product-card">
 
                 <div class="product-card__figure">
@@ -472,20 +482,20 @@
     },
     {
       "type": "range",
-      "id": "slider_products_per_row",
-      "label": "Products per row in slider",
+      "id": "products_per_row",
+      "label": "Products per row",
       "min": 2,
       "max": 6,
       "step": 1,
-      "default": 6
+      "default": 4
     },
     {
       "type": "range",
-      "id": "limit",
-      "label": "Products to show",
-      "min": 6,
+      "id": "total_products",
+      "label": "Total products to show",
+      "min": 2,
       "max": 24,
-      "step": 6,
+      "step": 1,
       "default": 12
     }
   ],
