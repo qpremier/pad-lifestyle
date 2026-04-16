@@ -72,6 +72,47 @@
     letter-spacing: 0.16em;
     font-size: 18px;
   }
+
+  #shopify-section-{{ section.id }} .newsletter-form__field-wrapper {
+    max-width: 54rem;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .newsletter-form__controls {
+    align-items: stretch;
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .newsletter-form__controls .field {
+    flex: 1 1 auto;
+  }
+
+  #shopify-section-{{ section.id }} .newsletter-form__controls .field__input {
+    padding-right: 1.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .newsletter-form__submit {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    justify-content: center;
+    min-width: 14rem;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .newsletter-form__controls {
+      gap: 0.8rem;
+    }
+
+    #shopify-section-{{ section.id }} .newsletter-form__submit {
+      min-width: 11.5rem;
+      padding-left: 1.6rem;
+      padding-right: 1.6rem;
+    }
+  }
 {%- endstyle -%}
 
 <div class="newsletter center {% if section.settings.full_width == false %}newsletter--narrow page-width{% endif %}">
@@ -124,40 +165,40 @@
                   style="--animation-order: {{ forloop.index }};"
                 {% endif %}
               >
-                <div class="field">
-                  <input
-                    id="NewsletterForm--{{ section.id }}"
-                    type="email"
-                    name="contact[email]"
-                    class="field__input qq-asim-color"
-                    value="{{ form.email }}"
-                    aria-required="true"
-                    autocorrect="off"
-                    autocapitalize="off"
-                    autocomplete="email"
-                    {% if form.errors %}
-                      autofocus
-                      aria-invalid="true"
-                      aria-describedby="Newsletter-error--{{ section.id }}"
-                    {% elsif form.posted_successfully? %}
-                      aria-describedby="Newsletter-success--{{ section.id }}"
-                    {% endif %}
-                    placeholder="{{ 'newsletter.label' | t }}"
-                    required
-                  >
-                  <label class="field__label" for="NewsletterForm--{{ section.id }}">
-                    {{ 'newsletter.label' | t }}
-                  </label>
+                <div class="newsletter-form__controls">
+                  <div class="field">
+                    <input
+                      id="NewsletterForm--{{ section.id }}"
+                      type="email"
+                      name="contact[email]"
+                      class="field__input qq-asim-color"
+                      value="{{ form.email }}"
+                      aria-required="true"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      autocomplete="email"
+                      {% if form.errors %}
+                        autofocus
+                        aria-invalid="true"
+                        aria-describedby="Newsletter-error--{{ section.id }}"
+                      {% elsif form.posted_successfully? %}
+                        aria-describedby="Newsletter-success--{{ section.id }}"
+                      {% endif %}
+                      placeholder="{{ 'newsletter.label' | t }}"
+                      required
+                    >
+                    <label class="field__label" for="NewsletterForm--{{ section.id }}">
+                      {{ 'newsletter.label' | t }}
+                    </label>
+                  </div>
                   <button
                     type="submit"
-                    class="newsletter-form__button field__button"
+                    class="newsletter-form__submit button"
                     name="commit"
                     id="Subscribe"
                     aria-label="{{ 'newsletter.button_label' | t }}"
                   >
-                    <span class="svg-wrapper">
-                      {{- 'icon-arrow.svg' | inline_asset_content -}}
-                    </span>
+                    {{- 'newsletter.button_label' | t -}}
                   </button>
                 </div>
                 {%- if form.errors -%}
