@@ -9,6 +9,11 @@
   if section.settings.display_mode == 'slider'
     assign is_slider_mode = true
   endif
+
+  assign slider_columns_desktop = section.settings.slider_products_per_row | plus: 0
+  assign slider_columns_tablet = slider_columns_desktop | at_most: 4
+  assign slider_columns_small_tablet = slider_columns_desktop | at_most: 3
+  assign slider_columns_mobile = slider_columns_desktop | at_most: 2
 %}
 
 <section id="shopify-section-{{ section.id }}" class="shopify-section shopify-section--featured-collections bg-white top-margin-q8q">
@@ -172,6 +177,7 @@
 
     .featured-collection-dynamic__slider {
       display: block;
+      position: relative;
       width: 100%;
     }
 
@@ -181,31 +187,66 @@
     }
 
     .featured-collection-dynamic__slide {
-      min-width: calc(50% - 0.5rem);
+      min-width: calc((100% - ({{ slider_columns_mobile | minus: 1 }} * clamp(1rem, 2vw, 3rem))) / {{ slider_columns_mobile }});
       scroll-snap-align: start;
     }
 
     @media screen and (min-width: 700px) {
       .featured-collection-dynamic__slide {
-        min-width: calc(33.333% - 0.84rem);
+        min-width: calc((100% - ({{ slider_columns_small_tablet | minus: 1 }} * clamp(1rem, 2vw, 3rem))) / {{ slider_columns_small_tablet }});
       }
     }
 
     @media screen and (min-width: 1000px) {
       .featured-collection-dynamic__slide {
-        min-width: calc(25% - 1rem);
+        min-width: calc((100% - ({{ slider_columns_tablet | minus: 1 }} * clamp(1rem, 2vw, 3rem))) / {{ slider_columns_tablet }});
       }
     }
 
     @media screen and (min-width: 1150px) {
       .featured-collection-dynamic__slide {
-        min-width: calc(16.666% - 1.1rem);
+        min-width: calc((100% - ({{ slider_columns_desktop | minus: 1 }} * clamp(1rem, 2vw, 3rem))) / {{ slider_columns_desktop }});
       }
     }
 
-    .featured-collection-dynamic__slider + .slider-buttons {
-      margin-top: 3rem;
-      justify-content: center;
+    .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons {
+      inset: 50% 0 auto;
+      justify-content: space-between;
+      pointer-events: none;
+      position: absolute;
+      transform: translateY(-50%);
+      width: 100%;
+      z-index: 2;
+    }
+
+    .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 999px;
+      box-shadow: 0 0.4rem 1.4rem rgba(0, 0, 0, 0.08);
+      pointer-events: auto;
+    }
+
+    .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--prev {
+      transform: translateX(-2.2rem);
+    }
+
+    .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--next {
+      transform: translateX(2.2rem);
+    }
+
+    @media screen and (max-width: 749px) {
+      .container{
+        margin-left: 2rem;
+        margin-right: 2rem;
+      }
+
+      .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--prev {
+        transform: translateX(-0.8rem);
+      }
+
+      .featured-collection-dynamic__slider .featured-collection-dynamic__slider-buttons .slider-button--next {
+        transform: translateX(0.8rem);
+      }
     }
     </style>
 
@@ -235,7 +276,7 @@
                 aria-label="{{ collection.title | escape }}"
               >
                 {% for product in collection.products %}
-                  <div class="featured-collection-dynamic__slide slider__slide">
+                  <div id="Slide-{{ section.id }}-{{ forloop.index }}" class="featured-collection-dynamic__slide slider__slide">
                     <product-card class="product-card">
 
                       <div class="product-card__figure">
@@ -281,7 +322,7 @@
               </product-list>
 
               {% if collection.products_count > 1 %}
-                <div class="slider-buttons">
+                <div class="slider-buttons featured-collection-dynamic__slider-buttons">
                   <button
                     type="button"
                     class="slider-button slider-button--prev"
@@ -293,7 +334,7 @@
                       {{- 'icon-caret.svg' | inline_asset_content -}}
                     </span>
                   </button>
-                  <div class="slider-counter caption">
+                  <div class="slider-counter caption visually-hidden">
                     <span class="slider-counter--current">1</span>
                     <span aria-hidden="true"> / </span>
                     <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
@@ -415,6 +456,15 @@
         }
       ],
       "default": "grid"
+    },
+    {
+      "type": "range",
+      "id": "slider_products_per_row",
+      "label": "Products per row in slider",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 6
     },
     {
       "type": "range",
