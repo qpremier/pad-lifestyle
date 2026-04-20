@@ -28,16 +28,226 @@
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
+  .collection-toolbar-{{ section.id }} {
+    align-items: stretch;
+    border: 0.1rem solid rgba(var(--color-foreground), 0.08);
+    display: grid;
+    gap: 0;
+    grid-template-columns: minmax(0, 0.2fr) minmax(19rem, 1fr) minmax(19rem, 0.2fr);
+    margin-bottom: 2.4rem;
+  }
+
+  .collection-toolbar-{{ section.id }}__box {
+    align-items: center;
+    background: rgb(var(--color-background));
+    display: flex;
+    min-height: 5.5rem;
+    padding: 0;
+  }
+
+  .collection-toolbar-{{ section.id }}__box + .collection-toolbar-{{ section.id }}__box {
+    border-left: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .collection-toolbar-{{ section.id }}__layout-box {
+    justify-content: flex-start;
+  }
+
+  .collection-toolbar-{{ section.id }}__layout-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 61px));
+    width: 100%;
+  }
+
+  .collection-toolbar-{{ section.id }}__layout-button {
+    align-items: center;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: rgb(var(--color-foreground));
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 1.2rem;
+    height: 5.5rem;
+    justify-content: center;
+    letter-spacing: 0.13em;
+    padding: 0 1.2rem;
+    text-transform: uppercase;
+    transition: background-color var(--duration-default) ease, color var(--duration-default) ease;
+    width: 100%;
+  }
+
+  .collection-toolbar-{{ section.id }}__layout-button + .collection-toolbar-{{ section.id }}__layout-button {
+    border-left: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .collection-toolbar-{{ section.id }}__layout-button.is-active {
+    background: rgb(var(--color-foreground));
+    color: rgb(var(--color-background));
+  }
+
+  .collection-toolbar-{{ section.id }}__count-box {
+    justify-content: center;
+    padding: 0 1.6rem;
+  }
+
+  .collection-toolbar-{{ section.id }}__products-count {
+    font-size: 1.2rem;
+    letter-spacing: 0.13em;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-box {
+    position: relative;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-form {
+    height: 100%;
+    margin: 0;
+    width: 100%;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-field {
+    height: 100%;
+    position: relative;
+    width: 100%;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-select {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: rgb(var(--color-foreground));
+    cursor: pointer;
+    font-size: 1.2rem;
+    height: 5.5rem;
+    letter-spacing: 0.13em;
+    padding: 0 4.6rem 0 1.8rem;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-icon {
+    pointer-events: none;
+    position: absolute;
+    right: 1.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .section-{{ section.id }}-padding .facets-wrapper .facet-filters.sorting,
+  .section-{{ section.id }}-padding .facets-wrapper .product-count,
+  .section-{{ section.id }}-padding .facets-wrapper .product-count-vertical,
+  .section-{{ section.id }}-padding .facets-vertical-sort {
+    display: none !important;
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  @media screen and (max-width: 749px) {
+    .collection-toolbar-{{ section.id }} {
+      grid-template-columns: 1fr;
+      margin-bottom: 1.6rem;
+    }
+
+    .collection-toolbar-{{ section.id }}__box + .collection-toolbar-{{ section.id }}__box {
+      border-left: 0;
+      border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
+    }
+
+    .collection-toolbar-{{ section.id }}__layout-button,
+    .collection-toolbar-{{ section.id }}__sort-select {
+      font-size: 1.1rem;
+    }
+
+    .collection-toolbar-{{ section.id }}__products-count {
+      white-space: normal;
+    }
+  }
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   {%- paginate collection.products by section.settings.products_per_page -%}
+    {%- liquid
+      assign toolbar_sort_by = collection.sort_by | default: collection.default_sort_by
+    -%}
+
+    <div class="page-width">
+      <div class="collection-toolbar-{{ section.id }}">
+        <div class="collection-toolbar-{{ section.id }}__box collection-toolbar-{{ section.id }}__layout-box">
+          <div class="collection-toolbar-{{ section.id }}__layout-buttons" role="group" aria-label="Collection layout">
+            {%- for columns in (2..4) -%}
+              <button
+                type="button"
+                class="collection-toolbar-{{ section.id }}__layout-button{% if section.settings.columns_desktop == columns %} is-active{% endif %}"
+                data-collection-layout
+                data-columns="{{ columns }}"
+                aria-pressed="{% if section.settings.columns_desktop == columns %}true{% else %}false{% endif %}"
+              >
+                {{ columns }}
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="collection-toolbar-{{ section.id }}__box collection-toolbar-{{ section.id }}__count-box">
+          <p class="collection-toolbar-{{ section.id }}__products-count text-subdued">
+            {%- if collection.results_count -%}
+              {{ 'templates.search.results_with_count' | t: terms: collection.terms, count: collection.results_count }}
+            {%- elsif collection.products_count == collection.all_products_count -%}
+              {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
+            {%- else -%}
+              {{ 'products.facets.product_count' | t: product_count: collection.products_count, count: collection.all_products_count }}
+            {%- endif -%}
+          </p>
+        </div>
+
+        <div class="collection-toolbar-{{ section.id }}__box collection-toolbar-{{ section.id }}__sort-box">
+          {%- if section.settings.enable_sorting -%}
+            <facet-filters-form class="collection-toolbar-{{ section.id }}__sort-form">
+              <form id="CollectionToolbarSortForm-{{ section.id }}">
+                {%- if collection.terms -%}
+                  <input type="hidden" name="q" value="{{ collection.terms | escape }}">
+                  <input name="options[prefix]" type="hidden" value="last">
+                {%- endif -%}
+
+                <div class="collection-toolbar-{{ section.id }}__sort-field">
+                  <select
+                    name="sort_by"
+                    class="collection-toolbar-{{ section.id }}__sort-select"
+                    aria-label="{{ 'products.facets.sort_by_label' | t }}"
+                    onchange="this.form.submit()"
+                  >
+                    {%- for option in collection.sort_options -%}
+                      <option
+                        value="{{ option.value | escape }}"
+                        {% if option.value == toolbar_sort_by %}
+                          selected="selected"
+                        {% endif %}
+                      >
+                        {{ option.name | escape }}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                  <span class="collection-toolbar-{{ section.id }}__sort-icon svg-wrapper">
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </span>
+                </div>
+              </form>
+            </facet-filters-form>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
     {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
       <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
@@ -194,6 +404,32 @@
     {{ 'mask-arch.svg' | inline_asset_content }}
   {%- endif -%}
 </div>
+
+<script>
+  document.addEventListener('click', function(event) {
+    const trigger = event.target.closest('[data-collection-layout]');
+    if (!trigger || !trigger.closest('.section-{{ section.id }}-padding')) return;
+
+    const sectionRoot = trigger.closest('.section-{{ section.id }}-padding');
+    const productGrid = sectionRoot.querySelector('#product-grid');
+    if (!productGrid) return;
+
+    const nextColumns = trigger.getAttribute('data-columns');
+    if (!nextColumns) return;
+
+    ['2', '3', '4'].forEach(function(columns) {
+      productGrid.classList.remove('grid--' + columns + '-col-desktop');
+    });
+
+    productGrid.classList.add('grid--' + nextColumns + '-col-desktop');
+
+    sectionRoot.querySelectorAll('[data-collection-layout]').forEach(function(button) {
+      const isActive = button === trigger;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+  });
+</script>
 
 {% schema %}
 {
