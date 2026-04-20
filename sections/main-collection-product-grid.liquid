@@ -191,8 +191,22 @@
                 data-collection-layout
                 data-columns="{{ columns }}"
                 aria-pressed="{% if section.settings.columns_desktop == columns %}true{% else %}false{% endif %}"
+                aria-label="Show {{ columns }} products per row"
               >
-                {{ columns }}
+                {%- case columns -%}
+                  {%- when 2 -%}
+                    <svg role="presentation" width="18" viewBox="0 0 18 18" fill="none">
+                      <path fill="currentColor" d="M0 0h8v8H0zM0 10h8v8H0zM10 0h8v8h-8zM10 10h8v8h-8z"></path>
+                    </svg>
+                  {%- when 3 -%}
+                    <svg role="presentation" width="18" viewBox="0 0 18 18" fill="none">
+                      <path fill="currentColor" d="M0 0h4v4H0zM0 7h4v4H0zM0 14h4v4H0zM7 0h4v4H7zM7 7h4v4H7zM7 14h4v4H7zM14 0h4v4h-4zM14 7h4v4h-4zM14 14h4v4h-4z"></path>
+                    </svg>
+                  {%- when 4 -%}
+                    <svg role="presentation" width="18" viewBox="0 0 18 18" fill="none">
+                      <path fill="currentColor" d="M0 0h18v2H0zm0 4h18v2H0zm0 4h18v2H0zm0 4h18v2H0zm0 4h18v2H0z"></path>
+                    </svg>
+                {%- endcase -%}
               </button>
             {%- endfor -%}
           </div>
