@@ -2,15 +2,116 @@
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
+  #shopify-section-{{ section.id }} .collection-hero {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    width: 100vw;
+  }
+
+  #shopify-section-{{ section.id }} .collection-hero--with-image {
+    position: relative;
+    padding: 0;
+  }
+
+  #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__inner {
+    min-height: 520px;
+    padding: 0;
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__image-container {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    height: 520px;
+    inset: 0;
+    margin: 0;
+    max-width: none;
+    position: absolute;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__image-container img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__text-wrapper {
+    align-items: center;
+    color: #ffffff;
+    display: flex;
+    flex-basis: 100%;
+    flex: 0 0 100%;
+    inset: 0;
+    justify-content: center;
+    left: 0;
+    padding: 4rem 2rem;
+    position: relative;
+    right: 0;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__text-wrapper::before {
+    background: transparent;
+    content: '';
+    inset: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__text-wrapper > * {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__title,
+  #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__description {
+    color: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__title {
+    letter-spacing: 0.13em;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__description {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 72rem;
+  }
+
   @media screen and (max-width: 749px) {
-    .collection-hero--with-image .collection-hero__inner {
+    #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__inner {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__inner {
       padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
+    }
+
+    #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__inner {
+      min-height: 520px;
+      padding-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .collection-hero--with-image .collection-hero__text-wrapper {
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.6rem;
     }
   }
 {%- endstyle -%}
 
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
-  <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+  <div class="collection-hero__inner{% unless section.settings.show_collection_image and collection.image %} page-width{% endunless %} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="collection-hero__text-wrapper">
       <h1 class="collection-hero__title">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
