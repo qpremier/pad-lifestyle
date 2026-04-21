@@ -86,6 +86,10 @@
       "type": "related-products",
       "settings": {
         "heading": "RELATED PRODUCTS",
+        "main_heading_size": "h2",
+        "main_heading_spacing": 60,
+        "collection_heading_size": "h6",
+        "collection_heading_spacing": 40,
         "products_to_show": 3,
         "columns_desktop": 4,
         "columns_mobile": "2",
