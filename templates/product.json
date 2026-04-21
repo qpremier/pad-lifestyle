@@ -86,7 +86,6 @@
       "type": "related-products",
       "settings": {
         "heading": "RELATED PRODUCTS",
-        "heading_size": "h2",
         "products_to_show": 3,
         "columns_desktop": 4,
         "columns_mobile": "2",

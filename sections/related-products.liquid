@@ -12,6 +12,26 @@
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
+  .related-products-{{ section.id }} {
+    text-align: center;
+  }
+
+  .related-products-{{ section.id }}__collection {
+    letter-spacing: 0.13em;
+    margin: 0 0 {{ section.settings.collection_heading_spacing }}px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .related-products-{{ section.id }} .related-products__heading {
+    margin: 0 0 {{ section.settings.main_heading_spacing }}px;
+    text-align: center;
+  }
+
+  .related-products-{{ section.id }} .product-grid {
+    justify-content: center;
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -22,13 +42,19 @@
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <product-recommendations
-    class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    class="related-products related-products-{{ section.id }} page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
     data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
     data-section-id="{{ section.id }}"
     data-product-id="{{ product.id }}"
   >
     {% if recommendations.performed and recommendations.products_count > 0 %}
-      <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
+      {% assign related_collection = product.collections.first %}
+      {% if related_collection != blank %}
+        <p class="related-products-{{ section.id }}__collection {{ section.settings.collection_heading_size }}">
+          {{ related_collection.title }}
+        </p>
+      {% endif %}
+      <h2 class="related-products__heading inline-richtext {{ section.settings.main_heading_size }}">
         {{ section.settings.heading }}
       </h2>
       <ul
@@ -76,7 +102,7 @@
     },
     {
       "type": "select",
-      "id": "heading_size",
+      "id": "main_heading_size",
       "options": [
         {
           "value": "h2",
@@ -99,8 +125,52 @@
           "label": "t:sections.all.heading_size.options__5.label"
         }
       ],
-      "default": "h1",
-      "label": "t:sections.all.heading_size.label"
+      "default": "h2",
+      "label": "Main heading size"
+    },
+    {
+      "type": "range",
+      "id": "main_heading_spacing",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Space below main heading",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "collection_heading_size",
+      "options": [
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h6",
+      "label": "Collection heading size"
+    },
+    {
+      "type": "range",
+      "id": "collection_heading_spacing",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Space below collection heading",
+      "default": 10
     },
     {
       "type": "range",
