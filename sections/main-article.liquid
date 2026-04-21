@@ -1,5 +1,26 @@
 {{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign article_share_url = request.origin | append: article.url
+  assign article_share_title = article.title | url_param_escape
+  assign article_has_share_block = false
+  assign article_share_label = 'Share'
+
+  if article.image
+    assign article_share_image = article.image | image_url: width: 1500 | prepend: 'https:'
+  endif
+
+  for block in section.blocks
+    if block.type == 'share'
+      assign article_has_share_block = true
+      if block.settings.share_label != blank
+        assign article_share_label = block.settings.share_label
+      endif
+      break
+    endif
+  endfor
+-%}
+
 <article class="article-template">
   {%- for block in section.blocks -%}
     {%- case block.type -%}
@@ -42,6 +63,65 @@
         {%- endif -%}
 
       {%- when 'title' -%}
+        {%- if article_has_share_block -%}
+          <div class="article-template__toolbar page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+            <div class="article-template__toolbar-inner">
+              <p class="article-template__toolbar-heading">
+                <span class="article-template__toolbar-label">Article:</span>
+                <span class="article-template__toolbar-title">{{ article.title | escape }}</span>
+              </p>
+
+              <div class="article-template__toolbar-share" aria-label="{{ article_share_label | escape }}">
+                <span class="article-template__toolbar-share-label">{{ article_share_label }}</span>
+                <ul class="article-template__toolbar-social list-unstyled" role="list">
+                  <li>
+                    <a
+                      href="https://www.facebook.com/sharer.php?u={{ article_share_url | url_param_escape }}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Share on Facebook"
+                    >
+                      {{- 'icon-facebook.svg' | inline_asset_content -}}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://twitter.com/intent/tweet?text={{ article_share_title }}&amp;url={{ article_share_url | url_param_escape }}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Share on Twitter"
+                    >
+                      {{- 'icon-twitter.svg' | inline_asset_content -}}
+                    </a>
+                  </li>
+                  {%- if article.image -%}
+                    <li>
+                      <a
+                        href="https://pinterest.com/pin/create/button/?url={{ article_share_url | url_param_escape }}&amp;media={{ article_share_image | url_param_escape }}&amp;description={{ article_share_title }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Share on Pinterest"
+                      >
+                        {{- 'icon-pinterest.svg' | inline_asset_content -}}
+                      </a>
+                    </li>
+                  {%- endif -%}
+                  <li>
+                    <a
+                      href="mailto:?subject={{ article.title | url_param_escape }}&amp;body={{ article_share_url | url_param_escape }}"
+                      aria-label="Share by email"
+                    >
+                      <svg aria-hidden="true" focusable="false" fill="none" width="24" class="icon icon-email" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 6.25C1.5 5.42157 2.17157 4.75 3 4.75H21C21.8284 4.75 22.5 5.42157 22.5 6.25V18.25C22.5 19.0784 21.8284 19.75 21 19.75H3C2.17157 19.75 1.5 19.0784 1.5 18.25V6.25Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M22.161 5.29999L14.017 11.564C12.8279 12.4787 11.1721 12.4787 9.98299 11.564L1.83899 5.29999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
         <header
           class="page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
           {{ block.shopify_attributes }}
@@ -71,14 +151,62 @@
           {{ article.content }}
         </div>
 
+        {%- if article_has_share_block -%}
+          <div class="article-template__footer page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+            <div class="article-template__footer-inner">
+              <p class="article-template__footer-author">{{ 'Written by ' | append: article.author | upcase }}</p>
+
+              <ul class="article-template__footer-social list-unstyled" role="list" aria-label="{{ article_share_label | escape }}">
+                <li class="article-template__footer-social-item">
+                  <a
+                    href="https://www.facebook.com/sharer.php?u={{ article_share_url | url_param_escape }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Share on Facebook"
+                  >
+                    {{- 'icon-facebook.svg' | inline_asset_content -}}
+                  </a>
+                </li>
+                <li class="article-template__footer-social-item">
+                  <a
+                    href="https://twitter.com/intent/tweet?text={{ article_share_title }}&amp;url={{ article_share_url | url_param_escape }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Share on Twitter"
+                  >
+                    {{- 'icon-twitter.svg' | inline_asset_content -}}
+                  </a>
+                </li>
+                {%- if article.image -%}
+                  <li class="article-template__footer-social-item">
+                    <a
+                      href="https://pinterest.com/pin/create/button/?url={{ article_share_url | url_param_escape }}&amp;media={{ article_share_image | url_param_escape }}&amp;description={{ article_share_title }}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Share on Pinterest"
+                    >
+                      {{- 'icon-pinterest.svg' | inline_asset_content -}}
+                    </a>
+                  </li>
+                {%- endif -%}
+                <li class="article-template__footer-social-item">
+                  <a
+                    href="mailto:?subject={{ article.title | url_param_escape }}&amp;body={{ article_share_url | url_param_escape }}"
+                    aria-label="Share by email"
+                  >
+                    <svg aria-hidden="true" focusable="false" fill="none" width="24" class="icon icon-email" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 6.25C1.5 5.42157 2.17157 4.75 3 4.75H21C21.8284 4.75 22.5 5.42157 22.5 6.25V18.25C22.5 19.0784 21.8284 19.75 21 19.75H3C2.17157 19.75 1.5 19.0784 1.5 18.25V6.25Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M22.161 5.29999L14.017 11.564C12.8279 12.4787 11.1721 12.4787 9.98299 11.564L1.83899 5.29999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        {%- endif -%}
+
       {%- when 'share' -%}
-        <div
-          class="article-template__social-sharing page-width page-width--narrow{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {{ block.shopify_attributes }}
-        >
-          {% assign share_url = request.origin | append: article.url %}
-          {% render 'share-button', block: block, share_link: share_url %}
-        </div>
+        {%- comment -%} Share links are rendered in the article toolbar above the title. {%- endcomment -%}
     {%- endcase -%}
   {%- endfor -%}
 
