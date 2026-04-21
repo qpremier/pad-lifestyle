@@ -21,6 +21,8 @@
     assign enable_transparent_header = true
     if request.page_type == 'page' or request.page_type == 'product'
       assign enable_transparent_header = false
+    elsif request.page_type == 'collection' and collection.image == blank
+      assign enable_transparent_header = false
     endif
   -%}
 
