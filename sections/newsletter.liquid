@@ -101,13 +101,25 @@
     min-width: 20rem;
     white-space: nowrap;
     text-transform: uppercase;
-    background: #feead5;
     color: #6e6a2f;
     letter-spacing: 0.13em;
+    background-color: transparent;
+    background-image:
+      linear-gradient(#feead5, #feead5),
+      linear-gradient(#6e6a2f, #6e6a2f);
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 0 100%;
+    background-position: right top, left top;
+    transition: color 0.3s ease, background-size 0.4s ease;
   }
 
   #shopify-section-{{ section.id }} .newsletter-form__submit:after {
     box-shadow: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .newsletter-form__submit:hover {
+    color: #feead5;
+    background-size: 0 100%, 100% 100%;
   }
 
   @media screen and (max-width: 749px) {
