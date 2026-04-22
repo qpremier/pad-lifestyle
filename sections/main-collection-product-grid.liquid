@@ -177,7 +177,7 @@
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   {%- paginate collection.products by section.settings.products_per_page -%}
     {%- liquid
-      assign toolbar_sort_by = collection.sort_by | default: collection.default_sort_by
+      assign toolbar_sort_by = collection.sort_by
     -%}
 
     <div class="page-width">
@@ -240,10 +240,13 @@
                     aria-label="{{ 'products.facets.sort_by_label' | t }}"
                     onchange="this.form.submit()"
                   >
+                    <option value="" {% if collection.sort_by == blank %}selected="selected"{% endif %}>
+                      Sort By
+                    </option>
                     {%- for option in collection.sort_options -%}
                       <option
                         value="{{ option.value | escape }}"
-                        {% if option.value == toolbar_sort_by %}
+                        {% if toolbar_sort_by != blank and option.value == toolbar_sort_by %}
                           selected="selected"
                         {% endif %}
                       >
