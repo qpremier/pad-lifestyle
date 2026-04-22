@@ -152,7 +152,13 @@
   /* Button styles */
   .image-with-text-custom__button {
     display: inline-block;
-    background: {{ section.settings.button_bg_color }};
+    background-color: transparent;
+    background-image:
+      linear-gradient({{ section.settings.button_bg_color }}, {{ section.settings.button_bg_color }}),
+      linear-gradient({{ section.settings.button_hover_bg_color }}, {{ section.settings.button_hover_bg_color }});
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 0 100%;
+    background-position: right top, left top;
     color: {{ section.settings.button_text_color }};
     padding: {{ section.settings.button_padding_top_bottom }}px {{ section.settings.button_padding_left_right }}px;
     border: {{ section.settings.button_border_width }}px solid {{ section.settings.button_border_color }};
@@ -160,13 +166,13 @@
     font-size: {{ section.settings.button_font_size }}px;
     cursor: pointer;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease, border-color 0.3s ease, background-size 0.4s ease;
   }
 
   .image-with-text-custom__button:hover {
-    background: {{ section.settings.button_hover_bg_color }};
     color: {{ section.settings.button_hover_text_color }};
     border-color: {{ section.settings.button_hover_border_color }};
+    background-size: 0 100%, 100% 100%;
   }
 
   .py-0 {
