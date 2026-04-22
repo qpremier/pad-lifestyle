@@ -166,9 +166,9 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   background: #000 !important;
 }
 /* Hide dropdown arrow icon in header menu */
-.header__menu-item svg {
+/* .header__menu-item svg {
   display: none !important;
-}
+} */
 /* Header menu had underline to show this page is active */
 .header__menu-item span {
     text-decoration: none !important;
@@ -2983,14 +2983,25 @@ details[open] > .header__menu-item .icon-caret {
   text-decoration-line: none;
 }
 
+.header__inline-menu > .list-menu--inline > li > header-menu > details > summary .icon-caret {
+  display: none;
+}
+
 .header__menu-item .icon-caret {
   right: 0.8rem;
 }
 
 .header__submenu .icon-caret {
+  display: inline-block;
   flex-shrink: 0;
   margin-left: 1rem;
   position: static;
+  transform: rotate(-90deg);
+}
+
+.header__submenu details[open] > .header__menu-item .icon-caret,
+.header__submenu details > .header__menu-item .icon-caret {
+  transform: rotate(-90deg);
 }
 
 header-menu > details,
