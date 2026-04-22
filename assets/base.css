@@ -81,7 +81,12 @@
   margin: 0 auto;
   padding: 0;
 }
-
+/* When screen is larger than 1440px */
+@media screen and (min-width: 1440px) {
+  .page-width {
+    max-width: 95% !important;
+  }
+}
 body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   max-width: 100%;
 }
