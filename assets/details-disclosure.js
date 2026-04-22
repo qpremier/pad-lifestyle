@@ -38,6 +38,8 @@ class HeaderMenu extends DetailsDisclosure {
     this.header = document.querySelector('.header-wrapper');
     this.summary = this.mainDetailsToggle.querySelector('summary');
     this.hoverMediaQuery = window.matchMedia('(min-width: 990px)');
+    this.closeDelay = 180;
+    this.closeTimeout = null;
 
     this.boundOnMouseEnter = this.onMouseEnter.bind(this);
     this.boundOnMouseLeave = this.onMouseLeave.bind(this);
@@ -77,6 +79,16 @@ class HeaderMenu extends DetailsDisclosure {
     return this.hoverMediaQuery.matches;
   }
 
+  updateDesktopSubmenuPosition() {
+    if (!this.isDesktopHoverMenu() || !this.header || !this.content?.classList.contains('header__submenu')) return;
+
+    const headerBottom = this.header.getBoundingClientRect().bottom;
+    const detailsTop = this.mainDetailsToggle.getBoundingClientRect().top;
+    const submenuTop = Math.max(0, Math.round(headerBottom - detailsTop));
+
+    this.content.style.top = `${submenuTop}px`;
+  }
+
   setExpanded(detailsElement, isExpanded) {
     if (!detailsElement) return;
 
@@ -92,36 +104,68 @@ class HeaderMenu extends DetailsDisclosure {
     }
   }
 
+  clearCloseTimeout() {
+    if (!this.closeTimeout) return;
+    window.clearTimeout(this.closeTimeout);
+    this.closeTimeout = null;
+  }
+
+  scheduleClose(callback) {
+    this.clearCloseTimeout();
+    this.closeTimeout = window.setTimeout(() => {
+      this.closeTimeout = null;
+      callback();
+    }, this.closeDelay);
+  }
+
+  closeSiblingSubmenus(submenu) {
+    const parentMenu = submenu?.closest('.header__submenu');
+    if (!parentMenu) return;
+
+    parentMenu.querySelectorAll(':scope > li > details[open]').forEach((siblingSubmenu) => {
+      if (siblingSubmenu === submenu) return;
+      this.closeSubmenu(siblingSubmenu);
+    });
+  }
+
   onMouseEnter() {
     if (!this.isDesktopHoverMenu()) return;
+    this.clearCloseTimeout();
+    this.updateDesktopSubmenuPosition();
     this.setExpanded(this.mainDetailsToggle, true);
   }
 
   onMouseLeave() {
     if (!this.isDesktopHoverMenu()) return;
-    this.close();
+    this.scheduleClose(() => this.close());
   }
 
   onSummaryClick(event) {
     if (!this.isDesktopHoverMenu()) return;
     event.preventDefault();
+    this.updateDesktopSubmenuPosition();
     this.setExpanded(this.mainDetailsToggle, true);
   }
 
   onSubmenuMouseEnter(event) {
     if (!this.isDesktopHoverMenu()) return;
+    this.clearCloseTimeout();
+    this.closeSiblingSubmenus(event.currentTarget);
     this.setExpanded(event.currentTarget, true);
   }
 
   onSubmenuMouseLeave(event) {
     if (!this.isDesktopHoverMenu()) return;
-    this.closeSubmenu(event.currentTarget);
+    const currentSubmenu = event.currentTarget;
+    this.scheduleClose(() => this.closeSubmenu(currentSubmenu));
   }
 
   onSubmenuClick(event) {
     if (!this.isDesktopHoverMenu()) return;
     event.preventDefault();
-    this.setExpanded(event.currentTarget.closest('details'), true);
+    const currentSubmenu = event.currentTarget.closest('details');
+    this.closeSiblingSubmenus(currentSubmenu);
+    this.setExpanded(currentSubmenu, true);
   }
 
   closeSubmenu(submenu) {
@@ -130,6 +174,7 @@ class HeaderMenu extends DetailsDisclosure {
   }
 
   close() {
+    this.clearCloseTimeout();
     this.submenuDetails.forEach((submenu) => this.closeSubmenu(submenu));
     super.close();
   }

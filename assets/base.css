@@ -176,7 +176,6 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 /* Hover on any item on menu, will show submenu which I'm now moving under the header */
 .header__submenu.list-menu {
     padding: 1rem 0;
-    margin: 5.6rem auto auto;
     border-top: solid 1px;
 }
 
@@ -2884,16 +2883,15 @@ details[open] > .header__submenu {
 }
 
 .header__menu-item:hover span {
-  text-decoration: underline;
-  text-underline-offset: 0.3rem;
+  text-decoration: none;
 }
 
 details[open] > .header__menu-item {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 details[open]:hover > .header__menu-item {
-  text-decoration-thickness: 0.2rem;
+  text-decoration: none;
 }
 
 details[open] > .header__menu-item .icon-caret {
@@ -2901,14 +2899,13 @@ details[open] > .header__menu-item .icon-caret {
 }
 
 .header__active-menu-item {
-  transition: text-decoration-thickness var(--duration-short) ease;
+  transition: color var(--duration-short) ease;
   color: rgb(var(--color-foreground));
-  text-decoration: underline;
-  text-underline-offset: 0.3rem;
+  text-decoration: none;
 }
 
 .header__menu-item:hover .header__active-menu-item {
-  text-decoration-thickness: 0.2rem;
+  text-decoration: none;
 }
 
 .header__submenu {
@@ -2930,6 +2927,13 @@ details[open] > .header__menu-item .icon-caret {
   padding: 1rem 0;
 }
 
+.header__inline-menu .list-menu__item--active,
+.header__inline-menu .list-menu__item--active:hover,
+.header__inline-menu .list-menu__item--active span,
+.header__inline-menu .list-menu__item--active:hover span {
+  text-decoration: none;
+}
+
 .header__submenu .header__submenu {
   background-color: rgba(var(--color-foreground), 0.03);
   padding: 1rem 0;
@@ -2937,6 +2941,16 @@ details[open] > .header__menu-item .icon-caret {
 }
 
 @media screen and (min-width: 990px) {
+  .header__inline-menu > .list-menu--inline > li > header-menu > details > .header__submenu {
+    left: 0;
+    margin-top: 0;
+    top: 100%;
+  }
+
+  .header:not(.header--middle-left, .header--middle-center) .header__inline-menu > .list-menu--inline > li > header-menu > details > .header__submenu {
+    top: calc(100% + 1.05rem);
+  }
+
   .header__submenu > li {
     position: relative;
   }
@@ -2966,7 +2980,7 @@ details[open] > .header__menu-item .icon-caret {
 }
 
 .header__submenu .header__menu-item:hover {
-  text-decoration-line: underline;
+  text-decoration-line: none;
 }
 
 .header__menu-item .icon-caret {
