@@ -15,11 +15,10 @@
               <summary
                 id="HeaderMenu-{{ link.handle }}"
                 class="header__menu-item list-menu__item link focus-inset"
+                data-url="{{ link.url }}"
               >
                 <span
-                  {%- if link.child_active %}
-                    class="header__active-menu-item"
-                  {% endif %}
+                  class="header__menu-item-text{% if link.child_active %} header__active-menu-item{% endif %}"
                 >
                   {{- link.title | escape -}}
                 </span>
@@ -49,8 +48,11 @@
                         <summary
                           id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
                           class="header__menu-item link link--text list-menu__item focus-inset caption-large"
+                          data-url="{{ childlink.url }}"
                         >
-                          <span>{{ childlink.title | escape }}</span>
+                          <span class="header__menu-item-text{% if childlink.current %} header__active-menu-item{% endif %}">
+                            {{ childlink.title | escape }}
+                          </span>
                           {{- 'icon-caret.svg' | inline_asset_content -}}
                         </summary>
                         <ul

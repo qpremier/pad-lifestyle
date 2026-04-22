@@ -89,6 +89,24 @@ class HeaderMenu extends DetailsDisclosure {
     this.content.style.top = `${submenuTop}px`;
   }
 
+  navigateFromSummary(event) {
+    const textTarget = event.target.closest('.header__menu-item-text');
+    const summary = event.currentTarget;
+    const targetUrl = summary?.dataset?.url;
+
+    if (!textTarget || !targetUrl) return false;
+
+    event.preventDefault();
+
+    if (event.metaKey || event.ctrlKey) {
+      window.open(targetUrl, '_blank', 'noopener');
+    } else {
+      window.location.href = targetUrl;
+    }
+
+    return true;
+  }
+
   setExpanded(detailsElement, isExpanded) {
     if (!detailsElement) return;
 
@@ -142,6 +160,7 @@ class HeaderMenu extends DetailsDisclosure {
 
   onSummaryClick(event) {
     if (!this.isDesktopHoverMenu()) return;
+    if (this.navigateFromSummary(event)) return;
     event.preventDefault();
     this.updateDesktopSubmenuPosition();
     this.setExpanded(this.mainDetailsToggle, true);
@@ -162,6 +181,7 @@ class HeaderMenu extends DetailsDisclosure {
 
   onSubmenuClick(event) {
     if (!this.isDesktopHoverMenu()) return;
+    if (this.navigateFromSummary(event)) return;
     event.preventDefault();
     const currentSubmenu = event.currentTarget.closest('details');
     this.closeSiblingSubmenus(currentSubmenu);
