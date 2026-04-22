@@ -161,9 +161,15 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   }
 }
 
+/* Hover on header effect */
 .header-wrapper:hover {
   background: #000 !important;
 }
+/* Hide dropdown arrow icon in header menu */
+.header__menu-item svg {
+  display: none !important;
+}
+
 
 .background-secondary {
   background-color: rgba(var(--color-foreground), 0.04);
