@@ -39,6 +39,13 @@
     }
   {%- endstyle -%}
 
+  {%- style -%}
+    div.color-scheme-2.gradient {
+      background: #e8dcd1;
+      background-attachment: fixed;
+    }
+  {%- endstyle -%}
+
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
   {%- if product.quantity_price_breaks_configured? -%}
@@ -72,12 +79,7 @@
     >
   {%- endif -%}
 
-  <style>
-    div.color-scheme-2.gradient {
-      background: #e8dcd1;
-      background-attachment: fixed;
-    }
-  </style>
+
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class="page-width">
