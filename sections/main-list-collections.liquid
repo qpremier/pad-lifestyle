@@ -2,8 +2,48 @@
 {{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
+  #shopify-section-{{ section.id }} {
+    background: white;
+  }
+
   #shopify-section-{{ section.id }} .title {
     text-align: center;
+    color: black;
+    padding: 7rem 0 3rem 0;
+  }
+
+  #shopify-section-{{ section.id }} .collection-list .card--media {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .collection-list .card--media > .card__content {
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    z-index: 2;
+  }
+
+  #shopify-section-{{ section.id }} .collection-list .card--media > .card__content .card__information {
+    padding: 0 0 2rem 2rem;
+  }
+
+  #shopify-section-{{ section.id }} .collection-list .card--media > .card__content .card__heading {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .collection-list .card--media > .card__content .card__heading a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .collection-list .card--media > .card__content .icon-wrap {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .collection-list .card__inner > .card__content {
+    display: none;
   }
 {%- endstyle -%}
 
