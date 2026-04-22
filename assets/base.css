@@ -173,6 +173,11 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 .header__menu-item span {
     text-decoration: none !important;
 }
+/* Hover on any item on menu, will show submenu which I'm now moving under the header */
+.header__submenu.list-menu {
+    padding: 1rem 0;
+    margin: 5.6rem auto auto;
+}
 
 
 .background-secondary {
