@@ -177,6 +177,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 .header__submenu.list-menu {
     padding: 1rem 0;
     margin: 5.6rem auto auto;
+    border-top: solid 1px;
 }
 
 
