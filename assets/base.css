@@ -161,6 +161,10 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   }
 }
 
+.header-wrapper:hover {
+  background-color: #000;
+}
+
 .background-secondary {
   background-color: rgba(var(--color-foreground), 0.04);
 }
