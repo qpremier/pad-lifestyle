@@ -169,6 +169,10 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 .header__menu-item svg {
   display: none !important;
 }
+/* Header menu had underline to show this page is active */
+.header__menu-item span {
+    text-decoration: none !important;
+}
 
 
 .background-secondary {
