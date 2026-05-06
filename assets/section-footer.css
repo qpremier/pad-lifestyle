@@ -482,7 +482,7 @@
   }
 }
 
-@media screen and (max-width: 898px) {
+@media screen and (max-width: 989px) {
   .footer__content-top {
     padding-bottom: 3rem;
     padding-left: calc(4rem / var(--font-body-scale));
