@@ -791,14 +791,18 @@ class SliderComponent extends HTMLElement {
 
     if (this.isSlideVisible(this.sliderItemsToShow[0]) && this.slider.scrollLeft === 0) {
       this.prevButton.setAttribute('disabled', 'disabled');
+      this.prevButton.classList.add('is-hidden');
     } else {
       this.prevButton.removeAttribute('disabled');
+      this.prevButton.classList.remove('is-hidden');
     }
 
     if (this.isSlideVisible(this.sliderItemsToShow[this.sliderItemsToShow.length - 1])) {
       this.nextButton.setAttribute('disabled', 'disabled');
+      this.prevButton.classList.add('is-hidden');
     } else {
       this.nextButton.removeAttribute('disabled');
+      this.prevButton.classList.remove('is-hidden');
     }
   }
 
