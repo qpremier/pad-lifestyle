@@ -496,7 +496,7 @@
     }
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 989px) {
     .footer__content-top .grid {
       margin-left: -3rem;
     }
