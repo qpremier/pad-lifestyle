@@ -300,7 +300,7 @@
         "button_bg_color": "#000000",
         "button_text_color": "#ffffff",
         "button_border_color": "#000000",
-        "button_hover_bg_color": "#333333",
+        "button_hover_bg_color": "#ffffff",
         "button_hover_text_color": "#000000",
         "button_hover_border_color": "#ffffff",
         "button_font_size": 14,
