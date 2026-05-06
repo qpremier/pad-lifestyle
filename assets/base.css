@@ -214,7 +214,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   display: none !important;
 }
 .is-hidden {
-  display: none !important;
+  visibility: hidden !important;
 }
 
 .visually-hidden {
