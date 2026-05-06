@@ -185,6 +185,19 @@
       padding: 0px 10px 50px 20px;
     }
   }
+
+  
+/* Between two widths */
+@media screen and (min-width: 975px) and (max-width: 1300px) {
+  .image-with-text-custom{
+    gap: 0px !important;
+  }
+  .image-with-text-custom__heading {
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+}
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding color-scheme color-scheme--{{ section.settings.color_scheme }} py-0">
