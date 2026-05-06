@@ -191,7 +191,7 @@
     <image-with-text class="image-with-text-custom">
       {%- if section.settings.layout == 'text_first' -%}
         <div class="image-with-text-custom__content prose sm:text-start">
-            <div class="image-with-text-custom__content-inner" style="max-width: {{ section.settings.content_max_width }}px; margin: 0 auto;">
+            <div class="image-with-text-custom__content-inner" style="max-width: {{ section.settings.content_max_width }}px; margin: 15px auto;">
             {%- for block in section.blocks -%}
                 {% case block.type %}
                 {%- when 'subheading' -%}
@@ -249,7 +249,7 @@
           {%- endif -%}
         </div>
         <div class="image-with-text-custom__content prose sm:text-start">
-            <div class="image-with-text-custom__content-inner" style="max-width: {{ section.settings.content_max_width }}px; margin: 0 auto;">
+            <div class="image-with-text-custom__content-inner" style="max-width: {{ section.settings.content_max_width }}px; margin: 15px auto;">
                 {%- for block in section.blocks -%}
                     {% case block.type %}
                     {%- when 'subheading' -%}
