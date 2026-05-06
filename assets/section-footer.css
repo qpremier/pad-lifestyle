@@ -25,12 +25,6 @@
   .footer-block.grid__item:first-child {
     margin-top: 0;
   }
-
-  .footer__content-top {
-    padding-bottom: 3rem;
-    padding-left: calc(4rem / var(--font-body-scale));
-    padding-right: calc(4rem / var(--font-body-scale));
-  }
 }
 
 @media screen and (min-width: 750px) {
@@ -485,6 +479,14 @@
   100% {
     opacity: 1;
     transform: translateY(-1rem);
+  }
+}
+
+@media screen and (max-width: 898px) {
+  .footer__content-top {
+    padding-bottom: 3rem;
+    padding-left: calc(4rem / var(--font-body-scale));
+    padding-right: calc(4rem / var(--font-body-scale));
   }
 }
 
