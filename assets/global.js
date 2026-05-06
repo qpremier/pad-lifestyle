@@ -799,10 +799,10 @@ class SliderComponent extends HTMLElement {
 
     if (this.isSlideVisible(this.sliderItemsToShow[this.sliderItemsToShow.length - 1])) {
       this.nextButton.setAttribute('disabled', 'disabled');
-      this.prevButton.classList.add('is-hidden');
+      this.nextButton.classList.add('is-hidden');
     } else {
       this.nextButton.removeAttribute('disabled');
-      this.prevButton.classList.remove('is-hidden');
+      this.nextButton.classList.remove('is-hidden');
     }
   }
 
