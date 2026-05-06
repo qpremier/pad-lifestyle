@@ -276,8 +276,9 @@
       height: .6rem;
       color: black;
     }
-    .svg-wrapper:has(.icon[style*="cursor: not-allowed"]) {
-      display: none;
+    .slider-button[disabled],
+    .slider-button[disabled] .svg-wrapper {
+        display: none;
     }
     </style>
 
