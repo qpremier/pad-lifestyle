@@ -30,9 +30,18 @@
         --product-list-vertical-spacing-factor: 1;
     }
 
-    #shopify-section-{{ section.id }}.top-margin-q8q {
-      padding-top: 10rem;
-      padding-bottom: 10rem;
+    
+    @media screen and (min-width: 768px) {
+        #shopify-section-{{ section.id }}.top-margin-q8q {
+          padding-top: 10rem;
+          padding-bottom: 10rem;
+        }
+    }
+    @media screen and (min-width: 768px) {
+        #shopify-section-{{ section.id }}.top-margin-q8q {
+          padding-top: 5rem;
+          padding-bottom: 5rem;
+        }
     }
 
     /* ================================
