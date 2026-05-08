@@ -166,6 +166,7 @@
         "text_FGwktN",
         "buttons_nE8Wib"
       ],
+      "disabled": true,
       "name": "t:sections.image-banner.presets.name",
       "settings": {
         "image": "shopify://shop_images/Pad_Furniture_Banner.webp",
@@ -184,6 +185,75 @@
         "description": "<p>From our curated beginnings to a reimagined future. </p><p>Explore our journey and vision.</p>",
         "button_label": "The New Chapter",
         "button_link": ""
+      }
+    },
+    "image_with_text_custom_qkhDUa": {
+      "type": "image-with-text-custom",
+      "blocks": {
+        "subheading_e3iCqP": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "EVOLUTION OF"
+          }
+        },
+        "heading_7jpjAH": {
+          "type": "heading",
+          "settings": {
+            "heading": "PAD LIFESTYLE"
+          }
+        },
+        "text_thnHz3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>From our curated beginnings to a reimagined future.<br/>Explore our journey and the vision behind our new era of furniture and home accessories.</p>"
+          }
+        },
+        "button_YdXqA6": {
+          "type": "button",
+          "settings": {
+            "button_label": "SHOP NOW",
+            "button_link": "shopify://collections"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_e3iCqP",
+        "heading_7jpjAH",
+        "text_thnHz3",
+        "button_YdXqA6"
+      ],
+      "name": "image-with-text-custom",
+      "settings": {
+        "image": "shopify://shop_images/5521047_roominate_cropped.webp",
+        "layout": "image_first",
+        "color_scheme": "",
+        "heading_size_desktop": 44,
+        "heading_size_mobile": 30,
+        "subheading_size_desktop": 18,
+        "subheading_size_mobile": 14,
+        "text_size_desktop": 16,
+        "text_size_mobile": 14,
+        "desktop_gap": 50,
+        "mobile_gap": 30,
+        "heading_margin_bottom": 35,
+        "subheading_margin_bottom": 5,
+        "text_margin_bottom": 25,
+        "content_max_width": 430,
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#000000",
+        "button_hover_bg_color": "#ffffff",
+        "button_hover_text_color": "#000000",
+        "button_hover_border_color": "#ffffff",
+        "button_font_size": 14,
+        "button_padding_top_bottom": 12,
+        "button_padding_left_right": 30,
+        "button_border_width": 1,
+        "button_border_radius": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left"
       }
     },
     "custom_collection_grid_homepage_zyx4r9": {
@@ -245,40 +315,40 @@
         "total_products": 12
       }
     },
-    "image_with_text_custom_qkhDUa": {
+    "image_with_text_custom_eEkqF4": {
       "type": "image-with-text-custom",
       "blocks": {
-        "subheading_e3iCqP": {
+        "subheading_WmKzYW": {
           "type": "subheading",
           "settings": {
             "subheading": "THE"
           }
         },
-        "heading_7jpjAH": {
+        "heading_ghPFrt": {
           "type": "heading",
           "settings": {
             "heading": "DINING EDIT"
           }
         },
-        "text_thnHz3": {
+        "text_KpHi6i": {
           "type": "text",
           "settings": {
             "text": "<p>Whether your aesthetic leans toward the warmth of mid-century textures or the cool precision of industrial marble, these pairings are designed to transform your dining space into an enduring sanctuary of conversation and taste.</p>"
           }
         },
-        "button_YdXqA6": {
+        "button_R3Tr8t": {
           "type": "button",
           "settings": {
-            "button_label": "SHOP NOW",
+            "button_label": "THE NEW CHAPTER",
             "button_link": "shopify://collections"
           }
         }
       },
       "block_order": [
-        "subheading_e3iCqP",
-        "heading_7jpjAH",
-        "text_thnHz3",
-        "button_YdXqA6"
+        "subheading_WmKzYW",
+        "heading_ghPFrt",
+        "text_KpHi6i",
+        "button_R3Tr8t"
       ],
       "name": "image-with-text-custom",
       "settings": {
@@ -496,9 +566,10 @@
     "slideshow",
     "featured_collection",
     "image_banner_wVFQKW",
+    "image_with_text_custom_qkhDUa",
     "custom_collection_grid_homepage_zyx4r9",
     "featured_collection_dynamic_EhEEPB",
-    "image_with_text_custom_qkhDUa",
+    "image_with_text_custom_eEkqF4",
     "media_grid_rY7w8g",
     "featured_collection_dynamic_ndxGim",
     "dynamic_video_3E4gj4",
