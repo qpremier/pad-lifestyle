@@ -211,7 +211,7 @@
         "button_YdXqA6": {
           "type": "button",
           "settings": {
-            "button_label": "SHOP NOW",
+            "button_label": "THE NEW CHAPTER",
             "button_link": "shopify://collections"
           }
         }
@@ -339,7 +339,7 @@
         "button_R3Tr8t": {
           "type": "button",
           "settings": {
-            "button_label": "THE NEW CHAPTER",
+            "button_label": "SHOP NOW",
             "button_link": "shopify://collections"
           }
         }
