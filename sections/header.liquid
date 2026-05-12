@@ -93,10 +93,12 @@
   }
   
   /* logo size */
-  .header__heading-logo {
-    max-width: 100%;
-    width: 235px;
-    height: 115px;
+  @media screen and (min-width: 750px) {
+    .header__heading-logo {
+      max-width: 100%;
+      width: 235px !important;
+      height: 115px !important;
+    }
   }
   @media screen and (max-width: 750px) {
     .header__heading-logo {
