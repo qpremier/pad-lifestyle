@@ -23,13 +23,12 @@
 {%- endif -%}
 
 {%- style -%}
-  /* @media screen and (max-width: 750px) {
-    #MainContent {
-      padding-left: 10px;
-      padding-right: 10px;    
+  @media screen and (max-width: 750px) {
+    .section-template--27147866243435__product-grid-padding {
+      padding: 0px 10px;
     }
-  } */
-
+  }
+  
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
