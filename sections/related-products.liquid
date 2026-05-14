@@ -40,16 +40,19 @@
   }
 
   /* for slider css */
-    /* Mobile slider for related products */
+  /* Mobile slider for related products */
   @media screen and (max-width: 749px) {
     {% if section.settings.enable_mobile_slider %}
+
       .related-products-{{ section.id }} .product-grid {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         gap: 1rem;
-        padding-bottom: 1rem;
+        padding: 0 16px 1rem;
+        margin: 0; /* ✅ ADD THIS (important fix) */
+        justify-content: flex-start;
         -webkit-overflow-scrolling: touch;
       }
 
@@ -66,10 +69,11 @@
 
       {% if section.settings.columns_mobile == '2' %}
         .related-products-{{ section.id }} .grid__item {
-          min-width: 48%;
-          max-width: 48%;
+          min-width: calc(50% - 8px);
+          max-width: calc(50% - 8px);
         }
       {% endif %}
+
     {% endif %}
   }
   /* end css for slider */
