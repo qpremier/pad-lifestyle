@@ -396,19 +396,7 @@ a.product__text {
     margin-left: -1.5rem;
     margin-right: -1.5rem;
   } */
-  /* Qasim wrote this css for product detail page */
-  .section-template--27147866603883__main-padding {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .section-template--27147866603883__related-products-padding {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .product__title > h1 {
-    font-size: 26px !important;
-  }
-  /* End css Qasim wrote */
+
   .product__media-wrapper slider-component:not(.thumbnail-slider--no-slide) {
     margin-left: 0;
     margin-right: 0;
