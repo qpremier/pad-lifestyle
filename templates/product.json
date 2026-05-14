@@ -93,6 +93,7 @@
         "products_to_show": 3,
         "columns_desktop": 4,
         "columns_mobile": "2",
+        "enable_mobile_slider": true,
         "color_scheme": "scheme-2",
         "image_ratio": "square",
         "image_shape": "default",
