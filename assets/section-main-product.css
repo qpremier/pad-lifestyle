@@ -396,6 +396,10 @@ a.product__text {
     margin-left: -1.5rem;
     margin-right: -1.5rem;
   } */
+  .section-template--27147866603883__main-padding {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
   .product__media-wrapper slider-component:not(.thumbnail-slider--no-slide) {
     margin-left: 0;
     margin-right: 0;
