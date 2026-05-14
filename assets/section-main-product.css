@@ -405,6 +405,9 @@ a.product__text {
     padding-left: 15px;
     padding-right: 15px;
   }
+  .product__title > h1 {
+    font-size: 26px !important;
+  }
   /* End css Qasim wrote */
   .product__media-wrapper slider-component:not(.thumbnail-slider--no-slide) {
     margin-left: 0;
