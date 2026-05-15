@@ -355,19 +355,73 @@ quick-add-modal .product-form__buttons {
   max-width: initial;
 }
 
-.quick-add__submit {
-  padding: 0.8rem;
-  min-width: 100%;
+.quick-add__submit > span {
+  display: none;
+}
+
+.product-grid .quick-add {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.product-grid .card__image-quick-add {
+  bottom: 0;
+  position: absolute;
+  right: 0;
+  z-index: 2;
+}
+
+.product-grid .card__image-quick-add .quick-add {
+  margin: 0;
+}
+
+.product-grid .quick-add__submit {
+  align-items: center;
+  background: #fff !important;
+  border-radius: 0;
   box-sizing: border-box;
-  color: white;
+  color: #000 !important;
+  display: inline-flex;
+  font-size: 0;
+  justify-content: center;
+  line-height: 1;
+  min-height: auto;
+  min-width: 0;
+  padding: 4px 8px;
+  width: auto;
 }
-.quick-add__submit::after {
-  box-shadow: 0 0 0 1px rgb(255 255 255),
-              0 0 0 0 rgb(255 255 255) !important;
+
+.product-grid .quick-add__submit::before {
+  border-radius: 0;
+  box-shadow: none;
+  color: #000;
+  content: '+';
+  display: block;
+  font-size: 22px;
+  font-weight: 400;
+  inset: auto;
+  line-height: 1;
+  position: static;
+  z-index: auto;
 }
-.quick-add__submit:hover {
-  color: black !important;
-  background: white;
+
+.product-grid .quick-add__submit::after {
+  border-radius: 0;
+  box-shadow: 0 0 0 1px #949494 !important;
+}
+
+.product-grid .quick-add__submit.loading::before {
+  opacity: 0;
+}
+
+.product-grid .quick-add__submit .icon-wrap,
+.product-grid .quick-add__submit .sold-out-message {
+  display: none;
+}
+
+.product-grid .quick-add__submit .loading__spinner {
+  font-size: 1rem;
+  margin-left: 0rem;
 }
 
 quick-add-modal .product-media-container.constrain-height {

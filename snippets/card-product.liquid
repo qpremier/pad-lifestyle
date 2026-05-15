@@ -107,6 +107,7 @@
           </div>
         {%- endif -%}
         <div class="card__content">
+          {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
           <div class="card__information">
             <h3
               class="card__heading"
@@ -141,6 +142,16 @@
               </span>
             {%- endif -%}
           </div>
+          {%- if quick_add == 'standard' and card_product.featured_media -%}
+            <div class="card__image-quick-add">
+              {% render 'card-quick-add-standard',
+                card_product: card_product,
+                product_form_id: product_form_id,
+                section_id: section_id,
+                horizontal_quick_add: horizontal_quick_add
+              %}
+            </div>
+          {%- endif -%}
         </div>
       </div>
       <div class="card__content">
@@ -288,8 +299,7 @@
             {%- endif -%}
           </div>
         </div>
-        {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
-        {% if quick_add == 'standard' %}
+        {% if quick_add == 'standard' and card_product.featured_media == blank %}
           <div class="quick-add no-js-hidden">
             {%- liquid
               assign qty_rules = false
