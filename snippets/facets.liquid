@@ -28,7 +28,7 @@
   endif
 -%}
 
-<div class="facets-container{% if filter_type == 'drawer' %} facets-container-drawer{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+<div class="facets-container{% if filter_type == 'drawer' %} facets-container-drawer{% endif %}{% if separate_mobile_sort %} facets-container--separate-mobile-sort{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
   {%- if filter_type == 'vertical' or filter_type == 'horizontal' -%}
     <facet-filters-form class="facets small-hide">
       <form
@@ -450,7 +450,9 @@
             {{- 'icon-filter.svg' | inline_asset_content -}}
           </span>
           <span class="mobile-facets__open-label button-label medium-hide large-up-hide">
-            {%- if enable_filtering and enable_sorting -%}
+            {%- if separate_mobile_sort and enable_filtering -%}
+              {{ 'products.facets.filter_button' | t }}
+            {%- elsif enable_filtering and enable_sorting -%}
               {{ 'products.facets.filter_and_sort' | t }}
             {%- elsif enable_filtering -%}
               {{ 'products.facets.filter_button' | t }}
@@ -476,7 +478,9 @@
             <div class="mobile-facets__header">
               <div class="mobile-facets__header-inner">
                 <h2 class="mobile-facets__heading medium-hide large-up-hide">
-                  {%- if enable_filtering and enable_sorting -%}
+                  {%- if separate_mobile_sort and enable_filtering -%}
+                    {{ 'products.facets.filter_button' | t }}
+                  {%- elsif enable_filtering and enable_sorting -%}
                     {{ 'products.facets.filter_and_sort' | t }}
                   {%- elsif enable_filtering -%}
                     {{ 'products.facets.filter_button' | t }}
@@ -716,7 +720,7 @@
                 {%- endfor -%}
               {%- endif -%}
 
-              {%- if enable_sorting -%}
+              {%- if enable_sorting and separate_mobile_sort != true -%}
                 <div
                   id="Details-Mobile-SortBy-{{ section.id }}"
                   class="mobile-facets__details js-filter{% if filter_type == 'drawer' %} medium-hide large-up-hide{% endif %}"
@@ -781,6 +785,68 @@
       </facet-filters-form>
     </details>
   </menu-drawer>
+
+  {%- if enable_sorting and separate_mobile_sort -%}
+    <details class="mobile-sort-sheet medium-hide large-up-hide">
+      <summary class="mobile-sort-sheet__button focus-offset">
+        <span class="svg-wrapper">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+        <span>{{ 'products.facets.sort_button' | t }}</span>
+      </summary>
+      <div class="mobile-sort-sheet__panel gradient">
+        <facet-filters-form>
+          <form id="FacetSortMobileForm" class="mobile-sort-sheet__form">
+            <div
+              id="Details-Mobile-SortBy-{{ section.id }}"
+              class="mobile-sort-sheet__content js-filter"
+              data-index="mobile-sort"
+            >
+              <div class="mobile-sort-sheet__header">
+                <h2 class="mobile-sort-sheet__heading">{{ 'products.facets.sort_by_label' | t }}</h2>
+                <button
+                  type="button"
+                  class="mobile-sort-sheet__close button button--tertiary"
+                  onclick="this.closest('.mobile-sort-sheet').querySelector('summary').click()"
+                  aria-label="{{ 'accessibility.close' | t }}"
+                >
+                  <span class="svg-wrapper">
+                    {{- 'icon-close.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+              </div>
+              <fieldset class="mobile-sort-sheet__options">
+                <legend class="visually-hidden">{{ 'products.facets.sort_by_label' | t }}</legend>
+                {%- for option in results.sort_options -%}
+                  <label class="mobile-sort-sheet__option" for="SortBy-mobile-sheet-{{ forloop.index }}">
+                    <input
+                      type="radio"
+                      name="sort_by"
+                      id="SortBy-mobile-sheet-{{ forloop.index }}"
+                      value="{{ option.value | escape }}"
+                      {% if option.value == sort_by %}
+                        checked
+                      {% endif %}
+                    >
+                    <span>{{ option.name | escape }}</span>
+                  </label>
+                {%- endfor -%}
+              </fieldset>
+            </div>
+
+            {% if results.current_vendor or results.current_type %}
+              <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+            {% endif %}
+
+            {%- if results.terms -%}
+              <input type="hidden" name="q" value="{{ results.terms | escape }}">
+              <input name="options[prefix]" type="hidden" value="last">
+            {%- endif -%}
+          </form>
+        </facet-filters-form>
+      </div>
+    </details>
+  {%- endif -%}
 
   <div class="active-facets active-facets-mobile medium-hide large-up-hide">
     {%- for filter in results.filters -%}

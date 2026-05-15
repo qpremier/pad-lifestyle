@@ -111,10 +111,10 @@ class FacetFiltersForm extends HTMLElement {
   static renderFilters(html, event) {
     const parsedHTML = new DOMParser().parseFromString(html, 'text/html');
     const facetDetailsElementsFromFetch = parsedHTML.querySelectorAll(
-      '#FacetFiltersForm .js-filter, #FacetFiltersFormMobile .js-filter, #FacetFiltersPillsForm .js-filter'
+      '#FacetFiltersForm .js-filter, #FacetFiltersFormMobile .js-filter, #FacetSortMobileForm .js-filter, #FacetFiltersPillsForm .js-filter'
     );
     const facetDetailsElementsFromDom = document.querySelectorAll(
-      '#FacetFiltersForm .js-filter, #FacetFiltersFormMobile .js-filter, #FacetFiltersPillsForm .js-filter'
+      '#FacetFiltersForm .js-filter, #FacetFiltersFormMobile .js-filter, #FacetSortMobileForm .js-filter, #FacetFiltersPillsForm .js-filter'
     );
 
     // Remove facets that are no longer returned from the server
@@ -189,14 +189,17 @@ class FacetFiltersForm extends HTMLElement {
   }
 
   static renderAdditionalElements(html) {
-    const mobileElementSelectors = ['.mobile-facets__open', '.mobile-facets__count', '.sorting'];
+    const mobileElementSelectors = ['.mobile-facets__open', '.mobile-facets__count', '.mobile-sort-sheet__content', '.sorting'];
 
     mobileElementSelectors.forEach((selector) => {
-      if (!html.querySelector(selector)) return;
-      document.querySelector(selector).innerHTML = html.querySelector(selector).innerHTML;
+      const sourceElement = html.querySelector(selector);
+      const targetElement = document.querySelector(selector);
+      if (!sourceElement || !targetElement) return;
+      targetElement.innerHTML = sourceElement.innerHTML;
     });
 
-    document.getElementById('FacetFiltersFormMobile').closest('menu-drawer').bindEvents();
+    const mobileFiltersForm = document.getElementById('FacetFiltersFormMobile');
+    if (mobileFiltersForm) mobileFiltersForm.closest('menu-drawer').bindEvents();
   }
 
   static renderCounts(source, target) {
@@ -267,14 +270,15 @@ class FacetFiltersForm extends HTMLElement {
       this.onSubmitForm(searchParams, event);
     } else {
       const forms = [];
-      const isMobile = event.target.closest('form').id === 'FacetFiltersFormMobile';
+      const currentFormId = event.target.closest('form').id;
+      const isMobile = currentFormId === 'FacetFiltersFormMobile' || currentFormId === 'FacetSortMobileForm';
 
       sortFilterForms.forEach((form) => {
         if (!isMobile) {
           if (form.id === 'FacetSortForm' || form.id === 'FacetFiltersForm' || form.id === 'FacetSortDrawerForm') {
             forms.push(this.createSearchParams(form));
           }
-        } else if (form.id === 'FacetFiltersFormMobile') {
+        } else if (form.id === 'FacetFiltersFormMobile' || form.id === 'FacetSortMobileForm') {
           forms.push(this.createSearchParams(form));
         }
       });
