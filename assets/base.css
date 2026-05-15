@@ -685,7 +685,8 @@ details > * {
 
 .underlined-link,
 .customer a {
-  color: rgba(var(--color-link), var(--alpha-link));
+  /* color: rgba(var(--color-link), var(--alpha-link)); */
+  color: white;
 }
 
 .inline-richtext a,
