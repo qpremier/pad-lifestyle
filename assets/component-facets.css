@@ -1100,7 +1100,8 @@ input.mobile-facets__checkbox {
 @media screen and (max-width: 749px) {
   .search-mobile-facets-wrapper {
     position: sticky;
-    top: var(--header-height, 0);
+    top: 0px;
+    /* top: var(--header-height, 0); */
     z-index: 5;
   }
 
