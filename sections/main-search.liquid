@@ -160,34 +160,46 @@
         <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
           <form class="facets-vertical-form" id="FacetSortForm">
             <div class="facet-filters sorting caption">
-              <div class="facet-filters__field">
-                <h2 class="facet-filters__label caption-large text-body">
-                  <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
-                </h2>
-                <div class="select">
-                  {%- assign sort_by = search.sort_by | default: search.default_sort_by -%}
-                  <select
-                    name="sort_by"
-                    class="facet-filters__sort select__select caption-large"
-                    id="SortBy"
-                    aria-describedby="a11y-refresh-page-message"
-                  >
-                    {%- for option in search.sort_options -%}
-                      <option
-                        value="{{ option.value | escape }}"
-                        {% if option.value == sort_by %}
-                          selected="selected"
-                        {% endif %}
-                      >
-                        {{ option.name | escape }}
-                      </option>
-                    {%- endfor -%}
-                  </select>
-                  <span class="svg-wrapper">
-                    {{- 'icon-caret.svg' | inline_asset_content -}}
+              <details class="facets-sort-popover disclosure-has-popup">
+                <summary
+                  class="facets-sort-popover__button caption-large focus-offset"
+                  aria-label="{{ 'products.facets.sort_by_label' | t }}"
+                >
+                  <span class="facets-sort-popover__button-text">
+                    {{ 'products.facets.sort_button' | t }}
+                    <span class="facets-sort-popover__chevron svg-wrapper">
+                      {{- 'icon-caret.svg' | inline_asset_content -}}
+                    </span>
                   </span>
+                </summary>
+                <div class="facets-sort-popover__panel gradient">
+                  <p class="facets-sort-popover__heading h4">{{ 'products.facets.sort_by_label' | t }}</p>
+                  <fieldset class="facets-sort-popover__options">
+                    <legend class="visually-hidden">{{ 'products.facets.sort_by_label' | t }}</legend>
+                    {%- assign sort_by = search.sort_by | default: search.default_sort_by -%}
+                    {%- for option in search.sort_options -%}
+                      <label
+                        class="facets-sort-popover__option{% if option.value == sort_by %} is-selected{% endif %}"
+                        for="SearchSortBy-popover-{{ section.id }}-{{ forloop.index }}"
+                        role="option"
+                        aria-selected="{% if option.value == sort_by %}true{% else %}false{% endif %}"
+                      >
+                        <input
+                          type="radio"
+                          name="sort_by"
+                          id="SearchSortBy-popover-{{ section.id }}-{{ forloop.index }}"
+                          value="{{ option.value | escape }}"
+                          onchange="this.closest('details').removeAttribute('open')"
+                          {% if option.value == sort_by %}
+                            checked
+                          {% endif %}
+                        >
+                        <span>{{ option.name | escape }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </fieldset>
                 </div>
-              </div>
+              </details>
             </div>
 
             <div class="product-count-vertical light" role="status">

@@ -387,34 +387,46 @@
           {% comment %} Sorting and product count are the last elements when filter type is horizontal {% endcomment %}
           {%- if enable_sorting -%}
             <div class="facet-filters sorting caption">
-              <div class="facet-filters__field">
-                <h2 class="facet-filters__label caption-large text-body">
-                  <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
-                </h2>
-                <div class="select">
-                  {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
-                  <select
-                    name="sort_by"
-                    class="facet-filters__sort select__select caption-large"
-                    id="SortBy"
-                    aria-describedby="a11y-refresh-page-message"
-                  >
-                    {%- for option in results.sort_options -%}
-                      <option
-                        value="{{ option.value | escape }}"
-                        {% if option.value == sort_by %}
-                          selected="selected"
-                        {% endif %}
-                      >
-                        {{ option.name | escape }}
-                      </option>
-                    {%- endfor -%}
-                  </select>
-                  <span class="svg-wrapper">
-                    {{- 'icon-caret.svg' | inline_asset_content -}}
+              <details class="facets-sort-popover disclosure-has-popup">
+                <summary
+                  class="facets-sort-popover__button caption-large focus-offset"
+                  aria-label="{{ 'products.facets.sort_by_label' | t }}"
+                >
+                  <span class="facets-sort-popover__button-text">
+                    {{ 'products.facets.sort_button' | t }}
+                    <span class="facets-sort-popover__chevron svg-wrapper">
+                      {{- 'icon-caret.svg' | inline_asset_content -}}
+                    </span>
                   </span>
+                </summary>
+                <div class="facets-sort-popover__panel gradient">
+                  <p class="facets-sort-popover__heading h4">{{ 'products.facets.sort_by_label' | t }}</p>
+                  <fieldset class="facets-sort-popover__options">
+                    <legend class="visually-hidden">{{ 'products.facets.sort_by_label' | t }}</legend>
+                    {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
+                    {%- for option in results.sort_options -%}
+                      <label
+                        class="facets-sort-popover__option{% if option.value == sort_by %} is-selected{% endif %}"
+                        for="SortBy-popover-{{ section.id }}-{{ forloop.index }}"
+                        role="option"
+                        aria-selected="{% if option.value == sort_by %}true{% else %}false{% endif %}"
+                      >
+                        <input
+                          type="radio"
+                          name="sort_by"
+                          id="SortBy-popover-{{ section.id }}-{{ forloop.index }}"
+                          value="{{ option.value | escape }}"
+                          onchange="this.closest('details').removeAttribute('open')"
+                          {% if option.value == sort_by %}
+                            checked
+                          {% endif %}
+                        >
+                        <span>{{ option.name | escape }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </fieldset>
                 </div>
-              </div>
+              </details>
             </div>
           {%- endif -%}
           <div class="product-count light" role="status">
@@ -787,14 +799,16 @@
   </menu-drawer>
 
   {%- if enable_sorting and separate_mobile_sort -%}
-    <details class="mobile-sort-sheet medium-hide large-up-hide">
-      <summary class="mobile-sort-sheet__button focus-offset">
-        <span class="svg-wrapper">
-          {{- 'icon-caret.svg' | inline_asset_content -}}
+    <details class="mobile-sort-sheet facets-sort-popover medium-hide large-up-hide">
+      <summary class="mobile-sort-sheet__button facets-sort-popover__button focus-offset">
+        <span class="facets-sort-popover__button-text">
+          {{ 'products.facets.sort_button' | t }}
+          <span class="facets-sort-popover__chevron svg-wrapper">
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </span>
         </span>
-        <span>{{ 'products.facets.sort_button' | t }}</span>
       </summary>
-      <div class="mobile-sort-sheet__panel gradient">
+      <div class="mobile-sort-sheet__panel facets-sort-popover__panel gradient">
         <facet-filters-form>
           <form id="FacetSortMobileForm" class="mobile-sort-sheet__form">
             <div
@@ -815,15 +829,21 @@
                   </span>
                 </button>
               </div>
-              <fieldset class="mobile-sort-sheet__options">
+              <fieldset class="mobile-sort-sheet__options facets-sort-popover__options">
                 <legend class="visually-hidden">{{ 'products.facets.sort_by_label' | t }}</legend>
                 {%- for option in results.sort_options -%}
-                  <label class="mobile-sort-sheet__option" for="SortBy-mobile-sheet-{{ forloop.index }}">
+                  <label
+                    class="mobile-sort-sheet__option facets-sort-popover__option{% if option.value == sort_by %} is-selected{% endif %}"
+                    for="SortBy-mobile-sheet-{{ forloop.index }}"
+                    role="option"
+                    aria-selected="{% if option.value == sort_by %}true{% else %}false{% endif %}"
+                  >
                     <input
                       type="radio"
                       name="sort_by"
                       id="SortBy-mobile-sheet-{{ forloop.index }}"
                       value="{{ option.value | escape }}"
+                      onchange="this.closest('details').removeAttribute('open')"
                       {% if option.value == sort_by %}
                         checked
                       {% endif %}
