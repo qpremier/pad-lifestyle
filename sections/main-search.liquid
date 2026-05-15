@@ -224,7 +224,7 @@
         {%- if enable_search_filtering or section.settings.enable_sorting -%}
             <aside
               aria-labelledby="verticalTitle"
-              class="facets-wrapper{% unless enable_search_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
+              class="facets-wrapper search-mobile-facets-wrapper{% unless enable_search_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
               id="main-search-filters"
               data-id="{{ section.id }}"
             >

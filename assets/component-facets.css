@@ -1098,10 +1098,13 @@ input.mobile-facets__checkbox {
 }
 
 @media screen and (max-width: 749px) {
-  .facets-container--separate-mobile-sort {
+  .search-mobile-facets-wrapper {
     position: sticky;
     top: var(--header-height, 0);
-    z-index: 2;
+    z-index: 5;
+  }
+
+  .facets-container--separate-mobile-sort {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0;
