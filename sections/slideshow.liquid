@@ -33,10 +33,24 @@
     display: none;
   }
   #shopify-section-{{ section.id }} .slider-button-q{
-    color: #ffffff !important;
+    {% comment %} color: #ffffff !important;
     opacity: unset;
     background: none !important;
-    border: solid 1px;
+    border: solid 1px; {% endcomment %}
+    position: relative;
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+
+    background-image: linear-gradient(white, white);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    background-position: left center;
+
+    transition:
+      background-size 0.4s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
   }
   #shopify-section-{{ section.id }} .slider-button-q:after {
     --border-opacity: 0;
