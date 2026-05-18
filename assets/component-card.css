@@ -380,6 +380,16 @@
   outline: 0;
 }
 
+#product-grid .card--media .card__inner.ratio::before {
+  padding-bottom: clamp(24rem, 28vw, 34rem);
+}
+
+@media screen and (max-width: 749px) {
+  #product-grid .card--media .card__inner.ratio::before {
+    padding-bottom: clamp(18rem, 48vw, 24rem);
+  }
+}
+
 @media screen and (min-width: 990px) {
   .card .media.media--hover-effect > img:only-child,
   .card-wrapper .media.media--hover-effect > img:only-child {
