@@ -101,7 +101,9 @@
 }
 
 #cart-notification-button:after {
-  box-shadow: white;
+  box-shadow:
+  0 0 0 calc(var(--buttons-border-width) + var(--border-offset)) rgba(255, 255, 255, 1),
+  0 0 0 var(--buttons-border-width) rgba(255, 255, 255, 1);
 }
 
 .cart-notification-product {
