@@ -359,6 +359,11 @@ quick-add-modal .product-form__buttons {
   display: none;
 }
 
+.product-grid .card-wrapper,
+.product-grid .card {
+  position: relative;
+}
+
 .product-grid .quick-add {
   display: flex;
   justify-content: flex-end;
@@ -366,13 +371,31 @@ quick-add-modal .product-form__buttons {
 
 .product-grid .card__image-quick-add {
   bottom: 0;
+  isolation: isolate;
+  pointer-events: auto;
   position: absolute;
   right: 0;
-  z-index: 2;
+  z-index: 20;
 }
 
 .product-grid .card__image-quick-add .quick-add {
   margin: 0;
+  pointer-events: auto;
+  position: relative;
+  z-index: 20;
+}
+
+.product-grid .card__image-quick-add .quick-add__submit,
+.product-grid .card__image-quick-add modal-opener,
+.product-grid .card__image-quick-add product-form,
+.product-grid .card__image-quick-add .form {
+  pointer-events: auto;
+  position: relative;
+  z-index: 21;
+}
+
+.product-grid .card__heading a::after {
+  content: none;
 }
 
 .product-grid .quick-add__submit {
