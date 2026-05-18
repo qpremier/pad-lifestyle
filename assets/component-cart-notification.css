@@ -105,10 +105,29 @@
   0 0 0 calc(var(--buttons-border-width) + var(--border-offset)) rgba(255, 255, 255, 1),
   0 0 0 var(--buttons-border-width) rgba(255, 255, 255, 1);
 }
-#cart-notification-button:hover{
-  color: black !important;
-  background: white !important;
+#cart-notification-button {
+  position: relative;
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+
+  background-image: linear-gradient(white, white);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position: left center;
+
+  transition:
+    background-size 0.4s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
+
+#cart-notification-button:hover {
+  background-size: 100% 100%;
+  color: black !important;
+  border-color: white;
+}
+
 
 .cart-notification-product {
   align-items: flex-start;
