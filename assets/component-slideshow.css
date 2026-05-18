@@ -38,6 +38,8 @@ slideshow-component .slideshow.banner {
   flex-direction: column;
   justify-content: center;
   max-width: 54.5rem;
+  border: solid 2px;
+  padding: 40px;
 }
 
 .slideshow__text > * {
