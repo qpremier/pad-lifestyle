@@ -409,7 +409,7 @@
       }
     }
 
-    @media screen and (max-width: 749px) {
+    @media screen and (max-width: 768px) {
       #shopify-section-{{ section.id }} .shop-the-look-points__inner {
         padding-bottom: 4rem;
       }
@@ -552,7 +552,7 @@
       const panels = Array.from(sectionEl.querySelectorAll('.shop-the-look-points__product'));
       const drawerOverlay = sectionEl.querySelector('.shop-the-look-points__drawer-overlay');
       const drawerClose = sectionEl.querySelector('.shop-the-look-points__drawer-close');
-      const mobileMedia = window.matchMedia('(max-width: 749px)');
+      const mobileMedia = window.matchMedia('(max-width: 768px)');
 
       if (!tabs.length || !panels.length) return;
 
