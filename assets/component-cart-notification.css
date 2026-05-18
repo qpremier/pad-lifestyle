@@ -50,8 +50,9 @@
 @media screen and (min-width: 990px) {
   .cart-notification-wrapper:is(.page-width) > .cart-notification {
     right: 4rem;
-    top: 50%;
+    top: 55%;
     transform: translateY(-50%);
+    position: fixed;
   }
 }
 
