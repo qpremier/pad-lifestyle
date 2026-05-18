@@ -134,11 +134,14 @@
     }
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 750px) and (max-width: 992px) {
     .newsletter-form {
-        max-width: 56rem !important;
+      align-items: center !important;
+      margin: 0 auto;
+      max-width: 36rem !important;
     }
   }
+
 {%- endstyle -%}
 
 <div class="newsletter center {% if section.settings.full_width == false %}newsletter--narrow page-width{% endif %}">
