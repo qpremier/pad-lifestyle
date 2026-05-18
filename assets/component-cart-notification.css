@@ -97,6 +97,7 @@
 
 .cart-notification__links > * {
   margin-top: 1rem;
+  color: white;
 }
 
 .cart-notification-product {
