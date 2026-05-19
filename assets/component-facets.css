@@ -725,10 +725,10 @@ span.active-facets__button-inner:after {
 }
 
 span.active-facets__button-inner:hover {
-  color: white !important;
+  color: #FEEAD5 !important;
 }
 a.active-facets__button-remove:hover {
-  color: white !important;
+  color: #FEEAD5 !important;
 }
 
 @media screen and (min-width: 990px) {
