@@ -82,6 +82,28 @@
       fill: #fff !important;
     }
   {% endif %}
+
+  @media screen and (min-width: 990px) {
+    .header-wrapper:hover .header__menu-item,
+    .header-wrapper:hover .header__menu-item span,
+    .header-wrapper:hover .header__active-menu-item,
+    .header-wrapper:hover .header__icon,
+    .header-wrapper:hover .header__icon .icon,
+    .header-wrapper:hover .header__icon .svg-wrapper,
+    .header-wrapper:hover .desktop-localization-wrapper .localization-form__select {
+      color: #FEEAD5 !important;
+    }
+
+    .header-wrapper:hover .header__icon svg,
+    .header-wrapper:hover .header__icon svg path,
+    .header-wrapper:hover .header__menu-item svg,
+    .header-wrapper:hover .header__menu-item svg path,
+    .header-wrapper:hover .desktop-localization-wrapper svg,
+    .header-wrapper:hover .desktop-localization-wrapper svg path {
+      fill: #FEEAD5 !important;
+      color: #FEEAD5 !important;
+    }
+  }
   
   /* scrolled state (colored header) */
   .header-wrapper.scrolled {
