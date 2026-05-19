@@ -2466,6 +2466,15 @@ input[type='checkbox'] {
   align-items: center;
 }
 
+@media screen and (max-width: 420px) {
+  .header {
+    grid-template-columns: 0.5fr 2fr 0.5fr !important;
+  }
+  .header__icons {
+    flex-direction: column;
+  }
+}
+
 @media screen and (max-width: 749px) {
   .header--has-app {
     grid-template-columns: auto 1fr auto;
