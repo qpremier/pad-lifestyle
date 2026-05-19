@@ -154,8 +154,10 @@
   }
   @media screen and (min-width: 990px) {
     .featured-collection-homepage .grid-homepage-q {
-        width: calc((100% - {{ columns_desktop_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_desktop_int }});
-        max-width: calc((100% - {{ columns_desktop_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_desktop_int }});
+        width: fit-content;
+        max-width: fit-content;
+        {% comment %} width: calc((100% - {{ columns_desktop_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_desktop_int }});
+        max-width: calc((100% - {{ columns_desktop_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_desktop_int }}); {% endcomment %}
     }
   }
 </style>
