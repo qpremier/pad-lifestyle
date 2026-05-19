@@ -750,6 +750,9 @@ span.active-facets__button-inner:after {
     padding-bottom: 0.1rem;
     padding-top: 0.1rem;
   }
+  span.active-facets__button-inner:hover {
+    color: white !important;
+  }
 
   .active-facets__button-wrapper {
     padding-top: 0;
