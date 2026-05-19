@@ -727,6 +727,9 @@ span.active-facets__button-inner:after {
 span.active-facets__button-inner:hover {
   color: white !important;
 }
+a.active-facets__button-remove:hover {
+  color: white !important;
+}
 
 @media screen and (min-width: 990px) {
   .active-facets__button {
