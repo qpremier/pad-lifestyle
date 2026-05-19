@@ -1422,6 +1422,7 @@ input.mobile-facets__checkbox {
 @media screen and (min-width: 750px) {
   .facets-vertical {
     display: flex;
+    margin: auto 15px;
   }
 
   .facets-wrap-vertical {
