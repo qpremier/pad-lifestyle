@@ -1,6 +1,10 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'section-related-products.css' | asset_url | stylesheet_tag }}
+{{ 'quick-add.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 
 {% if section.settings.image_shape == 'blob' %}
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
@@ -30,6 +34,20 @@
 
   .related-products-{{ section.id }} .product-grid {
     justify-content: center;
+  }
+
+  .related-products-{{ section.id }} .card__image-quick-add {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0.6rem);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .related-products-{{ section.id }} .grid__item:hover .card__image-quick-add,
+  .related-products-{{ section.id }} .grid__item:focus-within .card__image-quick-add {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   @media screen and (min-width: 750px) {
@@ -110,6 +128,8 @@
               show_secondary_image: section.settings.show_secondary_image,
               show_vendor: section.settings.show_vendor,
               show_rating: section.settings.show_rating,
+              quick_add: 'standard',
+              section_id: section.id,
               skip_styles: skip_card_product_styles
             %}
           </li>

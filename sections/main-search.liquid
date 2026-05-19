@@ -64,6 +64,20 @@
   .search__button .icon {
     height: 1.8rem;
   }
+
+  .template-search__results .card__image-quick-add {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0.6rem);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .template-search__results .card__inner:hover .card__image-quick-add,
+  .template-search__results .card-wrapper:focus-within .card__image-quick-add {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
 </style>
 
 {%- liquid

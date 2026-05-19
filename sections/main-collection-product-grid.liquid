@@ -34,6 +34,20 @@
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
+  .section-{{ section.id }}-padding .card__image-quick-add {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0.6rem);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .section-{{ section.id }}-padding .card__inner:hover .card__image-quick-add,
+  .section-{{ section.id }}-padding .card-wrapper:focus-within .card__image-quick-add {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
   .collection-toolbar-{{ section.id }} {
     align-items: stretch;
     border: 0.1rem solid rgba(var(--color-foreground), 0.08);
