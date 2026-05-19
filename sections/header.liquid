@@ -120,6 +120,19 @@
   .header__heading-logo {
     max-width: 100%;
   }
+
+  .header__heading-logo--hover {
+    display: none;
+  }
+
+  .header-wrapper:hover .header__heading-logo--default {
+    display: none;
+  }
+
+  .header-wrapper:hover .header__heading-logo--hover {
+    display: block;
+  }
+
   @media screen and (min-width: 750px) {
     .header__heading-logo {
       width: 235px !important;
@@ -284,7 +297,7 @@
               settings.logo
               | image_url: width: 600
               | image_tag:
-                class: 'header__heading-logo motion-reduce',
+                class: 'header__heading-logo header__heading-logo--default motion-reduce',
                 widths: widths,
                 height: logo_height,
                 width: settings.logo_width,
@@ -292,6 +305,14 @@
                 sizes: sizes,
                 preload: true
             }}
+            <img
+              src="https://cdn.shopify.com/s/files/1/0974/1526/6667/files/logo.webp?v=1775826893"
+              class="header__heading-logo header__heading-logo--hover motion-reduce"
+              width="{{ settings.logo_width }}"
+              height="{{ logo_height }}"
+              alt="{{ logo_alt }}"
+              loading="eager"
+            >
           </div>
         {%- else -%}
           <span class="h2">{{ shop.name }}</span>
@@ -327,7 +348,7 @@
               settings.logo
               | image_url: width: 600
               | image_tag:
-                class: 'header__heading-logo',
+                class: 'header__heading-logo header__heading-logo--default',
                 widths: widths,
                 height: logo_height,
                 width: settings.logo_width,
@@ -335,6 +356,14 @@
                 sizes: sizes,
                 preload: true
             }}
+            <img
+              src="https://cdn.shopify.com/s/files/1/0974/1526/6667/files/logo.webp?v=1775826893"
+              class="header__heading-logo header__heading-logo--hover"
+              width="{{ settings.logo_width }}"
+              height="{{ logo_height }}"
+              alt="{{ logo_alt }}"
+              loading="eager"
+            >
           </div>
         {%- else -%}
           <span class="h2">{{ shop.name }}</span>
