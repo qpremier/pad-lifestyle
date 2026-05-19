@@ -122,8 +122,10 @@
     max-width: 800px;
   }
   .featured-collection-homepage .grid-homepage-q {
-    width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-mobile-horizontal-spacing)) / {{ columns_mobile_int }});
-    max-width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-mobile-horizontal-spacing)) / {{ columns_mobile_int }});
+      width: fit-content;
+      max-width: fit-content;
+    {% comment %} width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-mobile-horizontal-spacing)) / {{ columns_mobile_int }});
+    max-width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-mobile-horizontal-spacing)) / {{ columns_mobile_int }}); {% endcomment %}
   }
   .featured-collection-homepage .slider-buttons {
     margin-top: 2rem;
