@@ -724,6 +724,10 @@ span.active-facets__button-inner:after {
   font-size: 1rem;
 }
 
+span.active-facets__button-inner:hover {
+  color: white !important;
+}
+
 @media screen and (min-width: 990px) {
   .active-facets__button {
     margin-right: 1.5rem;
@@ -749,9 +753,6 @@ span.active-facets__button-inner:after {
   span.active-facets__button-inner {
     padding-bottom: 0.1rem;
     padding-top: 0.1rem;
-  }
-  span.active-facets__button-inner:hover {
-    color: white !important;
   }
 
   .active-facets__button-wrapper {
