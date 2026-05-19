@@ -17,6 +17,10 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .hover-white:hover {
+    color: white !important;
+  }
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}
@@ -29,7 +33,7 @@
   <div class="page-width">
     <div class="title-wrapper-with-link">
       <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="underlined-link">
+      <a href="{{ routes.all_products_collection_url }}" class="underlined-link hover-white">
         {{- 'general.continue_shopping' | t -}}
       </a>
     </div>
