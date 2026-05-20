@@ -30,6 +30,7 @@
   .facets-container {
     grid-template-columns: auto minmax(0, max-content);
     column-gap: 2rem;
+    margin: auto 0px !important;
   }
 }
 
