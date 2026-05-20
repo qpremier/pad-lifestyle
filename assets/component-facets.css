@@ -863,6 +863,9 @@ a.active-facets__button.focused .active-facets__button-inner {
 .clear-facets-btn-in-filters {
   background: black;
 }
+.clear-btn-in-filters {
+  text-decoration: none !important;
+}
 
 .mobile-facets {
   position: fixed;
