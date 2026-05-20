@@ -1227,7 +1227,7 @@ input.mobile-facets__checkbox {
     position: sticky;
     top: 0px;
     /* top: var(--header-height, 0); */
-    z-index: 5;
+    z-index: 2;
   }
 
   .facets-container--separate-mobile-sort {
