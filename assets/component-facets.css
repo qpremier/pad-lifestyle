@@ -1359,20 +1359,27 @@ input.mobile-facets__checkbox {
   .mobile-sort-sheet__header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 1.4rem 1.8rem;
     border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+    position: relative;
   }
 
   .mobile-sort-sheet__heading {
     margin: 0;
     font-size: 1.4rem;
+    text-align: center;
+    text-transform: uppercase;
   }
 
   .mobile-sort-sheet__close {
     min-width: 4rem;
     min-height: 4rem;
     padding: 0;
+    position: absolute;
+    right: 1.4rem;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .mobile-sort-sheet__options {
@@ -1384,7 +1391,7 @@ input.mobile-facets__checkbox {
   .mobile-sort-sheet__option {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    justify-content: space-between;
     min-height: 4.8rem;
     padding: 1.2rem 1.8rem;
     font-size: 1.5rem;
@@ -1392,15 +1399,23 @@ input.mobile-facets__checkbox {
   }
 
   .mobile-sort-sheet__option input {
+    order: 2;
     width: 1.8rem;
     height: 1.8rem;
     margin: 0;
+    margin-left: 1.2rem;
     clip: auto;
     overflow: visible;
     opacity: 1;
     pointer-events: auto;
     position: static;
     white-space: normal;
+  }
+
+  .mobile-sort-sheet__option span {
+    order: 1;
+    flex: 1;
+    text-align: left;
   }
 
   .facets-container--separate-mobile-sort .active-facets-mobile,
