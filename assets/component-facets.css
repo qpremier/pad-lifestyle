@@ -860,6 +860,10 @@ a.active-facets__button.focused .active-facets__button-inner {
   justify-content: center;
 }
 
+.clear-facets-btn-in-filters {
+  background: black;
+}
+
 .mobile-facets {
   position: fixed;
   top: 0;
