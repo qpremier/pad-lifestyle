@@ -174,35 +174,19 @@
       
       <!-- Column 1: Store Image -->
       <div class="footer-block-custom">
-        {% if section.settings.store_image != blank %}
-        
-          {% assign image_width_2x = section.settings.image_width | times: 2 %}
-        
-          <div
-            class="footer-block-image-wrapper"
-            style="max-width: {{ section.settings.image_width }}px;"
+        <div
+          class="footer-block-image-wrapper"
+          style="max-width: {{ section.settings.image_width }}px;"
+        >
+          <img
+            src="https://cdn.shopify.com/s/files/1/0974/1526/6667/files/logo.webp?v=1775826893"
+            alt="{{ shop.name | escape }}"
+            loading="lazy"
+            width="300"
+            height="120"
+            style="max-width: 100%; height: auto;"
           >
-            <img
-              srcset="
-                {{ section.settings.store_image | image_url: width: section.settings.image_width }} 1x,
-                {{ section.settings.store_image | image_url: width: image_width_2x }} 2x
-              "
-              src="{{ section.settings.store_image | image_url: width: section.settings.image_width }}"
-              alt="{{ section.settings.store_image.alt | default: shop.name | escape }}"
-              loading="lazy"
-              width="{{ section.settings.store_image.width }}"
-              height="{{ section.settings.store_image.height }}"
-              style="max-width: 100%; height: auto;"
-            >
-          </div>
-        
-        {% else %}
-        
-          <div class="footer-block-image-wrapper" style="max-width: 150px;">
-            {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
-          </div>
-        
-        {% endif %}
+        </div>
       </div>
 
       <!-- Column 2: Newsletter -->
