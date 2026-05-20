@@ -521,7 +521,7 @@
             </div>
             <div
               id="FacetsWrapperMobile"
-              class="mobile-facets__main has-submenu gradient"
+              class="mobile-facets__main mobile-facets__main--accordion gradient"
             >
               {%- if enable_filtering -%}
                 {%- for filter in results.filters -%}
@@ -538,14 +538,14 @@
                     {% when 'boolean', 'list' %}
                       <details
                         id="Details-Mobile-{{ filter.param_name | escape }}-{{ section.id }}"
-                        class="mobile-facets__details js-filter"
+                        class="mobile-facets__details mobile-facets__details--accordion js-filter"
                         data-index="mobile-{{ forloop.index }}"
                       >
-                        <summary class="mobile-facets__summary focus-inset">
+                        <summary class="mobile-facets__summary mobile-facets__summary--accordion focus-inset">
                           <div>
                             <span>{{ filter.label | escape }}</span>
                             <span class="mobile-facets__arrow">
-                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                              {{- 'icon-caret.svg' | inline_asset_content -}}
                             </span>
                           </div>
                         </summary>
@@ -553,19 +553,11 @@
                           id="FacetMobile-{{ forloop.index }}-{{ section.id }}"
                           class="mobile-facets__submenu gradient"
                         >
-                          <button
-                            class="mobile-facets__close-button link link--text focus-inset"
-                            aria-expanded="true"
-                            type="button"
-                          >
-                            {{- 'icon-arrow.svg' | inline_asset_content -}}
-                            <span>{{ filter.label | escape }}</span>
-                            {%- if filter.operator == 'AND' -%}
-                              <span class="facets__and-helptext">
-                                {{ 'products.facets.filter_and_operator_subtitle' | t }}
-                              </span>
-                            {%- endif -%}
-                          </button>
+                          {%- if filter.operator == 'AND' -%}
+                            <div class="mobile-facets__accordion-help facets__and-helptext">
+                              {{ 'products.facets.filter_and_operator_subtitle' | t }}
+                            </div>
+                          {%- endif -%}
                           <ul class="{{ visual_layout_class }} mobile-facets__list list-unstyled" role="list">
                             {%- liquid
                               assign sorted_values = filter.values
@@ -680,14 +672,14 @@
                     {% when 'price_range' %}
                       <details
                         id="Details-Mobile-{{ filter.param_name | escape }}-{{ section.id }}"
-                        class="mobile-facets__details js-filter"
+                        class="mobile-facets__details mobile-facets__details--accordion js-filter"
                         data-index="mobile-{{ forloop.index }}"
                       >
-                        <summary class="mobile-facets__summary focus-inset">
+                        <summary class="mobile-facets__summary mobile-facets__summary--accordion focus-inset">
                           <div>
                             <span>{{ filter.label | escape }}</span>
                             <span class="mobile-facets__arrow">
-                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                              {{- 'icon-caret.svg' | inline_asset_content -}}
                             </span>
                           </div>
                         </summary>
@@ -695,15 +687,6 @@
                           id="FacetMobile-{{ forloop.index }}-{{ section.id }}"
                           class="mobile-facets__submenu gradient"
                         >
-                          <button
-                            class="mobile-facets__close-button link link--text focus-inset"
-                            aria-expanded="true"
-                            type="button"
-                          >
-                            {{- 'icon-arrow.svg' | inline_asset_content -}}
-                            {{ filter.label | escape }}
-                          </button>
-
                           {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
                           <p class="mobile-facets__info">
                             {{ 'products.facets.max_price' | t: price: max_price_amount }}

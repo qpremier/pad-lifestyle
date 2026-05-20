@@ -15,6 +15,10 @@
   overflow-y: auto;
 }
 
+.mobile-facets__main--accordion {
+  padding-top: 1rem;
+}
+
 @media screen and (min-width: 750px) {
   .facets-container > * + * {
     margin-top: 0;
@@ -1062,6 +1066,19 @@ details.menu-opening .mobile-facets__close .svg-wrapper {
   transform: rotate(180deg);
 }
 
+.mobile-facets__details--accordion {
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+}
+
+.mobile-facets__summary--accordion {
+  cursor: pointer;
+  list-style: none;
+}
+
+.mobile-facets__summary--accordion::-webkit-details-marker {
+  display: none;
+}
+
 .mobile-facets__highlight {
   position: absolute;
   top: 0px;
@@ -1092,35 +1109,21 @@ details.menu-opening .mobile-facets__close .svg-wrapper {
   align-items: center;
 }
 
-.js .mobile-facets__submenu {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  z-index: 3;
-  transform: translateX(100%);
-  visibility: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.js details[open] > .mobile-facets__submenu {
-  transition: transform 0.4s cubic-bezier(0.29, 0.63, 0.44, 1), visibility 0.4s cubic-bezier(0.29, 0.63, 0.44, 1);
-}
-
-.js details[open].menu-opening > .mobile-facets__submenu {
-  transform: translateX(0);
+.js .mobile-facets__details--accordion > .mobile-facets__submenu {
+  display: none;
+  position: static;
+  transform: none;
   visibility: visible;
-  padding-top: 2.7rem;
+  width: 100%;
+  padding: 0 0 1.6rem;
 }
 
-.js .menu-drawer__submenu .mobile-facets__submenu {
-  overflow-y: auto;
+.js .mobile-facets__details--accordion[open] > .mobile-facets__submenu {
+  display: block;
 }
 
-.js .mobile-facets .submenu-open {
-  visibility: hidden; /* hide menus from screen readers when hidden by submenu */
+.mobile-facets__accordion-help {
+  padding: 0 2.5rem 1rem;
 }
 
 .mobile-facets__item {
@@ -1185,6 +1188,11 @@ input.mobile-facets__checkbox {
   margin-top: auto;
   background-color: rgb(var(--color-background));
   background: var(--gradient-background);
+}
+
+.mobile-facets__details--accordion .mobile-facets__footer {
+  position: static;
+  margin-top: 1.6rem;
 }
 
 .mobile-facets__footer > * + * {

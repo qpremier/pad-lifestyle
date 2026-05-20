@@ -431,12 +431,16 @@ class MenuDrawer extends HTMLElement {
   }
 
   bindEvents() {
-    this.querySelectorAll('summary').forEach((summary) =>
-      summary.addEventListener('click', this.onSummaryClick.bind(this))
-    );
+    this.querySelectorAll('summary').forEach((summary) => {
+      if (summary.closest('.mobile-facets__details--accordion')) return;
+      summary.addEventListener('click', this.onSummaryClick.bind(this));
+    });
     this.querySelectorAll(
       'button:not(.localization-selector):not(.country-selector__close-button):not(.country-filter__reset-button)'
-    ).forEach((button) => button.addEventListener('click', this.onCloseButtonClick.bind(this)));
+    ).forEach((button) => {
+      if (button.closest('.mobile-facets__details--accordion')) return;
+      button.addEventListener('click', this.onCloseButtonClick.bind(this));
+    });
   }
 
   onKeyUp(event) {
