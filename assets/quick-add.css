@@ -374,7 +374,7 @@ quick-add-modal .product-form__buttons {
   isolation: isolate;
   pointer-events: auto;
   position: absolute;
-  right: 0;
+  right: 1;
   z-index: 20;
 }
 
