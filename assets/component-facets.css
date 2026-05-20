@@ -1112,6 +1112,7 @@ details.menu-opening .mobile-facets__close .svg-wrapper {
 .js details[open].menu-opening > .mobile-facets__submenu {
   transform: translateX(0);
   visibility: visible;
+  padding-top: 2.7rem;
 }
 
 .js .menu-drawer__submenu .mobile-facets__submenu {
