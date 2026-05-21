@@ -145,7 +145,10 @@
 {%- endstyle -%}
 
 {% paginate search.results by 24 %}
-  <div class="template-search color-scheme-2 gradient{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
+  <search-results-tabs
+    class="template-search color-scheme-2 gradient{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding"
+    data-section-id="{{ section.id }}"
+  >
     <div class="template-search__header page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       <h1 class="h2 center">
         {%- if search.performed -%}
@@ -222,36 +225,39 @@
       {%- if search.performed -%}
         <div class="template-search__tabs-wrapper">
           <div class="template-search__tabs" role="tablist" aria-label="Search result types">
-            <a
+            <button
+              type="button"
               class="template-search__tab h6"
               role="tab"
-              href="{{ product_tab_url }}"
+              data-url="{{ product_tab_url }}"
               id="SearchTab-products-{{ section.id }}"
               aria-controls="product-grid"
               aria-selected="{% if active_search_type == 'product' %}true{% else %}false{% endif %}"
             >
               {{ 'templates.search.products' | t }}
-            </a>
-            <a
+            </button>
+            <button
+              type="button"
               class="template-search__tab h6"
               role="tab"
-              href="{{ article_tab_url }}"
+              data-url="{{ article_tab_url }}"
               id="SearchTab-articles-{{ section.id }}"
               aria-controls="product-grid"
               aria-selected="{% if active_search_type == 'article' %}true{% else %}false{% endif %}"
             >
               Blog posts
-            </a>
-            <a
+            </button>
+            <button
+              type="button"
               class="template-search__tab h6"
               role="tab"
-              href="{{ page_tab_url }}"
+              data-url="{{ page_tab_url }}"
               id="SearchTab-pages-{{ section.id }}"
               aria-controls="product-grid"
               aria-selected="{% if active_search_type == 'page' %}true{% else %}false{% endif %}"
             >
               {{ 'templates.search.pages' | t }}
-            </a>
+            </button>
           </div>
         </div>
         {%- if search.results_count == 0 and search.filters == empty -%}
@@ -470,7 +476,7 @@
         </div>
       </div>
     {%- endif -%}
-  </div>
+  </search-results-tabs>
 {% endpaginate %}
 {% if section.settings.image_shape == 'arch' %}
   {{ 'mask-arch.svg' | inline_asset_content }}

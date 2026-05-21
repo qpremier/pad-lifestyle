@@ -69,8 +69,17 @@ input::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
+search-results-tabs {
+  display: block;
+}
+
 .template-search__results {
   position: relative;
+}
+
+.template-search.is-loading .template-search__results {
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 .template-search__tabs-wrapper {
@@ -86,8 +95,14 @@ input::-webkit-search-decoration {
 }
 
 .template-search__tab {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
   border-bottom: 0.2rem solid transparent;
   color: rgba(var(--color-foreground), 0.7);
+  cursor: pointer;
+  font: inherit;
   margin-bottom: -0.1rem;
   padding: 1.2rem 1.6rem;
   text-decoration: none;
