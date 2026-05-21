@@ -92,7 +92,7 @@
     background: transparent;
     border: 0;
     /* color: rgb(var(--color-foreground)); */
-    color: rgb(18 18 18 / 42%);
+    color: rgb(var(--color-foreground));
     cursor: pointer;
     display: inline-flex;
     font-size: 1.2rem;
@@ -112,6 +112,9 @@
   .collection-toolbar-{{ section.id }}__layout-button.is-active {
     color: rgb(var(--color-foreground));
     background: rgb(var(--color-background));
+
+    /* background: rgb(243 243 243);
+    color: rgb(18 18 18); */
   }
 
   .collection-toolbar-{{ section.id }}__count-box {
