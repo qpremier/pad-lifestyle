@@ -137,32 +137,106 @@
     width: 100%;
   }
 
-  .collection-toolbar-{{ section.id }}__sort-field {
+  .collection-toolbar-{{ section.id }}__sort-popover {
     height: 100%;
     position: relative;
     width: 100%;
   }
 
-  .collection-toolbar-{{ section.id }}__sort-select {
+  .collection-toolbar-{{ section.id }}__sort-button {
+    align-items: center;
     appearance: none;
     background: transparent;
     border: 0;
     color: rgb(var(--color-foreground));
     cursor: pointer;
+    display: flex;
     font-size: 1.2rem;
     height: 5.5rem;
+    justify-content: center;
     letter-spacing: 0.13em;
-    padding: 0 4.6rem 0 1.8rem;
+    list-style: none;
+    padding: 0 1.8rem;
     text-transform: uppercase;
     width: 100%;
   }
 
+  .collection-toolbar-{{ section.id }}__sort-button::-webkit-details-marker {
+    display: none;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-button-text {
+    align-items: center;
+    display: inline-flex;
+    gap: 0.8rem;
+    justify-content: center;
+  }
+
   .collection-toolbar-{{ section.id }}__sort-icon {
+    display: inline-flex;
+    height: 1rem;
+    width: 1rem;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-icon .icon-caret {
+    position: static;
+    transform: rotate(0deg);
+    width: 1rem;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-popover.is-open .collection-toolbar-{{ section.id }}__sort-icon .icon-caret {
+    transform: rotate(180deg);
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-panel {
+    background: rgb(var(--color-background));
+    border: 0.1rem solid rgba(var(--color-foreground), 0.12);
+    box-shadow: 0 1rem 2.4rem rgba(var(--color-shadow), 0.16);
+    min-width: 20rem;
+    padding: 0.8rem 0;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.8rem);
+    z-index: 40;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-options {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-option {
+    align-items: center;
+    color: rgb(var(--color-foreground));
+    cursor: pointer;
+    display: flex;
+    font-size: 1.4rem;
+    line-height: 1.4;
+    min-height: 4.4rem;
+    padding: 1.1rem 2rem;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-option:hover span,
+  .collection-toolbar-{{ section.id }}__sort-option.is-selected span {
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-option input {
+    clip: rect(0 0 0 0);
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
     pointer-events: none;
     position: absolute;
-    right: 1.8rem;
-    top: 50%;
-    transform: translateY(-50%);
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .collection-toolbar-{{ section.id }}__sort-option input:focus-visible + span {
+    outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+    outline-offset: 0.3rem;
   }
 
   .section-{{ section.id }}-padding .facets-wrapper .facet-filters.sorting,
@@ -191,7 +265,7 @@
     }
 
     .collection-toolbar-{{ section.id }}__layout-button,
-    .collection-toolbar-{{ section.id }}__sort-select {
+    .collection-toolbar-{{ section.id }}__sort-button {
       font-size: 1.1rem;
     }
 
@@ -204,7 +278,7 @@
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   {%- paginate collection.products by section.settings.products_per_page -%}
     {%- liquid
-      assign toolbar_sort_by = collection.sort_by
+      assign toolbar_sort_by = collection.sort_by | default: collection.default_sort_by
     -%}
 
     <div class="page-width">
@@ -253,40 +327,61 @@
 
         <div class="collection-toolbar-{{ section.id }}__box collection-toolbar-{{ section.id }}__sort-box">
           {%- if section.settings.enable_sorting -%}
-            <facet-filters-form class="collection-toolbar-{{ section.id }}__sort-form">
+            <div class="collection-toolbar-{{ section.id }}__sort-form">
               <form id="CollectionToolbarSortForm-{{ section.id }}">
                 {%- if collection.terms -%}
                   <input type="hidden" name="q" value="{{ collection.terms | escape }}">
                   <input name="options[prefix]" type="hidden" value="last">
                 {%- endif -%}
 
-                <div class="collection-toolbar-{{ section.id }}__sort-field">
-                  <select
-                    name="sort_by"
-                    class="collection-toolbar-{{ section.id }}__sort-select"
-                    aria-label="{{ 'products.facets.sort_by_label' | t }}"
-                    onchange="this.form.submit()"
+                <div class="collection-toolbar-{{ section.id }}__sort-popover" data-collection-sort-popover>
+                  <button
+                    type="button"
+                    class="collection-toolbar-{{ section.id }}__sort-button heading text-xxs w-full focus-offset"
+                    aria-controls="sort-by-popover-{{ section.id }}"
+                    aria-haspopup="dialog"
+                    aria-expanded="false"
+                    data-collection-sort-button
                   >
-                    <option value="" {% if collection.sort_by == blank %}selected="selected"{% endif %}>
-                      Sort By
-                    </option>
-                    {%- for option in collection.sort_options -%}
-                      <option
-                        value="{{ option.value | escape }}"
-                        {% if toolbar_sort_by != blank and option.value == toolbar_sort_by %}
-                          selected="selected"
-                        {% endif %}
-                      >
-                        {{ option.name | escape }}
-                      </option>
-                    {%- endfor -%}
-                  </select>
-                  <span class="collection-toolbar-{{ section.id }}__sort-icon svg-wrapper">
-                    {{- 'icon-caret.svg' | inline_asset_content -}}
-                  </span>
+                    <span class="collection-toolbar-{{ section.id }}__sort-button-text text-with-icon justify-center">
+                      {{ 'products.facets.sort_button' | t }}
+                      <span class="collection-toolbar-{{ section.id }}__sort-icon svg-wrapper">
+                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                      </span>
+                    </span>
+                  </button>
+                  <div
+                    id="sort-by-popover-{{ section.id }}"
+                    class="collection-toolbar-{{ section.id }}__sort-panel gradient"
+                    role="dialog"
+                    hidden
+                  >
+                    <fieldset class="collection-toolbar-{{ section.id }}__sort-options">
+                      <legend class="visually-hidden">{{ 'products.facets.sort_by_label' | t }}</legend>
+                      {%- for option in collection.sort_options -%}
+                        <label
+                          class="collection-toolbar-{{ section.id }}__sort-option{% if option.value == toolbar_sort_by %} is-selected{% endif %}"
+                          for="CollectionToolbarSortBy-{{ section.id }}-{{ forloop.index }}"
+                          role="option"
+                          aria-selected="{% if option.value == toolbar_sort_by %}true{% else %}false{% endif %}"
+                        >
+                          <input
+                            type="radio"
+                            name="sort_by"
+                            id="CollectionToolbarSortBy-{{ section.id }}-{{ forloop.index }}"
+                            value="{{ option.value | escape }}"
+                            {% if option.value == toolbar_sort_by %}
+                              checked
+                            {% endif %}
+                          >
+                          <span>{{ option.name | escape }}</span>
+                        </label>
+                      {%- endfor -%}
+                    </fieldset>
+                  </div>
                 </div>
               </form>
-            </facet-filters-form>
+            </div>
           {%- endif -%}
         </div>
       </div>
@@ -451,7 +546,37 @@
 </div>
 
 <script>
+  function closeCollectionSortPopover(popover) {
+    if (!popover) return;
+
+    const button = popover.querySelector('[data-collection-sort-button]');
+    const panel = popover.querySelector('[role="dialog"]');
+
+    popover.classList.remove('is-open');
+    if (button) button.setAttribute('aria-expanded', 'false');
+    if (panel) panel.hidden = true;
+  }
+
   document.addEventListener('click', function(event) {
+    const sortButton = event.target.closest('[data-collection-sort-button]');
+
+    if (sortButton && sortButton.closest('.section-{{ section.id }}-padding')) {
+      const popover = sortButton.closest('[data-collection-sort-popover]');
+      const panel = document.getElementById(sortButton.getAttribute('aria-controls'));
+      const isOpen = sortButton.getAttribute('aria-expanded') === 'true';
+
+      popover.classList.toggle('is-open', !isOpen);
+      sortButton.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      if (panel) panel.hidden = isOpen;
+      return;
+    }
+
+    document
+      .querySelectorAll('.section-{{ section.id }}-padding [data-collection-sort-popover].is-open')
+      .forEach(function(popover) {
+        if (!popover.contains(event.target)) closeCollectionSortPopover(popover);
+      });
+
     const trigger = event.target.closest('[data-collection-layout]');
     if (!trigger || !trigger.closest('.section-{{ section.id }}-padding')) return;
 
@@ -473,6 +598,21 @@
       button.classList.toggle('is-active', isActive);
       button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     });
+  });
+
+  document.addEventListener('change', function(event) {
+    if (!event.target.matches('.section-{{ section.id }}-padding input[name="sort_by"]')) return;
+
+    closeCollectionSortPopover(event.target.closest('[data-collection-sort-popover]'));
+    event.target.form.submit();
+  });
+
+  document.addEventListener('keyup', function(event) {
+    if (event.key !== 'Escape') return;
+
+    document
+      .querySelectorAll('.section-{{ section.id }}-padding [data-collection-sort-popover].is-open')
+      .forEach(closeCollectionSortPopover);
   });
 </script>
 
