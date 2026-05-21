@@ -433,7 +433,7 @@ quick-add-modal .product-form__buttons {
 
 .product-grid .quick-add__submit::after {
   border-radius: 0;
-  box-shadow: none;
+  box-shadow: none !important;
   /* box-shadow: 0 0 0 1px #cdcdcd !important; */
 }
 
