@@ -158,12 +158,12 @@
       letter-spacing: 0.12rem;
     }
   }
-  {% comment %} @media screen and (min-width: 750px) and (max-width: 989px) {
+  @media screen and (min-width: 750px) and (max-width: 830px) {
     .featured-collection-homepage .grid-homepage-q {
       width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_mobile_int }});
       max-width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_mobile_int }});
     }
-  } {% endcomment %}
+  }
   @media screen and (min-width: 830px) {
     .featured-collection-homepage .grid-homepage-q {
         width: fit-content;
