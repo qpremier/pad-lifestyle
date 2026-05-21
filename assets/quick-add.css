@@ -408,10 +408,13 @@ quick-add-modal .product-form__buttons {
   font-size: 0;
   justify-content: center;
   line-height: 1;
-  min-height: auto;
-  min-width: 0;
   padding: 4px 6px 4px 8px;
-  width: auto;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  max-width: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
 }
 
 .product-grid .quick-add__submit::before {
