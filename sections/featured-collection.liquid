@@ -121,7 +121,7 @@
     margin: 50px auto 20px auto;
     max-width: 800px;
   }
-  @media screen and (min-width: 820px) {
+  @media screen and (min-width: 800px) {
     .grid-homepage-q > .card-wrapper {
       width: 169px;
     }
@@ -158,13 +158,13 @@
       letter-spacing: 0.12rem;
     }
   }
-  @media screen and (min-width: 750px) and (max-width: 820px) {
+  @media screen and (min-width: 750px) and (max-width: 800px) {
     .featured-collection-homepage .grid-homepage-q {
       width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_mobile_int }});
       max-width: calc((100% - {{ columns_mobile_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_mobile_int }});
     }
   }
-  @media screen and (min-width: 820px) {
+  @media screen and (min-width: 800px) {
     .featured-collection-homepage .grid-homepage-q {
         width: fit-content;
         max-width: fit-content;
