@@ -30,6 +30,11 @@
     display: flex;
     align-items: center;
   }
+  @media screen and (min-width: 750px) {
+    cart-remove-button .button {
+        height: 4.5rem;
+    }
+  }
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}
