@@ -20,11 +20,19 @@
   assign sort_by = results.sort_by | default: results.default_sort_by
   assign total_active_values = 0
   assign default_presentation = 'text'
+  assign active_search_type = ''
+  if results.terms and results.types.size == 1
+    assign active_search_type = results.types | first
+  endif
   if results.url
     assign results_url = results.url
   else
-    assign terms = results.terms | escape
-    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+    assign terms_url = results.terms | url_encode
+    assign results_url = '?q=' | append: terms_url | append: '&options%5Bprefix%5D=last'
+    if active_search_type != blank
+      assign results_url = results_url | append: '&type=' | append: active_search_type
+    endif
+    assign results_url = results_url | append: '&sort_by=' | append: sort_by
   endif
 -%}
 
@@ -38,6 +46,9 @@
         {%- if results.terms -%}
           <input type="hidden" name="q" value="{{ results.terms | escape }}">
           <input name="options[prefix]" type="hidden" value="last">
+          {%- if active_search_type != blank -%}
+            <input name="type" type="hidden" value="{{ active_search_type | escape }}">
+          {%- endif -%}
         {%- endif -%}
 
         {% if enable_filtering %}
@@ -775,6 +786,9 @@
             {%- if results.terms -%}
               <input type="hidden" name="q" value="{{ results.terms | escape }}">
               <input name="options[prefix]" type="hidden" value="last">
+              {%- if active_search_type != blank -%}
+                <input name="type" type="hidden" value="{{ active_search_type | escape }}">
+              {%- endif -%}
             {%- endif -%}
           </div>
         </form>
@@ -845,6 +859,9 @@
             {%- if results.terms -%}
               <input type="hidden" name="q" value="{{ results.terms | escape }}">
               <input name="options[prefix]" type="hidden" value="last">
+              {%- if active_search_type != blank -%}
+                <input name="type" type="hidden" value="{{ active_search_type | escape }}">
+              {%- endif -%}
             {%- endif -%}
           </form>
         </facet-filters-form>
@@ -934,6 +951,9 @@
         {%- if results.terms -%}
           <input type="hidden" name="q" value="{{ results.terms | escape }}">
           <input name="options[prefix]" type="hidden" value="last">
+          {%- if active_search_type != blank -%}
+            <input name="type" type="hidden" value="{{ active_search_type | escape }}">
+          {%- endif -%}
         {%- endif -%}
       </form>
     </facet-filters-form>

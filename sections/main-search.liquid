@@ -83,8 +83,15 @@
 
 {%- liquid
   assign sort_by = search.sort_by | default: search.default_sort_by
-  assign terms = search.terms | escape
-  assign search_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  assign terms_url = search.terms | url_encode
+  assign active_search_type = 'product'
+  if search.types.size == 1
+    assign active_search_type = search.types | first
+  endif
+  assign search_url = '?q=' | append: terms_url | append: '&options%5Bprefix%5D=last&type=' | append: active_search_type | append: '&sort_by=' | append: sort_by
+  assign product_tab_url = routes.search_url | append: '?q=' | append: terms_url | append: '&options%5Bprefix%5D=last&type=product'
+  assign article_tab_url = routes.search_url | append: '?q=' | append: terms_url | append: '&options%5Bprefix%5D=last&type=article'
+  assign page_tab_url = routes.search_url | append: '?q=' | append: terms_url | append: '&options%5Bprefix%5D=last&type=page'
 -%}
 
 {%- style -%}
@@ -181,6 +188,7 @@
               >
               <label class="field__label" for="Search-In-Template">{{ 'general.search.search' | t }}</label>
               <input name="options[prefix]" type="hidden" value="last">
+              <input name="type" type="hidden" value="{{ active_search_type | escape }}">
 
               {%- if settings.predictive_search_enabled -%}
                 <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search>
@@ -212,6 +220,40 @@
         {%- endif -%}
       </div>
       {%- if search.performed -%}
+        <div class="template-search__tabs-wrapper">
+          <div class="template-search__tabs" role="tablist" aria-label="Search result types">
+            <a
+              class="template-search__tab h6"
+              role="tab"
+              href="{{ product_tab_url }}"
+              id="SearchTab-products-{{ section.id }}"
+              aria-controls="product-grid"
+              aria-selected="{% if active_search_type == 'product' %}true{% else %}false{% endif %}"
+            >
+              {{ 'templates.search.products' | t }}
+            </a>
+            <a
+              class="template-search__tab h6"
+              role="tab"
+              href="{{ article_tab_url }}"
+              id="SearchTab-articles-{{ section.id }}"
+              aria-controls="product-grid"
+              aria-selected="{% if active_search_type == 'article' %}true{% else %}false{% endif %}"
+            >
+              Blog posts
+            </a>
+            <a
+              class="template-search__tab h6"
+              role="tab"
+              href="{{ page_tab_url }}"
+              id="SearchTab-pages-{{ section.id }}"
+              aria-controls="product-grid"
+              aria-selected="{% if active_search_type == 'page' %}true{% else %}false{% endif %}"
+            >
+              {{ 'templates.search.pages' | t }}
+            </a>
+          </div>
+        </div>
         {%- if search.results_count == 0 and search.filters == empty -%}
           <p role="status">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
         {%- endif -%}
@@ -225,6 +267,10 @@
         <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
           <form class="facets-vertical-form" id="FacetSortForm">
             <div class="facet-filters sorting caption">
+              <input type="hidden" name="q" value="{{ search.terms | escape }}">
+              <input name="options[prefix]" type="hidden" value="last">
+              <input name="type" type="hidden" value="{{ active_search_type | escape }}">
+
               <details class="facets-sort-popover disclosure-has-popup">
                 <summary
                   class="facets-sort-popover__button caption-large focus-offset"
@@ -321,6 +367,9 @@
               class="template-search__results collection collection--empty{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
               id="product-grid"
               data-id="{{ section.id }}"
+              role="tabpanel"
+              aria-labelledby="SearchTab-{{ active_search_type }}s-{{ section.id }}"
+              tabindex="0"
             >
               <div class="loading-overlay gradient"></div>
               <div class="title-wrapper center">
@@ -339,6 +388,9 @@
               class="template-search__results collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
               id="product-grid"
               data-id="{{ section.id }}"
+              role="tabpanel"
+              aria-labelledby="SearchTab-{{ active_search_type }}s-{{ section.id }}"
+              tabindex="0"
             >
               <div class="loading-overlay gradient"></div>
               <ul
@@ -360,7 +412,6 @@
                   >
                     {%- case item.object_type -%}
                       {%- when 'product' -%}
-                        {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
                         {% render 'card-product',
                           card_product: item,
                           media_aspect_ratio: 'square',
