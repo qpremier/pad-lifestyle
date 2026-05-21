@@ -1062,6 +1062,14 @@ details.menu-opening .mobile-facets__close .svg-wrapper {
   margin-top: 15px !important;
 }
 
+.mobile-facets__drawer-title {
+  margin: 0 2.5rem 1.6rem;
+  font-size: calc(var(--font-heading-scale) * 1.6rem);
+  line-height: 1.2;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+}
+
 .mobile-facets__details[open] .icon-caret {
   transform: rotate(180deg);
 }
