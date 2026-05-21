@@ -126,11 +126,16 @@
       width: 169px;
     }
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 768px) {
+    .grid-homepage-q > .card-wrapper {
+      width: 270px;
+    }
+  }
+  {% comment %} @media screen and (max-width: 768px) {
     .grid-homepage-q > .card-wrapper {
       width: -webkit-fill-available;
     }
-  }
+  } {% endcomment %}
   .featured-collection-homepage .grid-homepage-q {
       width: fit-content;
       max-width: fit-content;
