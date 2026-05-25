@@ -139,6 +139,14 @@ details[open].menu-opening > .menu-drawer__submenu {
     border-color: rgba(var(--color-foreground), var(--drawer-border-opacity));
   }
 }
+@media screen and (min-width: 450px) {
+  .menu-drawer {
+    width: 25rem;
+    border-width: 0 var(--drawer-border-width) 0 0;
+    border-style: solid;
+    border-color: rgba(var(--color-foreground), var(--drawer-border-opacity));
+  }
+}
 
 .menu-drawer__inner-container {
   position: relative;
