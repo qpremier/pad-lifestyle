@@ -88,6 +88,10 @@
   if search.types.size == 1
     assign active_search_type = search.types | first
   endif
+  assign enable_search_mobile_sorting = true
+  if active_search_type != 'product'
+    assign enable_search_mobile_sorting = false
+  endif
   assign search_url = '?q=' | append: terms_url | append: '&options%5Bprefix%5D=last&type=' | append: active_search_type | append: '&sort_by=' | append: sort_by
   assign product_tab_url = routes.search_url | append: '?q=' | append: terms_url | append: '&options%5Bprefix%5D=last&type=product'
   assign article_tab_url = routes.search_url | append: '?q=' | append: terms_url | append: '&options%5Bprefix%5D=last&type=article'
@@ -361,6 +365,7 @@
                 results: search,
                 enable_filtering: enable_search_filtering,
                 enable_sorting: section.settings.enable_sorting,
+                enable_mobile_sorting: enable_search_mobile_sorting,
                 filter_type: section.settings.filter_type,
                 paginate: paginate,
                 separate_mobile_sort: true

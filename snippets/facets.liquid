@@ -20,6 +20,16 @@
   assign sort_by = results.sort_by | default: results.default_sort_by
   assign total_active_values = 0
   assign default_presentation = 'text'
+  assign enable_mobile_sort = enable_sorting
+  if enable_mobile_sorting == false
+    assign enable_mobile_sort = false
+  endif
+  assign render_mobile_facets_drawer = false
+  if enable_filtering
+    assign render_mobile_facets_drawer = true
+  elsif enable_mobile_sort and separate_mobile_sort != true
+    assign render_mobile_facets_drawer = true
+  endif
   assign active_search_type = ''
   assign has_tag_filter_fallback = false
   if enable_filtering and results.filters == empty and results.all_tags != blank
@@ -484,10 +494,11 @@
     </facet-filters-form>
   {%- endif -%}
   {% comment %}  Drawer and mobile filter {% endcomment %}
-  <menu-drawer
-    class="mobile-facets__wrapper{% if filter_type == 'horizontal' or filter_type == 'vertical' %} medium-hide large-up-hide{% endif %}"
-    data-breakpoint="mobile"
-  >
+  {%- if render_mobile_facets_drawer -%}
+    <menu-drawer
+      class="mobile-facets__wrapper{% if filter_type == 'horizontal' or filter_type == 'vertical' %} medium-hide large-up-hide{% endif %}"
+      data-breakpoint="mobile"
+    >
     <details class="mobile-facets__disclosure disclosure-has-popup">
       <summary class="mobile-facets__open-wrapper focus-offset">
         <span class="mobile-facets__open{% if filter_type == 'drawer' and enable_filtering == false %} medium-hide large-up-hide{% endif %}">
@@ -497,11 +508,11 @@
           <span class="mobile-facets__open-label button-label medium-hide large-up-hide">
             {%- if separate_mobile_sort and enable_filtering -%}
               {{ 'products.facets.filter_button' | t }}
-            {%- elsif enable_filtering and enable_sorting -%}
+            {%- elsif enable_filtering and enable_mobile_sort -%}
               {{ 'products.facets.filter_and_sort' | t }}
             {%- elsif enable_filtering -%}
               {{ 'products.facets.filter_button' | t }}
-            {%- elsif enable_sorting -%}
+            {%- elsif enable_mobile_sort -%}
               {{ 'products.facets.sort_button' | t }}
             {%- endif -%}
           </span>
@@ -525,11 +536,11 @@
                 <h2 class="mobile-facets__heading medium-hide large-up-hide">
                   {%- if separate_mobile_sort and enable_filtering -%}
                     {{ 'products.facets.filter_button' | t }}
-                  {%- elsif enable_filtering and enable_sorting -%}
+                  {%- elsif enable_filtering and enable_mobile_sort -%}
                     {{ 'products.facets.filter_and_sort' | t }}
                   {%- elsif enable_filtering -%}
                     {{ 'products.facets.filter_button' | t }}
-                  {%- elsif enable_sorting -%}
+                  {%- elsif enable_mobile_sort -%}
                     {{ 'products.facets.sort_button' | t }}
                   {%- endif -%}
                 </h2>
@@ -752,7 +763,7 @@
                 {%- endif -%}
               {%- endif -%}
 
-              {%- if enable_sorting and separate_mobile_sort != true -%}
+              {%- if enable_mobile_sort and separate_mobile_sort != true -%}
                 <div
                   id="Details-Mobile-SortBy-{{ section.id }}"
                   class="mobile-facets__details js-filter{% if filter_type == 'drawer' %} medium-hide large-up-hide{% endif %}"
@@ -827,9 +838,10 @@
         </form>
       </facet-filters-form>
     </details>
-  </menu-drawer>
+    </menu-drawer>
+  {%- endif -%}
 
-  {%- if enable_sorting and separate_mobile_sort -%}
+  {%- if enable_mobile_sort and separate_mobile_sort -%}
     <details class="mobile-sort-sheet facets-sort-popover medium-hide large-up-hide">
       <summary class="mobile-sort-sheet__button facets-sort-popover__button focus-offset">
         <span class="facets-sort-popover__button-text">
