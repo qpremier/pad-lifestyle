@@ -47,6 +47,75 @@ menu-drawer > details[open] > summary::before {
   height: calc(var(--viewport-height, 100vh) - (var(--header-bottom-position, 100%)));
 }
 
+@media screen and (max-width: 989px) {
+  .js menu-drawer > details > summary::before,
+  .js menu-drawer > details[open]:not(.menu-opening) > summary::before,
+  .header__icon--menu[aria-expanded='true']::before {
+    content: none;
+  }
+
+  .menu-drawer {
+    position: fixed;
+    top: 0;
+  }
+
+  .js .menu-drawer {
+    height: var(--viewport-height, 100vh);
+  }
+
+  .menu-drawer__navigation-container {
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .menu-drawer__header {
+    position: relative;
+    z-index: 2;
+    background-color: rgb(var(--color-background));
+    border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .menu-drawer__panel-list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .menu-drawer__navigation {
+    padding: 0;
+  }
+
+  .js .menu-drawer__submenu {
+    top: 0;
+    bottom: 0;
+    padding-top: 0;
+  }
+
+  .menu-drawer__close-button--menu {
+    display: flex;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    justify-content: flex-start;
+    padding: 2rem 3rem 1.6rem;
+    background-color: transparent;
+  }
+
+  .menu-drawer__close-button--menu .svg-wrapper {
+    margin-right: 0;
+    width: 2rem;
+  }
+
+  .menu-drawer__close-button--menu .icon {
+    transform: none;
+  }
+
+  .menu-drawer-container > summary {
+    z-index: 1;
+  }
+}
+
 .js details[open] > .menu-drawer,
 .js details[open] > .menu-drawer__submenu {
   transition: transform var(--duration-default) ease, visibility var(--duration-default) ease;
@@ -80,12 +149,18 @@ details[open].menu-opening > .menu-drawer__submenu {
   display: grid;
   grid-template-rows: 1fr auto;
   align-content: space-between;
-  overflow-y: auto;
   height: 100%;
 }
 
 .menu-drawer__navigation {
   padding: 3rem 0;
+}
+
+.menu-drawer__panel-list {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  align-content: space-between;
+  min-height: 0;
 }
 
 .menu-drawer__inner-submenu {

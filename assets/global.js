@@ -520,6 +520,11 @@ class MenuDrawer extends HTMLElement {
   }
 
   onCloseButtonClick(event) {
+    if (event.currentTarget.hasAttribute('data-close-menu')) {
+      this.closeMenuDrawer(event, this.mainDetailsToggle.querySelector('summary'));
+      return;
+    }
+
     const detailsElement = event.currentTarget.closest('details');
     this.closeSubmenu(detailsElement);
   }
