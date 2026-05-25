@@ -92,7 +92,7 @@
     background: transparent;
     border: 0;
     /* color: rgb(var(--color-foreground)); */
-    color: rgb(var(--color-background) / 42%);
+    color: rgb(18 18 18 / 42%);
     cursor: pointer;
     display: inline-flex;
     font-size: 1.2rem;
@@ -271,6 +271,10 @@
     .collection-toolbar-{{ section.id }}__layout-button,
     .collection-toolbar-{{ section.id }}__sort-button {
       font-size: 1.1rem;
+    }
+
+    .collection-toolbar-{{ section.id }}__sort-box {
+      display: none;
     }
 
     .collection-toolbar-{{ section.id }}__products-count {
@@ -456,7 +460,7 @@
       {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
         <aside
           aria-labelledby="verticalTitle"
-          class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
+          class="facets-wrapper collection-mobile-facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
           id="main-collection-filters"
           data-id="{{ section.id }}"
         >
@@ -465,7 +469,8 @@
             enable_filtering: section.settings.enable_filtering,
             enable_sorting: section.settings.enable_sorting,
             filter_type: section.settings.filter_type,
-            paginate: paginate
+            paginate: paginate,
+            separate_mobile_sort: true
           %}
         </aside>
       {%- endif -%}
@@ -605,7 +610,7 @@
   });
 
   document.addEventListener('change', function(event) {
-    if (!event.target.matches('.section-{{ section.id }}-padding input[name="sort_by"]')) return;
+    if (!event.target.matches('.section-{{ section.id }}-padding .collection-toolbar-{{ section.id }} input[name="sort_by"]')) return;
 
     closeCollectionSortPopover(event.target.closest('[data-collection-sort-popover]'));
     event.target.form.submit();

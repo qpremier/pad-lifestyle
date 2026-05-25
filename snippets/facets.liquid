@@ -21,6 +21,14 @@
   assign total_active_values = 0
   assign default_presentation = 'text'
   assign active_search_type = ''
+  assign has_tag_filter_fallback = false
+  if enable_filtering and results.filters == empty and results.all_tags != blank
+    assign has_tag_filter_fallback = true
+  endif
+  assign has_filter_values = false
+  if results.filters != empty or has_tag_filter_fallback
+    assign has_filter_values = true
+  endif
   if results.terms and results.types.size == 1
     assign active_search_type = results.types | first
   endif
@@ -59,7 +67,7 @@
               class="facets__wrapper"
             {% endif %}
           >
-            {%- if filter_type == 'horizontal' and results.filters != empty -%}
+            {%- if filter_type == 'horizontal' and has_filter_values -%}
               <h2 class="facets__heading caption-large text-body" id="verticalTitle" tabindex="-1">
                 {{ 'products.facets.filter_by_label' | t }}
               </h2>
@@ -68,7 +76,7 @@
             {%- if filter_type == 'vertical' -%}
               <div class="active-facets active-facets-desktop">
                 <div class="active-facets-vertical-filter">
-                  {%- unless results.filters == empty -%}
+                  {%- if has_filter_values -%}
                     <h2
                       class="facets__heading facets__heading--vertical caption-large text-body"
                       id="verticalTitle"
@@ -76,12 +84,20 @@
                     >
                       {{ 'products.facets.filter_by_label' | t }}
                     </h2>
-                  {%- endunless -%}
-                  <facet-remove class="active-facets__button-wrapper">
-                    <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
-                      <span>{{ 'products.facets.clear_all' | t }}</span>
-                    </a>
-                  </facet-remove>
+                  {%- endif -%}
+                  {%- if has_tag_filter_fallback -%}
+                    <div class="active-facets__button-wrapper">
+                      <a href="{{ results.url }}" class="active-facets__button-remove underlined-link">
+                        <span>{{ 'products.facets.clear_all' | t }}</span>
+                      </a>
+                    </div>
+                  {%- else -%}
+                    <facet-remove class="active-facets__button-wrapper">
+                      <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
+                        <span>{{ 'products.facets.clear_all' | t }}</span>
+                      </a>
+                    </facet-remove>
+                  {%- endif -%}
                 </div>
                 {%- for filter in results.filters -%}
                   {%- for value in filter.active_values -%}
@@ -115,6 +131,9 @@
                     {%- endif -%}
                   {% endif %}
                 {%- endfor -%}
+                {%- if has_tag_filter_fallback -%}
+                  {% render 'tag-fallback-facet', results: results, mode: 'active' %}
+                {%- endif -%}
               </div>
             {%- endif -%}
 
@@ -345,6 +364,9 @@
                   </details>
               {% endcase %}
             {%- endfor -%}
+            {%- if has_tag_filter_fallback -%}
+              {% render 'tag-fallback-facet', results: results, filter_type: filter_type %}
+            {%- endif -%}
           </div>
           {% comment %} Pills after filtes on filter type horizontal {% endcomment %}
           {%- if filter_type == 'horizontal' -%}
@@ -725,6 +747,9 @@
                       </details>
                   {% endcase %}
                 {%- endfor -%}
+                {%- if has_tag_filter_fallback -%}
+                  {% render 'tag-fallback-facet', results: results, mode: 'mobile' %}
+                {%- endif -%}
               {%- endif -%}
 
               {%- if enable_sorting and separate_mobile_sort != true -%}
@@ -764,11 +789,19 @@
               {%- endif -%}
 
               <div class="mobile-facets__footer">
-                <facet-remove class="mobile-facets__clear-wrapper clear-facets-btn-in-filters">
-                  <a href="{{ results_url }}" class="mobile-facets__clear underlined-link clear-btn-in-filters">
-                    {{- 'products.facets.clear_all' | t -}}
-                  </a>
-                </facet-remove>
+                {%- if has_tag_filter_fallback -%}
+                  <div class="mobile-facets__clear-wrapper clear-facets-btn-in-filters">
+                    <a href="{{ results.url }}" class="mobile-facets__clear underlined-link clear-btn-in-filters">
+                      {{- 'products.facets.clear_all' | t -}}
+                    </a>
+                  </div>
+                {%- else -%}
+                  <facet-remove class="mobile-facets__clear-wrapper clear-facets-btn-in-filters">
+                    <a href="{{ results_url }}" class="mobile-facets__clear underlined-link clear-btn-in-filters">
+                      {{- 'products.facets.clear_all' | t -}}
+                    </a>
+                  </facet-remove>
+                {%- endif -%}
                 <button
                   type="button"
                   class="button button--primary"
@@ -903,11 +936,22 @@
         {%- endif -%}
       {%- endif -%}
     {%- endfor -%}
-    <facet-remove class="active-facets__button-wrapper">
-      <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
-        <span>{{ 'products.facets.clear_all' | t }}</span>
-      </a>
-    </facet-remove>
+    {%- if has_tag_filter_fallback -%}
+      {% render 'tag-fallback-facet', results: results, mode: 'active' %}
+    {%- endif -%}
+    {%- if has_tag_filter_fallback -%}
+      <div class="active-facets__button-wrapper">
+        <a href="{{ results.url }}" class="active-facets__button-remove underlined-link">
+          <span>{{ 'products.facets.clear_all' | t }}</span>
+        </a>
+      </div>
+    {%- else -%}
+      <facet-remove class="active-facets__button-wrapper">
+        <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
+          <span>{{ 'products.facets.clear_all' | t }}</span>
+        </a>
+      </facet-remove>
+    {%- endif -%}
   </div>
   {% comment %} Sort, product count and filter pills at the end when filter is type of Drawer for the correct tabbing order {% endcomment %}
   {%- if enable_sorting and filter_type == 'drawer' -%}

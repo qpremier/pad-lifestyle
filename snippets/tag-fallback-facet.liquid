@@ -1,0 +1,139 @@
+{%- liquid
+  assign mode = mode | default: 'desktop'
+  assign tag_filter_label = 'Tags'
+-%}
+
+{%- if mode == 'active' -%}
+  {%- for tag in current_tags -%}
+    {%- capture remove_tag_link -%}{{ tag | link_to_remove_tag: tag }}{%- endcapture -%}
+    {%- assign remove_tag_url = remove_tag_link | split: 'href="' | last | split: '"' | first -%}
+    <a href="{{ remove_tag_url }}" class="active-facets__button active-facets__button--light">
+      <span class="active-facets__button-inner button button--tertiary">
+        {{ tag_filter_label }}: {{ tag | escape }}
+        <span class="svg-wrapper">
+          {{- 'icon-close-small.svg' | inline_asset_content -}}
+        </span>
+        <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+      </span>
+    </a>
+  {%- endfor -%}
+{%- elsif mode == 'mobile' -%}
+  <details
+    id="Details-Mobile-Tags-{{ section.id }}"
+    class="mobile-facets__details mobile-facets__details--accordion"
+  >
+    <summary class="mobile-facets__summary mobile-facets__summary--accordion focus-inset">
+      <div>
+        <span>{{ tag_filter_label }}</span>
+        <span class="mobile-facets__arrow">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+      </div>
+    </summary>
+    <div id="FacetMobile-Tags-{{ section.id }}" class="mobile-facets__submenu gradient">
+      <ul class="facets-layout facets-layout-list facets-layout-list--text mobile-facets__list list-unstyled" role="list">
+        {%- for tag in results.all_tags -%}
+          {%- liquid
+            assign tag_is_active = false
+            if current_tags contains tag
+              assign tag_is_active = true
+            endif
+          -%}
+          {%- capture tag_link -%}
+            {%- if tag_is_active -%}
+              {{ tag | link_to_remove_tag: tag }}
+            {%- else -%}
+              {{ tag | link_to_add_tag: tag }}
+            {%- endif -%}
+          {%- endcapture -%}
+          {%- assign tag_url = tag_link | split: 'href="' | last | split: '"' | first -%}
+          <li class="mobile-facets__item list-menu__item">
+            <a href="{{ tag_url }}" class="facets__label mobile-facets__label tag-fallback-filter__link{% if tag_is_active %} active{% endif %}">
+              <span class="tag-fallback-filter__box">
+                {%- if tag_is_active -%}
+                  {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                {%- endif -%}
+              </span>
+              <span class="facet-checkbox__text">
+                <span class="facet-checkbox__text-label">{{ tag | escape }}</span>
+              </span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="mobile-facets__footer gradient">
+        <a href="{{ results.url }}" class="mobile-facets__clear underlined-link clear-btn-in-filters">
+          {{- 'products.facets.clear' | t -}}
+        </a>
+        <button
+          type="button"
+          class="button button--primary"
+          onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()"
+        >
+          {{ 'products.facets.apply' | t }}
+        </button>
+      </div>
+    </div>
+  </details>
+{%- else -%}
+  <details
+    id="Details-Tags-{{ section.id }}"
+    class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %}"
+    {% if filter_type == 'vertical' %}
+      open
+    {% endif %}
+  >
+    <summary class="facets__summary caption-large focus-offset">
+      <div>
+        <span class="facets__summary-label">
+          {{ tag_filter_label }}
+          {%- if filter_type == 'vertical' and current_tags.size > 0 -%}
+            <span class="facets__selected">({{ current_tags.size }})</span>
+          {%- endif -%}
+        </span>
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </div>
+    </summary>
+    <div
+      id="Facet-Tags-{{ section.id }}"
+      class="parent-display {% if filter_type == 'horizontal' %}facets__display{% else %}facets__display-vertical{% endif %}"
+    >
+      <fieldset class="facets-wrap parent-wrap {% if filter_type == 'vertical' %} facets-wrap-vertical{% endif %}">
+        <legend class="visually-hidden">{{ tag_filter_label }}</legend>
+        <ul
+          class="facets-layout facets-layout-list facets-layout-list--text{% if filter_type == 'vertical' %} facets__list--vertical{% else %} facets__list{% endif %} list-unstyled"
+          role="list"
+        >
+          {%- for tag in results.all_tags -%}
+            {%- liquid
+              assign tag_is_active = false
+              if current_tags contains tag
+                assign tag_is_active = true
+              endif
+            -%}
+            {%- capture tag_link -%}
+              {%- if tag_is_active -%}
+                {{ tag | link_to_remove_tag: tag }}
+              {%- else -%}
+                {{ tag | link_to_add_tag: tag }}
+              {%- endif -%}
+            {%- endcapture -%}
+            {%- assign tag_url = tag_link | split: 'href="' | last | split: '"' | first -%}
+            <li class="list-menu__item facets__item">
+              <a href="{{ tag_url }}" class="facets__label facet-checkbox tag-fallback-filter__link{% if tag_is_active %} active{% endif %}">
+                <span class="tag-fallback-filter__box">
+                  {%- if tag_is_active -%}
+                    {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                  {%- endif -%}
+                </span>
+                <span class="facet-checkbox__text">
+                  <span class="facet-checkbox__text-label">{{ tag | escape }}</span>
+                </span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </fieldset>
+    </div>
+  </details>
+{%- endif -%}

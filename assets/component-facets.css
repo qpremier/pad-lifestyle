@@ -628,6 +628,32 @@
   flex-shrink: 0;
 }
 
+.tag-fallback-filter__link {
+  color: rgba(var(--color-foreground), 0.75);
+  text-decoration: none;
+}
+
+.tag-fallback-filter__box {
+  align-items: center;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.55);
+  display: inline-flex;
+  flex: 0 0 1.6rem;
+  height: 1.6rem;
+  justify-content: center;
+  margin-right: 1.2rem;
+  width: 1.6rem;
+}
+
+.tag-fallback-filter__box .icon-checkmark {
+  height: 0.8rem;
+  width: 1rem;
+}
+
+.tag-fallback-filter__link.active,
+.tag-fallback-filter__link:hover {
+  color: rgb(var(--color-foreground));
+}
+
 .facet-checkbox .svg-wrapper {
   visibility: hidden;
   position: absolute;
@@ -1240,7 +1266,8 @@ input.mobile-facets__checkbox {
 }
 
 @media screen and (max-width: 749px) {
-  .search-mobile-facets-wrapper {
+  .search-mobile-facets-wrapper,
+  .collection-mobile-facets-wrapper {
     position: sticky;
     top: 0px;
     /* top: var(--header-height, 0); */
