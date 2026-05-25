@@ -3778,3 +3778,8 @@ details-disclosure > details {
 }
 
 /* Qasim is attempting to make it transparent */
+
+/* CART Page CSS Qasim wrote */
+.cart__footer > .cart__blocks > .js-contents > small > a {
+  color: white !important;
+}
