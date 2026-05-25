@@ -54,14 +54,9 @@ menu-drawer > details[open] > summary::before {
     content: none;
   }
 
-  #menu-drawer {
+  .menu-drawer {
     position: fixed;
     top: 0;
-    --color-background: 255, 255, 255;
-    --color-foreground: 0, 0, 0;
-    color: #000 !important;
-    background: #fff !important;
-    background-color: #fff !important;
   }
 
   .js .menu-drawer {
@@ -73,36 +68,31 @@ menu-drawer > details[open] > summary::before {
     overflow: hidden;
   }
 
-  #menu-drawer .menu-drawer__header {
+  .menu-drawer__header {
     position: relative;
     z-index: 2;
-    background: #fff !important;
-    background-color: #fff !important;
+    background-color: rgb(var(--color-background));
     border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
   }
 
-  #menu-drawer .menu-drawer__panel-list {
+  .menu-drawer__panel-list {
     overflow-y: auto;
     overflow-x: hidden;
     min-height: 0;
     -webkit-overflow-scrolling: touch;
-    background: #fff !important;
-    background-color: #fff !important;
   }
 
   .menu-drawer__navigation {
     padding: 0;
   }
 
-  #menu-drawer .menu-drawer__submenu {
+  .js .menu-drawer__submenu {
     top: 0;
     bottom: 0;
     padding-top: 0;
-    background: #fff !important;
-    background-color: #fff !important;
   }
 
-  #menu-drawer .menu-drawer__close-button--menu {
+  .menu-drawer__close-button--menu {
     display: flex;
     width: 100%;
     margin-top: 0;
@@ -112,48 +102,17 @@ menu-drawer > details[open] > summary::before {
     background-color: transparent;
   }
 
-  #menu-drawer .menu-drawer__menu-item,
-  #menu-drawer .menu-drawer__close-button,
-  #menu-drawer .menu-drawer__account,
-  #menu-drawer .list-social__link,
-  #menu-drawer .localization-form__select,
-  #menu-drawer .localization-selector + .disclosure__list-wrapper button {
-    color: #000 !important;
-  }
-
-  #menu-drawer .svg-wrapper,
-  #menu-drawer svg,
-  #menu-drawer svg path {
-    color: #000 !important;
-    fill: currentColor !important;
-    stroke: currentColor !important;
-  }
-
-  #menu-drawer .menu-drawer__utility-links {
-    background: #fff !important;
-    background-color: #fff !important;
-  }
-
-  #menu-drawer .menu-drawer__close-button--menu .svg-wrapper {
+  .menu-drawer__close-button--menu .svg-wrapper {
     margin-right: 0;
     width: 2rem;
   }
 
-  #menu-drawer .menu-drawer__close-button--menu .icon {
+  .menu-drawer__close-button--menu .icon {
     transform: none;
   }
 
   .menu-drawer-container > summary {
     z-index: 1;
-  }
-
-  .menu-drawer-container > summary,
-  .menu-drawer-container > summary .svg-wrapper,
-  .menu-drawer-container > summary svg,
-  .menu-drawer-container > summary svg path {
-    color: inherit !important;
-    fill: currentColor !important;
-    stroke: currentColor !important;
   }
 }
 
@@ -274,7 +233,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 }
 
 .menu-drawer__close-button {
-  margin-top: 1.5rem;
+  margin-top: 6.5rem;
   margin-bottom: 1.5rem;
   padding: 1.2rem 2.6rem 1.2rem 3rem;
   text-decoration: none;
