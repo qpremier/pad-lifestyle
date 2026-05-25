@@ -3782,4 +3782,5 @@ details-disclosure > details {
 /* CART Page CSS Qasim wrote */
 .cart__footer > .cart__blocks > .js-contents > small > a {
   color: #feead5 !important;
+  text-decoration: none;
 }
