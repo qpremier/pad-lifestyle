@@ -216,6 +216,7 @@ details[open].menu-opening > .menu-drawer__submenu {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  margin-top: 7rem;
 }
 
 .js .menu-drawer__menu li {
