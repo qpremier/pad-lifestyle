@@ -221,6 +221,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .js .menu-drawer__menu li {
   margin-bottom: 0.2rem;
+  border-bottom: solid 1px lightgray;
 }
 
 .menu-drawer__menu-item {
