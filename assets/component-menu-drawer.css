@@ -139,7 +139,7 @@ details[open].menu-opening > .menu-drawer__submenu {
     border-color: rgba(var(--color-foreground), var(--drawer-border-opacity));
   }
 }
-@media screen and (min-width: 320px) {
+@media screen and (min-width: 320px) and (max-width: 750px) {
   .menu-drawer {
     width: 85%;
     border-width: 0 var(--drawer-border-width) 0 0;
