@@ -306,7 +306,7 @@
 }
 
 .collection #product-grid .card__media .media img {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .card__inner:not(.ratio) > .card__content {
