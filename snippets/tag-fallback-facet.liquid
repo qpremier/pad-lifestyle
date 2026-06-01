@@ -32,7 +32,7 @@
     </summary>
     <div id="FacetMobile-Tags-{{ section.id }}" class="mobile-facets__submenu gradient">
       <ul class="facets-layout facets-layout-list facets-layout-list--text mobile-facets__list list-unstyled" role="list">
-        {%- for tag in results.all_tags -%}
+        {%- for tag in results.all_tags limit: 10 -%}
           {%- liquid
             assign tag_is_active = false
             if current_tags contains tag
@@ -104,7 +104,7 @@
           class="facets-layout facets-layout-list facets-layout-list--text{% if filter_type == 'vertical' %} facets__list--vertical{% else %} facets__list{% endif %} list-unstyled"
           role="list"
         >
-          {%- for tag in results.all_tags -%}
+          {%- for tag in results.all_tags limit: 10 -%}
             {%- liquid
               assign tag_is_active = false
               if current_tags contains tag
