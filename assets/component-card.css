@@ -305,6 +305,10 @@
   width: 100%;
 }
 
+.collection #product-grid .card__media .media img {
+  object-fit: cover;
+}
+
 .card__inner:not(.ratio) > .card__content {
   height: 100%;
 }
