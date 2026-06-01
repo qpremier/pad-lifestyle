@@ -196,7 +196,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .menu-drawer__navigation-container {
   display: grid;
-  grid-template-rows: 1fr auto;
+  /* grid-template-rows: 1fr auto; */
   align-content: space-between;
   height: 100%;
 }
