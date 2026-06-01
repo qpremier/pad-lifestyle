@@ -264,7 +264,7 @@
           "settings": {
             "image": "shopify://shop_images/first_img_collection_home.avif",
             "title": "LIVING ROOM",
-            "link": "shopify://collections/all"
+            "link": "shopify://collections/arm-chair"
           }
         },
         "collection_card_kcXGdK": {
@@ -272,7 +272,7 @@
           "settings": {
             "image": "shopify://shop_images/sec_img_collection_home.webp",
             "title": "DINNING ROOM",
-            "link": "shopify://collections/all"
+            "link": "shopify://collections/dinning-chair"
           }
         },
         "collection_card_ChxqRC": {
@@ -280,7 +280,7 @@
           "settings": {
             "image": "shopify://shop_images/third_img_collection_home.webp",
             "title": "BEDROOM",
-            "link": "shopify://collections"
+            "link": "shopify://collections/coffee-tables"
           }
         },
         "collection_card_GFmY7X": {
@@ -288,7 +288,7 @@
           "settings": {
             "image": "shopify://shop_images/forth_img_collection_home.webp",
             "title": "KITCHEN",
-            "link": "shopify://collections"
+            "link": "shopify://collections/cabinets"
           }
         }
       },
