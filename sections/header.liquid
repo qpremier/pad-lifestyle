@@ -19,7 +19,7 @@
 <style>
   {%- liquid
     assign enable_transparent_header = true
-    if request.page_type == 'page' or request.page_type == 'product' or request.page_type == 'blog' or request.page_type == '404' or request.page_type == 'list-collections' or request.page_type == 'search' or request.page_type == 'cart'
+    if request.page_type == 'page' or request.page_type == 'policy' or request.page_type == 'product' or request.page_type == 'blog' or request.page_type == '404' or request.page_type == 'list-collections' or request.page_type == 'search' or request.page_type == 'cart'
       assign enable_transparent_header = false
     elsif request.page_type == 'collection' and collection.image == blank
       assign enable_transparent_header = false
