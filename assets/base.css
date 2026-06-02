@@ -3097,7 +3097,7 @@ details-disclosure > details {
   }
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 750px){
   .badge {
     font-size: 0.9rem !important;
     padding: 0.3rem 0.6rem 0.3rem !important;
