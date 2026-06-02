@@ -398,6 +398,28 @@ quick-add-modal .product-form__buttons {
   content: none;
 }
 
+@media screen and (min-width: 750px) {
+  .product-grid .quick-add__submit {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    max-width: 32px !important;
+    min-height: 32px !important;
+    max-height: 32px !important;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .product-grid .quick-add__submit {
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px !important;
+    max-width: 22px !important;
+    min-height: 22px !important;
+    max-height: 22px !important;
+  }
+}
+
 .product-grid .quick-add__submit {
   align-items: center;
   background: #fff !important;
@@ -409,12 +431,6 @@ quick-add-modal .product-form__buttons {
   justify-content: center;
   line-height: 1;
   padding: 4px 6px 4px 8px;
-  width: 32px !important;
-  height: 32px !important;
-  min-width: 32px !important;
-  max-width: 32px !important;
-  min-height: 32px !important;
-  max-height: 32px !important;
 }
 
 .product-grid .quick-add__submit::before {
