@@ -48,6 +48,12 @@
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
+  @media screen and (max-width: 750px) {
+    .section-{{ section.id }}-padding .card__image-quick-add {
+      opacity: 1 !important;
+    }
+  }
+
   .section-{{ section.id }}-padding .card__inner:hover .card__image-quick-add,
   .section-{{ section.id }}-padding .card-wrapper:focus-within .card__image-quick-add {
     opacity: 1;
