@@ -136,7 +136,7 @@ menu-drawer > details[open] > summary::before {
 
   #menu-drawer .menu-drawer__close-button--menu .svg-wrapper {
     margin-right: 0;
-    width: 2rem;
+    width: 1.5rem;
   }
 
   #menu-drawer .menu-drawer__close-button--menu .icon {
