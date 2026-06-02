@@ -3097,6 +3097,13 @@ details-disclosure > details {
   }
 }
 
+@media screen and (max-width: 500px){
+  .badge {
+    font-size: 0.9rem !important;
+    padding: 0.3rem 0.6rem 0.3rem !important;
+  }
+}
+
 .badge {
   border: 1px solid transparent;
   border-radius: var(--badge-corner-radius);
