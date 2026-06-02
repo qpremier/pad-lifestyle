@@ -290,6 +290,10 @@
   grid-row-start: 3;
   justify-self: flex-start;
   z-index: 1;
+  /* Qasim added it */
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .card__badge.top {
