@@ -201,7 +201,7 @@ details[open].menu-opening > .menu-drawer__submenu {
   height: 100%;
 }
 
-.menu-drawer__navigation {
+#menu-drawer .menu-drawer__inner-container .menu-drawer__navigation-container .menu-drawer__panel-list .menu-drawer__navigation {
   padding: 0rem 0;
 }
 
