@@ -108,7 +108,7 @@ menu-drawer > details[open] > summary::before {
     margin-top: 0;
     margin-bottom: 0;
     justify-content: flex-start;
-    padding: 3rem 2rem 2.6rem;
+    padding: 3.4rem 2rem 3rem;
     background-color: transparent;
   }
 
