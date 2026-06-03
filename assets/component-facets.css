@@ -759,10 +759,10 @@ span.active-facets__button-inner:hover {
   color: #FEEAD5 !important;
 }
 a.active-facets__button-remove:hover {
-  color: #FEEAD5 !important;
+  color: #000000ff !important;
 }
 a.active-facets__button-remove {
-  color: #FEEAD5 !important;
+  color: #000000ff !important;
 }
 
 @media screen and (min-width: 990px) {
