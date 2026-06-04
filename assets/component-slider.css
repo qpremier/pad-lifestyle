@@ -254,13 +254,7 @@ slider-component.slider-component-full-width {
 }
 
 .slider-counter__link {
-  padding: 1rem;
-}
-
-@media screen and (max-width: 749px) {
-  .slider-counter__link {
-    padding: 0.7rem;
-  }
+  padding: 0.7rem;
 }
 
 .slider-counter__link--dots .dot {
