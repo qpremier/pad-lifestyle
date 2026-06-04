@@ -256,7 +256,7 @@
         "subheading_size_mobile": 14,
         "text_size_desktop": 16,
         "text_size_mobile": 14,
-        "desktop_gap": 50,
+        "desktop_gap": 0,
         "mobile_gap": 30,
         "heading_margin_bottom": 35,
         "subheading_margin_bottom": 5,
