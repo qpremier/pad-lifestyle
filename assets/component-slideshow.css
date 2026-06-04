@@ -162,6 +162,10 @@ slideshow-component:not(.page-width) .slider-buttons {
   }
 }
 
+.slideshow__autoplay.slider-button {
+  display: none;
+}
+
 @media screen and (min-width: 750px) {
   .slideshow__autoplay.slider-button {
     position: inherit;
