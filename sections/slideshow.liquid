@@ -11,13 +11,14 @@
   }
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen,
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow {
-    min-height: 100svh;
+    aspect-ratio: 16 / 9;
+    min-height: auto;
   }
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__slide,
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .banner__content,
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .banner__media,
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .media {
-    min-height: 100svh;
+    min-height: auto;
   }
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__media {
     background: rgb(var(--color-background));
@@ -25,7 +26,7 @@
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__media > img,
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__media > svg {
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     width: 100%;
   }
@@ -160,7 +161,7 @@
     #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .banner__content,
     #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .banner__media,
     #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .media {
-      min-height: 100svh;
+      min-height: auto;
     }
 
     #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__media {
@@ -342,10 +343,10 @@
 
               if section.settings.image_behavior == 'ambient'
                 assign desktop_sizes = '120vw'
-                assign desktop_widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
+                assign desktop_widths = '450, 660, 900, 1320, 1800, 1920'
               else
                 assign desktop_sizes = '100vw'
-                assign desktop_widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                assign desktop_widths = '375, 550, 750, 1100, 1500, 1780, 1920'
               endif
 
               assign mobile_sizes = '100vw'
@@ -359,7 +360,7 @@
               {%- if forloop.first %}
                 {{
                   desktop_image
-                  | image_url: width: 3840
+                  | image_url: width: 1920
                   | image_tag:
                     class: desktop_image_class,
                     height: desktop_height,
@@ -370,7 +371,7 @@
               {%- else -%}
                 {{
                   desktop_image
-                  | image_url: width: 3840
+                  | image_url: width: 1920
                   | image_tag:
                     class: desktop_image_class,
                     loading: 'lazy',
