@@ -12,13 +12,22 @@
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen,
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow {
     aspect-ratio: 16 / 9;
+    height: min(56.25vw, 100svh);
+    max-height: 100svh;
     min-height: auto;
+    width: 100%;
   }
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__slide,
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .banner__content,
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .banner__media,
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .media {
+    height: 100%;
     min-height: auto;
+    width: 100%;
+  }
+  #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__slide {
+    flex: 0 0 100%;
+    max-width: 100%;
   }
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__media {
     background: rgb(var(--color-background));
