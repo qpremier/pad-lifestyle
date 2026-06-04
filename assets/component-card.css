@@ -112,6 +112,12 @@
   background: white;
 }
 
+.collection__view-all > a.button {
+  height: 44px;
+  min-height: 44px;
+  max-height: 44px;
+}
+
 .card__media {
   margin: var(--image-padding);
   width: calc(100% - 2 * var(--image-padding));
