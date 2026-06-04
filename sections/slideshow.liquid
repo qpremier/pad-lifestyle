@@ -33,6 +33,7 @@
     background: rgb(var(--color-background));
   }
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__media > img,
+  #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__media > video,
   #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__media > svg {
     height: 100%;
     object-fit: cover;
@@ -185,6 +186,7 @@
     }
 
     #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__media > img,
+    #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__media > video,
     #shopify-section-{{ section.id }} .slideshow-component-q.is-full-screen .slideshow__media > svg {
       object-fit: cover;
     }
@@ -386,8 +388,19 @@
         aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
         tabindex="-1"
       >
-        <div class="slideshow__media banner__media media{% if block.settings.image == blank and block.settings.mobile_image == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
-          {%- if block.settings.image or block.settings.mobile_image -%}
+        <div class="slideshow__media banner__media media{% if block.settings.image == blank and block.settings.mobile_image == blank and block.settings.video_url == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
+          {%- if block.settings.video_url != blank -%}
+            <video
+              class="slideshow__video"
+              autoplay
+              loop
+              muted
+              playsinline
+              preload="{% if forloop.first %}auto{% else %}metadata{% endif %}"
+            >
+              <source src="{{ block.settings.video_url }}" type="video/mp4">
+            </video>
+          {%- elsif block.settings.image or block.settings.mobile_image -%}
             {%- liquid
               assign desktop_image = block.settings.image
               assign mobile_image = block.settings.mobile_image | default: block.settings.image
@@ -785,6 +798,12 @@
           "type": "image_picker",
           "id": "mobile_image",
           "label": "Mobile image"
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "Video URL",
+          "info": "Use an MP4 URL. When set, video is shown instead of the image."
         },
         {
           "type": "range",
