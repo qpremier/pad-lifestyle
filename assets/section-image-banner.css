@@ -34,11 +34,11 @@
     text-align: left;
   }
 
-  .banner--content-align-left.banner--desktop-transparent .banner__box,
+  /* .banner--content-align-left.banner--desktop-transparent .banner__box,
   .banner--content-align-right.banner--desktop-transparent .banner__box,
   .banner--medium.banner--desktop-transparent .banner__box {
     max-width: 68rem;
-  }
+  } */
 }
 
 .banner__media.animate--zoom-in {
@@ -361,7 +361,7 @@
   .banner--desktop-transparent .banner__box {
     padding: 4rem 0;
     background: transparent;
-    max-width: 89rem;
+    /* max-width: 89rem; */
     border: none;
     border-radius: 0;
     box-shadow: none;
