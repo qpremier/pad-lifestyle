@@ -16,6 +16,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/image2.webp",
+            "video_url": "",
             "image_overlay_opacity": 0,
             "heading": "PALERMO COLLECTION",
             "heading_size": "h1",
@@ -34,6 +35,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/image3.webp",
+            "video_url": "",
             "image_overlay_opacity": 0,
             "heading": "Where Design Meets Dialogue",
             "heading_size": "h1",
@@ -52,6 +54,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/image4.webp",
+            "video_url": "",
             "image_overlay_opacity": 0,
             "heading": "Defined by Difference",
             "heading_size": "h1",
@@ -70,6 +73,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/image1.webp",
+            "video_url": "",
             "image_overlay_opacity": 0,
             "heading": "ECLECTIC EDIT",
             "heading_size": "h2",
@@ -87,11 +91,12 @@
         "slide_video_banner": {
           "type": "slide",
           "settings": {
+            "video_url": "https://mtdqes209p39dasa-7506435.shopifypreview.com/cdn/shop/videos/c/vp/922f08bf849b4f19bb15dbc5a0f5fad5/922f08bf849b4f19bb15dbc5a0f5fad5.HD-1080p-7.2Mbps-42564580.mp4?v=0",
             "image_overlay_opacity": 0,
-            "heading": "SUMMER SALE",
+            "heading": "VIDEO EXAMPLE",
             "heading_size": "h1",
-            "subheading": "",
-            "button_label": "SHOP NOW",
+            "subheading": "NEW COLLECTION",
+            "button_label": "",
             "link": "shopify://collections/all",
             "button_style_secondary": true,
             "show_text_box": false,
