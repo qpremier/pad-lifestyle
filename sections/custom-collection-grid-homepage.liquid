@@ -66,6 +66,10 @@
     margin: 0 auto;
   }
 
+  .custom-collection-grid {
+    height: clamp(55vh, calc(130vh - 6vw), 100vh);
+  }
+
   @media (min-width: 700px) {
     .custom-collection-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -76,7 +80,7 @@
     .custom-collection-grid {
       grid-template-columns: repeat(4, 1fr);
       gap: 0;
-      height: 100vh;
+      {% comment %} height: 100vh; {% endcomment %}
     }
   }
 
