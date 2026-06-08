@@ -20,7 +20,7 @@
   .image-with-text-custom {
     display: flex;
     align-items: center;
-    gap: {{ section.settings.desktop_gap }}px;
+    gap: 0;
     flex-direction: {% if section.settings.layout == 'text_first' %}row-reverse{% else %}row{% endif %};
     background: rgb(232 220 209);
     height: 503px;
@@ -32,22 +32,33 @@
   }
 
   .image-with-text-custom__media {
-    flex: 1;
+    flex: 0 0 50%;
     width: 50%;
+    height: 100%;
+  }
+
+  .image-with-text-custom__media picture {
+    display: block;
+    height: 100%;
   }
 
   .image-with-text-custom__media img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     display: block;
     vertical-align: bottom;
   }
 
   .image-with-text-custom__content {
-    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 0 0 50%;
     width: 50%;
-    margin: 0px 15px 0px auto;
+    height: 100%;
+    margin: 0;
+    padding: 0 clamp(48px, 5vw, 96px);
     text-align: {{ section.settings.desktop_content_alignment }};
   }
 
@@ -55,8 +66,7 @@
   .image-with-text-custom__content-inner {
     max-width: {{ section.settings.content_max_width }}px;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0;
   }
 
   /* Adjust inner wrapper alignment based on text alignment */
@@ -97,15 +107,22 @@
     .image-with-text-custom {
       flex-direction: column;
       gap: {{ section.settings.mobile_gap }}px;
+      height: auto;
     }
 
     .image-with-text-custom__media,
     .image-with-text-custom__content {
       width: 100%;
+      height: auto;
     }
 
     .image-with-text-custom__content {
+      padding: 0 20px;
       text-align: {{ section.settings.mobile_content_alignment }};
+    }
+
+    .image-with-text-custom__media img {
+      height: auto;
     }
     
     /* Reset margins on mobile for better responsiveness */
@@ -205,7 +222,7 @@
 }
 @media screen and (min-width: 750px) and (max-width: 975px) {
   .image-with-text-custom{
-    gap: 35px !important;
+    gap: 0 !important;
   }
   .image-with-text-custom__subheading {
     font-size: 16px !important;
@@ -231,7 +248,7 @@
     <image-with-text class="image-with-text-custom">
       {%- if section.settings.layout == 'text_first' -%}
         <div class="image-with-text-custom__content prose sm:text-start">
-            <div class="image-with-text-custom__content-inner" style="max-width: {{ section.settings.content_max_width }}px; margin: 15px auto;">
+            <div class="image-with-text-custom__content-inner" style="max-width: {{ section.settings.content_max_width }}px;">
             {%- for block in section.blocks -%}
                 {% case block.type %}
                 {%- when 'subheading' -%}
@@ -289,7 +306,7 @@
           {%- endif -%}
         </div>
         <div class="image-with-text-custom__content prose sm:text-start">
-            <div class="image-with-text-custom__content-inner" style="max-width: {{ section.settings.content_max_width }}px; margin: 15px auto;">
+            <div class="image-with-text-custom__content-inner" style="max-width: {{ section.settings.content_max_width }}px;">
                 {%- for block in section.blocks -%}
                     {% case block.type %}
                     {%- when 'subheading' -%}
