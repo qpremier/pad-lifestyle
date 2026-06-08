@@ -307,7 +307,8 @@
           {%- endif -%}
         </div>
         <div class="image-with-text-custom__content prose sm:text-start">
-            <div class="image-with-text-custom__content-inner" style="max-width: {{ section.settings.content_max_width }}px;">
+          {% comment %} style="max-width: {{ section.settings.content_max_width }}px;" {% endcomment %}
+            <div class="image-with-text-custom__content-inner" >
                 {%- for block in section.blocks -%}
                     {% case block.type %}
                     {%- when 'subheading' -%}
