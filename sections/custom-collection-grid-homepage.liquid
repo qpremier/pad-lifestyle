@@ -66,8 +66,14 @@
     margin: 0 auto;
   }
 
-  .custom-collection-grid {
+  {% comment %} .custom-collection-grid {
     height: clamp(55vh, calc(130vh - 6vw), 100vh) !important;
+  } {% endcomment %}
+  .custom-collection-grid {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: 55vh;
+    max-height: 100vh;
   }
 
   @media (min-width: 700px) {
