@@ -170,22 +170,31 @@
 
   /* Button styles */
   .image-with-text-custom__button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
     background-image:
       linear-gradient(transparent, transparent),
-      linear-gradient(transparent, transparent);
+      linear-gradient(#1C1C1C, #1C1C1C);
     background-repeat: no-repeat;
     background-size: 100% 100%, 0 100%;
     background-position: right top, left top;
     color: #1C1C1C;
-    padding: 12px 30px;
-    border: 1px solid #1C1C1C;
-    border-radius: 0px;
-    font-size: 14px;
+    padding: {{ section.settings.button_padding_top_bottom }}px {{ section.settings.button_padding_left_right }}px;
+    border: {{ section.settings.button_border_width }}px solid #1C1C1C;
+    border-radius: {{ section.settings.button_border_radius }}px;
+    font-size: {{ section.settings.button_font_size }}px;
     cursor: pointer;
     text-decoration: none;
-    transition: color 0.3s ease, border-color 0.3s ease, background-size 0.4s ease;
+    transition:
+      background-size .45s cubic-bezier(.785, .135, .15, .86),
+      color .45s cubic-bezier(.785, .135, .15, .86),
+      border-color .45s cubic-bezier(.785, .135, .15, .86);
+  }
+
+  .image-with-text-custom__button::after {
+    box-shadow: none;
   }
 
   .image-with-text-custom__button:hover {
