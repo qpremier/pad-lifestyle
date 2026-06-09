@@ -334,8 +334,9 @@
       width: 100%;
       aspect-ratio: 1 / 1;
       object-fit: cover;
-      max-height: 275px;
-      min-height: 275px;
+      height: clamp(450px, 60vh, 75vh);
+      {% comment %} max-height: 275px;
+      min-height: 275px; {% endcomment %}
     }
 
     #shopify-section-{{ section.id }} .shop-the-look-points__product-content {
