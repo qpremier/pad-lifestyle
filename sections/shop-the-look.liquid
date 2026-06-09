@@ -5,12 +5,6 @@
   assign image_alt = section.settings.image.alt | default: section_title
 %}
 
-<style>
-  #shopify-section-{{ section.id }} {
-    background: #fff !important;
-  }
-</style>
-
 <section
   id="shopify-section-{{ section.id }}"
   class="shop-the-look-points color-{{ section.settings.color_scheme }} bg-white"
@@ -167,6 +161,10 @@
     .bg-white{
         background: white;
     }
+
+    #shopify-section-{{ section.id }} {
+      background: #fff !important;
+    }
     .container .section-header {
         margin-inline: 0;
     }
@@ -236,7 +234,6 @@
       align-items: start;
       margin-left: 10px;
       margin-right: 10px;
-      border: solid 1px black;
     }
 
     #shopify-section-{{ section.id }} .shop-the-look-points__image-wrap {
