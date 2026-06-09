@@ -343,23 +343,45 @@
       transition: color 0.4s ease, border-color 0.4s ease;
     }
     /* Sliding overlay */
-    #shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: #8e4e22; /* Hover fill color */
-      transform: scaleX(0);
-      transform-origin: left;   /* Start from left */
-      transition: transform 0.4s ease;
-      z-index: -1;
-    }
-    #shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn:hover {
-      color: rgb(254 234 213);
-      border-color: #8e4e22;
-    }
-    #shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn:hover::before {
-      transform: scaleX(1);
-    }
+#shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    background: rgb(254, 234, 213);
+    color: #000;
+    border: 1px solid #8e4e22;
+
+    transition: color 0.4s ease;
+}
+
+#shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #8e4e22;
+    z-index: -1;
+
+    /* Hidden initially */
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s ease;
+}
+
+/* Hover IN */
+#shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn:hover {
+    color: rgb(254, 234, 213);
+}
+
+#shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Hover OUT */
+#shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn::before {
+    transform-origin: right;
+}
     </style>
 
   <div class="section-spacing color-scheme color-scheme--scheme-2">
