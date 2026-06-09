@@ -5,6 +5,12 @@
   assign image_alt = section.settings.image.alt | default: section_title
 %}
 
+<style>
+  #shopify-section-{{ section.id }} {
+    background: #fff !important;
+  }
+</style>
+
 <section
   id="shopify-section-{{ section.id }}"
   class="shop-the-look-points color-{{ section.settings.color_scheme }} bg-white"
