@@ -168,6 +168,15 @@
         max-width: calc((100% - {{ columns_desktop_int | minus: 1 }} * var(--grid-desktop-horizontal-spacing)) / {{ columns_desktop_int }}); {% endcomment %}
     }
   }
+  a.featured-collection-view-all-btn.button {
+    border: solid 1px black;
+  }
+  a.featured-collection-view-all-btn.button::before {
+    box-shadow: none !important;
+  }
+  a.featured-collection-view-all-btn.button::after {
+    box-shadow: none !important;
+  }
 </style>
 
 <div
