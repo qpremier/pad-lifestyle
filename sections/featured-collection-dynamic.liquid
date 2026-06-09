@@ -322,7 +322,7 @@
     #shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 .text-subdued {
       color: rgb(254 233 213 / .65);
     }
-    #shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn {
+    {% comment %} #shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn {
       border: solid 1px #8e4e22;
       color: black;
       background: rgb(254 234 213);
@@ -332,6 +332,27 @@
       color: rgb(254 234 213);
       background: transparent !important;
       border: solid 1px rgb(254 234 213);
+    } {% endcomment %}
+    #shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn {
+      color: black;
+      border: 1px solid #8e4e22;
+      background-color: rgb(254 234 213);
+      background-image:
+        linear-gradient(rgb(254 234 213), rgb(254 234 213)),
+        linear-gradient(#8e4e22, #8e4e22);
+      background-repeat: no-repeat;
+      background-size: 100% 100%, 0 100%;
+      background-position: right top, left top;
+      transition:
+        background-size 0.4s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+    }
+
+    #shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn:hover {
+      color: rgb(254 234 213);
+      border: 1px solid rgb(254 234 213);
+      background-size: 0 100%, 100% 100%;
     }
     </style>
 
