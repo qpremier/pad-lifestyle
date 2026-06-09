@@ -10,7 +10,7 @@
   class="shop-the-look-points color-{{ section.settings.color_scheme }} bg-white"
   data-section-id="{{ section.id }}"
 >
-  <div class="shop-the-look-points__inner page-width">
+  <div class="shop-the-look-points__inner">
     {% if section_title != blank or section_subheading != blank %}
       <div class="shop-the-look-points__header">
         {% if section_subheading != blank %}
@@ -229,8 +229,6 @@
       grid-template-columns: minmax(0, 1fr) minmax(320px, 1fr);
       gap: 2rem;
       align-items: start;
-      margin-left: 10px;
-      margin-right: 10px;
     }
 
     #shopify-section-{{ section.id }} .shop-the-look-points__image-wrap {
