@@ -333,47 +333,33 @@
       border: solid 1px rgb(254 234 213);
     }
     /** animation **/
-    #shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn {
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-      border: 1px solid #8e4e22;
-      background: rgb(254 234 213);
-      color: #000;
-      transition: color 0.4s ease, border-color 0.4s ease;
-    }
-    /* Sliding overlay */
 #shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-
-    background: rgb(254, 234, 213);
     color: #000;
     border: 1px solid #8e4e22;
 
-    transition: color 0.45s ease;
+    background-image:
+        linear-gradient(#8e4e22, #8e4e22),
+        linear-gradient(rgb(254, 234, 213), rgb(254, 234, 213));
+
+    background-repeat: no-repeat;
+
+    /* Top layer hidden, bottom layer visible */
+    background-size: 0 100%, 100% 100%;
+    background-position: left center, left center;
+
+    transition:
+        background-size 0.45s ease,
+        color 0.45s ease,
+        border-color 0.45s ease;
 }
 
-#shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: #8e4e22;
+@media screen and (pointer: fine) {
+    #shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn:hover {
+        color: rgb(254, 234, 213);
 
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.45s ease;
-
-    z-index: -1;
-}
-
-#shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn:hover {
-    color: rgb(254, 234, 213);
-}
-
-#shopify-section-template--27147866276203__featured_collection_dynamic_yAdK33 a.button.featured-collection-dynamic-btn:hover::after {
-    transform: scaleX(1);
+        /* Dark layer grows from left to right */
+        background-size: 100% 100%, 100% 100%;
+    }
 }
     </style>
 
