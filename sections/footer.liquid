@@ -272,31 +272,19 @@
       <div class="footer-block-custom">
         <h2 class="footer-block__heading inline-richtext">{{ section.settings.footer_links_heading | default: 'Footer' }}</h2>
         <ul class="footer-block__details-content-custom list-unstyled">
-          <li>
-            <a href="{{ section.settings.link_about_url | default: '/pages/about' }}" class="link link--text list-menu__item list-menu__item--link">
-              {{ section.settings.link_about_text | default: 'About' }}
-            </a>
-          </li>
-          <li>
-            <a href="{{ section.settings.link_social_url | default: '/pages/social' }}" class="link link--text list-menu__item list-menu__item--link">
-              {{ section.settings.link_social_text | default: 'Social' }}
-            </a>
-          </li>
-          <li>
-            <a href="{{ section.settings.link_trade_url | default: '/pages/trade' }}" class="link link--text list-menu__item list-menu__item--link">
-              {{ section.settings.link_trade_text | default: 'Trade' }}
-            </a>
-          </li>
-          <li>
-            <a href="{{ section.settings.link_security_url | default: '/pages/security-privacy' }}" class="link link--text list-menu__item list-menu__item--link">
-              {{ section.settings.link_security_text | default: 'Security & Privacy' }}
-            </a>
-          </li>
-          <li>
-            <a href="{{ section.settings.link_finance_url | default: '/pages/finance' }}" class="link link--text list-menu__item list-menu__item--link">
-              {{ section.settings.link_finance_text | default: '0% Finance' }}
-            </a>
-          </li>
+          {%- for link in section.settings.footer_links_menu.links -%}
+            <li>
+              <a
+                href="{{ link.url }}"
+                class="link link--text list-menu__item list-menu__item--link{% if link.current %} list-menu__item--active{% endif %}"
+                {% if link.current %}
+                  aria-current="page"
+                {% endif %}
+              >
+                {{ link.title | escape }}
+              </a>
+            </li>
+          {%- endfor -%}
         </ul>
       </div>
 
@@ -714,63 +702,10 @@
       "default": "Footer"
     },
     {
-      "type": "header",
-      "content": "Footer Links URLs"
-    },
-    {
-      "type": "text",
-      "id": "link_about_text",
-      "label": "About Link Text",
-      "default": "About"
-    },
-    {
-      "type": "url",
-      "id": "link_about_url",
-      "label": "About Link URL"
-    },
-    {
-      "type": "text",
-      "id": "link_social_text",
-      "label": "Social Link Text",
-      "default": "Social"
-    },
-    {
-      "type": "url",
-      "id": "link_social_url",
-      "label": "Social Link URL"
-    },
-    {
-      "type": "text",
-      "id": "link_trade_text",
-      "label": "Trade Link Text",
-      "default": "Trade"
-    },
-    {
-      "type": "url",
-      "id": "link_trade_url",
-      "label": "Trade Link URL"
-    },
-    {
-      "type": "text",
-      "id": "link_security_text",
-      "label": "Security & Privacy Link Text",
-      "default": "Security & Privacy"
-    },
-    {
-      "type": "url",
-      "id": "link_security_url",
-      "label": "Security & Privacy Link URL"
-    },
-    {
-      "type": "text",
-      "id": "link_finance_text",
-      "label": "0% Finance Link Text",
-      "default": "0% Finance"
-    },
-    {
-      "type": "url",
-      "id": "link_finance_url",
-      "label": "0% Finance Link URL"
+      "type": "link_list",
+      "id": "footer_links_menu",
+      "default": "footer",
+      "label": "Footer Links Menu"
     },
     {
       "type": "header",
