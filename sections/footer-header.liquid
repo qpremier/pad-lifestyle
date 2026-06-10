@@ -1,0 +1,328 @@
+{%- liquid
+  assign footer_header_columns = section.blocks.size | at_least: 1 | at_most: 4
+-%}
+
+{%- style -%}
+  .footer-header-{{ section.id }} {
+    border-block: 0.1rem solid rgba(var(--color-foreground), 0.15);
+  }
+
+  .footer-header-{{ section.id }} .footer-header__inner {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  .footer-header-{{ section.id }} .footer-header__items {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    gap: 0;
+    margin: 0 calc(var(--page-width-margin) * -1);
+    padding: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .footer-header-{{ section.id }} .footer-header__items::-webkit-scrollbar {
+    display: none;
+  }
+
+  .footer-header-{{ section.id }} .footer-header__item {
+    display: grid;
+    justify-items: center;
+    gap: 1.6rem;
+    min-width: 0;
+    padding: 0 1.5rem;
+    text-align: center;
+    scroll-snap-align: center;
+  }
+
+  .footer-header-{{ section.id }} .footer-header__icon {
+    display: inline-flex;
+    color: rgb(var(--color-foreground));
+  }
+
+  .footer-header-{{ section.id }} .footer-header__icon svg {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+  }
+
+  .footer-header-{{ section.id }} .footer-header__content {
+    display: grid;
+    gap: 0.8rem;
+    justify-items: center;
+  }
+
+  .footer-header-{{ section.id }} .footer-header__title {
+    margin: 0;
+    color: rgb(var(--color-foreground));
+    font-family: var(--font-heading-family);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .footer-header-{{ section.id }} .footer-header__text {
+    max-width: 28rem;
+    color: rgba(var(--color-foreground), 0.78);
+    font-size: 1.4rem;
+    line-height: 1.5;
+  }
+
+  .footer-header-{{ section.id }} .footer-header__text p {
+    margin: 0;
+  }
+
+  .footer-header-{{ section.id }} .footer-header__dots {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2.4rem;
+  }
+
+  .footer-header-{{ section.id }} .footer-header__dot {
+    display: block;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background-color: rgba(var(--color-foreground), 0.35);
+  }
+
+  .footer-header-{{ section.id }} .footer-header__dot:first-child {
+    background-color: rgb(var(--color-foreground));
+  }
+
+  @media screen and (min-width: 750px) {
+    .footer-header-{{ section.id }} .footer-header__inner {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    .footer-header-{{ section.id }} .footer-header__items {
+      grid-auto-flow: initial;
+      grid-auto-columns: initial;
+      grid-template-columns: repeat({{ footer_header_columns }}, minmax(0, 1fr));
+      gap: 3rem;
+      margin: 0;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+
+    .footer-header-{{ section.id }} .footer-header__item {
+      padding: 0;
+    }
+
+    .footer-header-{{ section.id }} .footer-header__dots {
+      display: none;
+    }
+  }
+{%- endstyle -%}
+
+<div class="footer-header footer-header-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
+  <div class="footer-header__inner page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <div class="footer-header__items" role="list">
+      {%- for block in section.blocks -%}
+        <div
+          id="FooterHeaderItem-{{ section.id }}-{{ forloop.index }}"
+          class="footer-header__item"
+          role="listitem"
+          {{ block.shopify_attributes }}
+        >
+          <div class="footer-header__icon" aria-hidden="true">
+            {%- case block.settings.icon -%}
+              {%- when 'money' -%}
+                <svg focusable="false" fill="none" stroke-width="1.5" viewBox="0 0 24 24">
+                  <path d="M4.5 7.875a.375.375 0 1 1 0 .75.375.375 0 0 1 0-.75m15 7.5a.375.375 0 1 1 0 .75.375.375 0 0 1 0-.75" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path clip-rule="evenodd" d="M.75 6a1.5 1.5 0 0 1 1.5-1.5h19.5a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5H2.25A1.5 1.5 0 0 1 .75 18V6Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path clip-rule="evenodd" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              {%- when 'profile' -%}
+                <svg focusable="false" fill="none" stroke-width="1.5" viewBox="0 0 24 24">
+                  <path clip-rule="evenodd" d="M23.25 9.937A13.5 13.5 0 0 1 12 23.25 13.5 13.5 0 0 1 .75 9.937V2.25a1.5 1.5 0 0 1 1.5-1.5h19.5a1.5 1.5 0 0 1 1.5 1.5v7.687Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path clip-rule="evenodd" d="M12 12a3.375 3.375 0 1 0 0-6.75A3.375 3.375 0 0 0 12 12Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M17.387 16.75a6.032 6.032 0 0 0-10.774 0" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              {%- when 'truck' -%}
+                <svg focusable="false" fill="none" stroke-width="1.5" viewBox="0 0 24 24">
+                  <path d="M15.75 8.25h3l3 3.75v4.5h-2.25m-3.75-8.25V16.5m0-8.25H2.25v8.25h2.25m11.25 0H8.25m11.25 0a2.25 2.25 0 1 1-4.5 0m-6.75 0a2.25 2.25 0 1 1-4.5 0" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              {%- when 'lock' -%}
+                <svg focusable="false" fill="none" stroke-width="1.5" viewBox="0 0 24 24">
+                  <path d="M7.5 10.5V7.125a4.5 4.5 0 0 1 9 0V10.5M5.25 10.5h13.5a1.5 1.5 0 0 1 1.5 1.5v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V12a1.5 1.5 0 0 1 1.5-1.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              {%- when 'check' -%}
+                <svg focusable="false" fill="none" stroke-width="1.5" viewBox="0 0 24 24">
+                  <path d="m4.5 12.75 5.25 5.25 9.75-12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M12 23.25A11.25 11.25 0 1 0 12 .75a11.25 11.25 0 0 0 0 22.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              {%- else -%}
+                <svg focusable="false" fill="none" stroke-width="1.5" viewBox="0 0 24 24">
+                  <path d="M12 1.254V22.75M21 11H3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path clip-rule="evenodd" d="M3 4.285v7.274c0 4.708 2.284 8.928 6.882 10.618l1.041.382a3.13 3.13 0 0 0 2.154 0l1.041-.382C18.716 20.487 21 16.267 21 11.559V4.285a1.418 1.418 0 0 0-.868-1.301A18.248 18.248 0 0 0 12 1.254a18.248 18.248 0 0 0-8.132 1.73A1.418 1.418 0 0 0 3 4.285Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            {%- endcase -%}
+          </div>
+
+          <div class="footer-header__content">
+            {%- if block.settings.title != blank -%}
+              <p class="footer-header__title">{{ block.settings.title }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <div class="footer-header__text rte">
+                {{ block.settings.text }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <div class="footer-header__dots" aria-hidden="true">
+        {%- for block in section.blocks -%}
+          <a class="footer-header__dot" href="#FooterHeaderItem-{{ section.id }}-{{ forloop.index }}" tabindex="-1">
+            <span class="visually-hidden">Go to item {{ forloop.index }}</span>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Footer header",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "shield",
+              "label": "Shield"
+            },
+            {
+              "value": "money",
+              "label": "Money"
+            },
+            {
+              "value": "profile",
+              "label": "Secure profile"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "lock",
+              "label": "Lock"
+            },
+            {
+              "value": "check",
+              "label": "Check"
+            }
+          ],
+          "default": "shield"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Title",
+          "default": "Buyer Protection"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Buyer Protection on all Orders</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer header",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "Buyer Protection",
+            "text": "<p>Buyer Protection on all Orders</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "money",
+            "title": "14 Days",
+            "text": "<p>14 Days Money back Guarantee</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "profile",
+            "title": "Trusted",
+            "text": "<p>Trusted by Homes across the UK.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
