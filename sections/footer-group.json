@@ -47,8 +47,8 @@
       "settings": {
         "color_scheme": "scheme-3",
         "icon_size": 24,
-        "padding_top": 32,
-        "padding_bottom": 32
+        "padding_top": 60,
+        "padding_bottom": 155
       }
     },
     "footer": {
@@ -59,6 +59,7 @@
         "image_width": 150,
         "newsletter_custom_heading": "Newsletter",
         "footer_links_heading": "Quick Links",
+        "footer_links_menu": "footer",
         "about_heading": "About",
         "about_description": "We are dedicated to providing the best products and customer service. Quality and trust are at the heart of everything we do.",
         "show_original_newsletter": false,
