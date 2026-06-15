@@ -12,6 +12,24 @@
   Usage:
   {% render 'price', product: product %}
 {% endcomment %}
+<style>
+  .custom-price-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.4;
+  }
+  .custom-price-layout .regular-price {
+    color: red;
+    margin-bottom: 2px;
+  }
+  .custom-price-layout .regular-price .price-item--regular {
+    color: red;
+  }
+  .custom-price-layout .sale-price .price-item--sale {
+    color: inherit; /* or set a specific color */
+  }
+</style>
 {%- liquid
   if use_variant
     assign target = product.selected_or_first_available_variant
@@ -90,9 +108,9 @@
           </span>
         {%- endif -%}
       </div>
-      <div class="price__sale">
-        {%- unless product.price_varies == false and product.compare_at_price_varies %}
-          <span>
+      <div class="price__sale custom-price-layout">
+        {%- unless product.price_varies == false and product.compare_at_price_varies -%}
+          <div class="regular-price">
             <s class="price-item price-item--regular">
               {% if settings.currency_code_enabled %}
                 {{ compare_at_price | money_with_currency }}
@@ -100,11 +118,14 @@
                 {{ compare_at_price | money }}
               {% endif %}
             </s>
-          </span>
+          </div>
         {%- endunless -%}
-        <span class="price-item price-item--sale price-item--last">
-          {{ money_price }}
-        </span>
+
+        <div class="sale-price">
+          <span class="price-item price-item--sale price-item--last">
+            {{ money_price }}
+          </span>
+        </div>
       </div>
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}
