@@ -30,6 +30,7 @@
   }
   .custom-price-layout .sale-price .price-item--sale {
     color: #E32C2B !important;
+    font-family: 'Montserrat';
   }
 </style>
 {%- liquid
@@ -116,7 +117,7 @@
             {{ money_price }}
           </span>
         </div>
-        
+
         {%- unless product.price_varies == false and product.compare_at_price_varies -%}
           <div class="regular-price">
             <s class="price-item price-item--regular">
