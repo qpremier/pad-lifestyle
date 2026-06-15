@@ -111,6 +111,12 @@
         {%- endif -%}
       </div>
       <div class="price__sale custom-price-layout">
+        <div class="sale-price">
+          <span class="price-item price-item--sale price-item--last">
+            {{ money_price }}
+          </span>
+        </div>
+        
         {%- unless product.price_varies == false and product.compare_at_price_varies -%}
           <div class="regular-price">
             <s class="price-item price-item--regular">
@@ -122,12 +128,6 @@
             </s>
           </div>
         {%- endunless -%}
-
-        <div class="sale-price">
-          <span class="price-item price-item--sale price-item--last">
-            {{ money_price }} hh
-          </span>
-        </div>
       </div>
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}
